@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "my-todo-app",
-    "slug": "my-todo-app",
+    "name": "CRM Operation",
+    "slug": "CRM_Operation",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
