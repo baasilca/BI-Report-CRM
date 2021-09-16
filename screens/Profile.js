@@ -21,7 +21,6 @@ const Profile = () => {
         if (pickerResult.cancelled === true) {
             return;
         }
-
         setpickedImage(pickerResult.uri);
         setModalVisible(!modalVisible);
     };

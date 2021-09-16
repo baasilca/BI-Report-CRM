@@ -15,17 +15,13 @@ import AddOrders from './screens/Order/AddOrders';
 import AddWorkers from './screens/Workers/AddWorkers';
 import Icon from 'react-native-vector-icons/Ionicons'
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import configureStore from './/Redux/Store';
-
-
-const store = configureStore()
-
+import { store } from './Redux/Store'
+import { Provider } from 'react-redux'
 
 const Stack = createStackNavigator();
-
 const Drawer = createDrawerNavigator();
 const MyStack = (props) => {
-console.disableYellowBox=true;
+  console.disableYellowBox = true;
   return (
     <Stack.Navigator   >
       <Stack.Screen name="Dashboard" component={MainTab} options={{
@@ -57,9 +53,8 @@ console.disableYellowBox=true;
               />
             </View></TouchableOpacity>
         ),
-
       }} />
-      
+
       <Stack.Screen name="Support" component={Support} options={{
         headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
       }} />
@@ -85,12 +80,15 @@ console.disableYellowBox=true;
   )
 }
 
+
 export default function App() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
         <Drawer.Screen name="Home" component={MyStack} />
       </Drawer.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }

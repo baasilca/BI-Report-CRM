@@ -27,7 +27,7 @@ const Workers = (props) => {
           open={open}
           icon={open ? 'minus' : 'plus'}
           actions={[
-            { icon: 'plus', label: 'add',onPress: () => props.navigation.navigate('AddWorkers') },
+            { icon: 'plus', label: 'add', onPress: () => props.navigation.navigate('AddWorkers') },
             {
               icon: 'star',
               label: 'Star',
@@ -47,32 +47,32 @@ const Workers = (props) => {
 
 
       <View style={styles.container}>
-      <View style={{
-                    flexDirection:'row',
-                    marginLeft: 7,
-                    height: 50,
-                    borderWidth: .5,
-                    borderColor: 'black',
-                    backgroundColor: '#fff',
-                    width: '97%', marginTop: 6,
-                    borderRadius: 30,
-                }}>
-                    <View style={{marginLeft:10,borderRadius:90,justifyContent:'center'}}><Icon.Button
-                name="account-search"
-                size={20}
-                color="#009387"
-                backgroundColor="#fff"
-              /></View>
-                <TextInput style={{
-                    height: 49,
-                    backgroundColor: '#fff',
-                    width: '80%',
-                    borderRadius: 30,
-                }}
-                    placeholder="Search Workers"
-                    placeholderTextColor='#009387'>
-                </TextInput>
-                </View>
+        <View style={{
+          flexDirection: 'row',
+          marginLeft: 7,
+          height: 50,
+          borderWidth: .5,
+          borderColor: 'black',
+          backgroundColor: '#fff',
+          width: '97%', marginTop: 6,
+          borderRadius: 30,
+        }}>
+          <View style={{ marginLeft: 10, borderRadius: 90, justifyContent: 'center' }}><Icon.Button
+            name="account-search"
+            size={20}
+            color="#009387"
+            backgroundColor="#fff"
+          /></View>
+          <TextInput style={{
+            height: 49,
+            backgroundColor: '#fff',
+            width: '80%',
+            borderRadius: 30,
+          }}
+            placeholder="Search Workers"
+            placeholderTextColor='#009387'>
+          </TextInput>
+        </View>
         <FlatList
           style={{ marginTop: 5 }}
           data={Items}

@@ -17,7 +17,7 @@ export default function TimeSheet(props) {
                     open={open}
                     icon={open ? 'minus' : 'plus'}
                     actions={[
-                        { icon: 'plus', label: 'add',onPress: () => props.navigation.navigate('AddTimeSheet') },
+                        { icon: 'plus', label: 'add', onPress: () => props.navigation.navigate('AddTimeSheet') },
                         {
                             icon: 'star',
                             label: 'Star',

@@ -7,7 +7,7 @@ import {
     DrawerContentScrollView,
     DrawerItem
 } from '@react-navigation/drawer';
-import {Avatar,Title, Caption,  Drawer,} from 'react-native-paper';
+import { Avatar, Title, Caption, Drawer, } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Lightbox from 'react-native-lightbox';
