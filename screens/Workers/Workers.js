@@ -16,9 +16,7 @@ const Workers = (props) => {
     </View>
 
   );
-  const [Open, setOpen] = useState(false);
-  const onStateChange = ({ open }) => setOpen({ open });
-  const { open } = Open
+  const [open, setOpen] = useState(false);
 
   return (
     <Provider>
@@ -40,7 +38,7 @@ const Workers = (props) => {
             },
 
           ]}
-          onStateChange={onStateChange}
+          onStateChange={()=>setOpen(!open)}
 
         />
       </Portal>

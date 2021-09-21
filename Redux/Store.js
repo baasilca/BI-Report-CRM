@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { orderAPI } from './Slices/order'
+import { salesKPIAPI } from './Slices/salesKPI'
 
 export const store = configureStore({
   reducer: {
-    [orderAPI.reducerPath]: orderAPI.reducer,
+    [salesKPIAPI.reducerPath]: salesKPIAPI.reducer,
   },
-  middleware: (gDM) => gDM().concat(orderAPI.middleware),
+  middleware: (gDM) => gDM().concat(salesKPIAPI.middleware),
 })

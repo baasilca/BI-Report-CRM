@@ -1,20 +1,17 @@
 import 'react-native-gesture-handler';
-import * as React from 'react';
-import { View, Image } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { View, Image, ImageSourcePropType, ImageBackground, Alert } from 'react-native';
 import AppStyles from './AppStyles'
-import { NavigationContainer } from '@react-navigation/native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItem
+} from '@react-navigation/drawer';
 import { Assets, createStackNavigator } from "@react-navigation/stack";
-import MainTab from './screens/MainTab';
-import Support from './screens/Support';
-import Profile from './screens/Profile'
+import SalesKPI from './screens/SalesKPI';
 import Settings from './screens/Settings';
-import { DrawerContent } from './screens/DrawerContents';
-import AddTimeSheet from './screens/TimeSheet/AddTimeSheet';
-import AddOrders from './screens/Order/AddOrders';
-import AddWorkers from './screens/Workers/AddWorkers';
-import Icon from 'react-native-vector-icons/Ionicons'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { store } from './Redux/Store'
 import { Provider } from 'react-redux'
 
@@ -24,59 +21,83 @@ const MyStack = (props) => {
   console.disableYellowBox = true;
   return (
     <Stack.Navigator   >
-      <Stack.Screen name="Dashboard" component={MainTab} options={{
-        title: 'CRM OPERATION',
-        headerStyle: {
-          backgroundColor: AppStyles.Colors.tabHeaderBarColor
-        },
-        headerTintColor: '#009387',
-        headerTitleStyle: {
-          fontWeight: 'bold'
-        },
-        headerLeft: () => (
-          <View style={{ marginLeft: 10 }}>
-            <Icon.Button
-              name="ios-menu"
-              size={AppStyles.IconStyle.menuBarSize}
-              color="#009387"
-              backgroundColor="#fff"
-              onPress={() => props.navigation.openDrawer()}
-            />
-          </View>
-        ),
-        headerRight: () => (
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('Profile')}>
-            <View style={{ marginRight: 30, }}>
-              <Image style={{ height: 40, width: 40, borderRadius: 45 }}
-                source={require('./assets/avatar.jpeg')}
-              />
-            </View></TouchableOpacity>
-        ),
-      }} />
-
-      <Stack.Screen name="Support" component={Support} options={{
+      <Stack.Screen name="Sales KPI" component={SalesKPI} options={{
+        headerShown: false,
         headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
       }} />
       <Stack.Screen name="Settings" component={Settings} options={{
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
-      }} />
-      <Stack.Screen name="Profile" component={Profile} options={{
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
-      }} />
-      <Stack.Screen name="AddOrders" component={AddOrders}
-        options={{
-          headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
-        }}
-      />
-      <Stack.Screen name="AddWorkers" component={AddWorkers}
-        options={{
-          headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
-        }} />
-      <Stack.Screen name="AddTimeSheet" component={AddTimeSheet} options={{
+        headerShown: false,
         headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
       }} />
     </Stack.Navigator>
+  )
+}
+
+const DrawerContent = (props) => {
+
+  const { navigation } = props;
+  const [active, setActive] = useState('Sales KPI');
+
+  const handleNavigation = useCallback(
+    (to) => {
+      if (navigation.dangerouslyGetState() &&
+        navigation.dangerouslyGetState().routes[0] &&
+        navigation.dangerouslyGetState().routes[0].state &&
+        navigation.dangerouslyGetState().routes[0].state.index > 0) {
+        props.navigation.dispatch(StackActions.popToTop());
+      }
+      setActive(to);
+      navigation.navigate(to);
+    },
+    [navigation, setActive],
+  )
+
+  const screens = [
+    { name: 'screens.home', to: 'Sales KPI', icon: "view-dashboard" },
+    // { name: 'screens.conversion_analytics', to: 'Conversion Analytics', icon: "radar" },
+    // { name: 'screens.yearly_overview', to: 'Yearly Overview', icon: "calendar-blank-multiple" },
+    // { name: 'screens.sales_executive_overview', to: 'Sales Executive Overview', icon: "bullseye" },
+    // { name: 'screens.aging_statics', to: 'Aging Statistics', icon: "desktop-mac-dashboard" },
+    // { name: 'screens.perfomance', to: 'Perfomance', icon: "lock-check" },
+    // { name: 'screens.custom_kpi', to: 'Custom KPI', icon: "gamepad" },
+  ];
+
+  return (
+    <ImageBackground
+      source={require("./images/back.png")}
+      style={{ width: "100%", height: "100%" }}
+    >
+      <DrawerContentScrollView
+        {...props}
+        scrollEnabled
+        removeClippedSubviews
+        renderToHardwareTextureAndroid
+      >
+
+
+        {screens?.map((screen, index) => {
+          const isActive = active === screen.to;
+          return (
+            <DrawerItem
+              icon={({ size }) => (
+                <Icon
+                  name={screen.icon}
+                  color={isActive ? "red" : "black"}
+                  size={20}
+                />
+              )}
+              inactiveTintColor='black'
+              label={screen.to}
+              labelStyle={{ color: isActive ? "red" : "black" }}
+              color="#fff"
+              onPress={() => { handleNavigation(screen.to) }}
+            />
+          )
+        })
+        }
+
+      </DrawerContentScrollView>
+    </ImageBackground>
   )
 }
 
@@ -84,11 +105,21 @@ const MyStack = (props) => {
 export default function App() {
   return (
     <Provider store={store}>
-    <NavigationContainer>
-      <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
-        <Drawer.Screen name="Home" component={MyStack} />
-      </Drawer.Navigator>
-    </NavigationContainer>
+      <NavigationContainer>
+        <Drawer.Navigator
+          // drawerType="slide"
+          // overlayColor="transparent"
+          // sceneContainerStyle={{ backgroundColor: 'transparent' }}
+          drawerStyle={{
+            flex: 1,
+            width: '70%',
+            borderRightWidth: 0,
+            // backgroundColor: 'transparent',
+          }}
+          drawerContent={props => <DrawerContent {...props} />}>
+          <Drawer.Screen name="Home" component={MyStack} />
+        </Drawer.Navigator>
+      </NavigationContainer>
     </Provider>
   );
 }
