@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useState, useCallback } from 'react';
-import { View, Image, ImageSourcePropType, ImageBackground, Alert } from 'react-native';
+import { View, Image, ImageSourcePropType, ImageBackground, Platform, Alert, StatusBar } from 'react-native';
 import AppStyles from './AppStyles'
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import {
@@ -17,36 +17,87 @@ import AgingStatistics from './screens/AgingStatistics';
 import Performance from './screens/Performance';
 import CustomKPI from './screens/CustomKPI';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { store } from './Redux/Store'
 import { Provider } from 'react-redux'
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const MyStack = (props) => {
   console.disableYellowBox = true;
+
+  function BackButtonAndDrawer({ navigation }) {
+    const [state, setstate] = useState(false)
+
+    return (
+      <View style={{ flexDirection: 'row' }}>
+        <StatusBar
+          backgroundColor="#009387"
+        />
+        <Icons name="menu" size={30} style={{ marginLeft: 10 }}
+          color={"#fff"}
+          backgroundColor="black" onPress={() =>
+            navigation.openDrawer()} />
+        {Platform.OS === "ios" ?
+          <Icons name="chevron-left" size={35} style={{ marginLeft: 5, marginTop: -3 }}
+            color={"#fff"}
+            backgroundColor="black" onPress={() =>
+              navigation.goBack()} />
+          :
+          <Ionicons name="md-arrow-back" size={25} style={{ marginLeft: 5, marginTop: 3 }}
+            color={"#fff"}
+            backgroundColor="black" onPress={() =>
+              navigation.goBack()} />
+        }
+      </View >
+    )
+  }
+
   return (
     <Stack.Navigator   >
       <Stack.Screen name="Sales KPI" component={SalesKPI} options={{
         headerShown: false,
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
+        headerLeft: () => (
+          <BackButtonAndDrawer {...props} />
+        )
       }} />
       <Stack.Screen name="Convertion Analytics" component={ConvertionAnalytics} options={{
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
+        headerLeft: () => (
+          <BackButtonAndDrawer {...props} />
+        )
       }} />
       <Stack.Screen name="Yearly Overview" component={YearlyOverview} options={{
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
+        headerLeft: () => (
+          <BackButtonAndDrawer {...props} />
+        )
       }} />
       <Stack.Screen name="Sales Executive Overview" component={SalesExecutiveOverview} options={{
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
+        headerLeft: () => (
+          <BackButtonAndDrawer {...props} />
+        )
       }} />
       <Stack.Screen name="Aging Statistics" component={AgingStatistics} options={{
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
+        headerLeft: () => (
+          <BackButtonAndDrawer {...props} />
+        )
       }} />
       <Stack.Screen name="Performance" component={Performance} options={{
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
+        headerLeft: () => (
+          <BackButtonAndDrawer {...props} />
+        )
       }} />
       <Stack.Screen name="Custom KPI" component={CustomKPI} options={{
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
+        headerLeft: () => (
+          <BackButtonAndDrawer {...props} />
+        )
       }} />
     </Stack.Navigator>
   )
@@ -56,6 +107,7 @@ const DrawerContent = (props) => {
 
   const { navigation } = props;
   const [active, setActive] = useState('Sales KPI');
+
 
   const handleNavigation = useCallback(
     (to) => {
