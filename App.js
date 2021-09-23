@@ -10,6 +10,12 @@ import {
 } from '@react-navigation/drawer';
 import { Assets, createStackNavigator } from "@react-navigation/stack";
 import SalesKPI from './screens/SalesKPI';
+import ConvertionAnalytics from './screens/ConvertionAnalytics';
+import YearlyOverview from './screens/YearlyOverview';
+import SalesExecutiveOverview from './screens/SalesExecutiveOverview';
+import AgingStatistics from './screens/AgingStatistics';
+import Performance from './screens/Performance';
+import CustomKPI from './screens/CustomKPI';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { store } from './Redux/Store'
 import { Provider } from 'react-redux'
@@ -22,6 +28,24 @@ const MyStack = (props) => {
     <Stack.Navigator   >
       <Stack.Screen name="Sales KPI" component={SalesKPI} options={{
         headerShown: false,
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+      }} />
+      <Stack.Screen name="Convertion Analytics" component={ConvertionAnalytics} options={{
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+      }} />
+      <Stack.Screen name="Yearly Overview" component={YearlyOverview} options={{
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+      }} />
+      <Stack.Screen name="Sales Executive Overview" component={SalesExecutiveOverview} options={{
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+      }} />
+      <Stack.Screen name="Aging Statistics" component={AgingStatistics} options={{
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+      }} />
+      <Stack.Screen name="Performance" component={Performance} options={{
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
+      }} />
+      <Stack.Screen name="Custom KPI" component={CustomKPI} options={{
         headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
       }} />
     </Stack.Navigator>
@@ -49,12 +73,12 @@ const DrawerContent = (props) => {
 
   const screens = [
     { name: 'screens.home', to: 'Sales KPI', icon: "view-dashboard" },
-    // { name: 'screens.conversion_analytics', to: 'Conversion Analytics', icon: "radar" },
-    // { name: 'screens.yearly_overview', to: 'Yearly Overview', icon: "calendar-blank-multiple" },
-    // { name: 'screens.sales_executive_overview', to: 'Sales Executive Overview', icon: "bullseye" },
-    // { name: 'screens.aging_statics', to: 'Aging Statistics', icon: "desktop-mac-dashboard" },
-    // { name: 'screens.perfomance', to: 'Perfomance', icon: "lock-check" },
-    // { name: 'screens.custom_kpi', to: 'Custom KPI', icon: "gamepad" },
+    { name: 'screens.conversion_analytics', to: 'Convertion Analytics', icon: "radar" },
+    { name: 'screens.yearly_overview', to: 'Yearly Overview', icon: "calendar-blank-multiple" },
+    { name: 'screens.sales_executive_overview', to: 'Sales Executive Overview', icon: "bullseye" },
+    { name: 'screens.aging_statics', to: 'Aging Statistics', icon: "desktop-mac-dashboard" },
+    { name: 'screens.perfomance', to: 'Performance', icon: "lock-check" },
+    { name: 'screens.custom_kpi', to: 'Custom KPI', icon: "gamepad" },
   ];
 
   return (
