@@ -10,7 +10,6 @@ import {
 } from '@react-navigation/drawer';
 import { Assets, createStackNavigator } from "@react-navigation/stack";
 import SalesKPI from './screens/SalesKPI';
-import Settings from './screens/Settings';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { store } from './Redux/Store'
 import { Provider } from 'react-redux'
@@ -22,10 +21,6 @@ const MyStack = (props) => {
   return (
     <Stack.Navigator   >
       <Stack.Screen name="Sales KPI" component={SalesKPI} options={{
-        headerShown: false,
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
-      }} />
-      <Stack.Screen name="Settings" component={Settings} options={{
         headerShown: false,
         headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff'
       }} />
