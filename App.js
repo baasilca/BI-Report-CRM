@@ -107,7 +107,7 @@ export default function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Drawer.Navigator
-          // drawerType="slide"
+          drawerType="slide"
           // overlayColor="transparent"
           // sceneContainerStyle={{ backgroundColor: 'transparent' }}
           drawerStyle={{

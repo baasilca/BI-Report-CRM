@@ -1,4 +1,4 @@
-export const data = [
+export const data0= [
   {
     title: "Target",
     value: "35,000,0",
