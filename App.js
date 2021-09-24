@@ -177,14 +177,14 @@ const DrawerContent = (props) => {
         }
 
       </DrawerContentScrollView>
-      <View style={{ borderWidth: 0.2, borderColor: '#fff', marginLeft: -10, marginBottom: 15 }}></View>
+      <View style={{ borderWidth: 0.444, borderColor: '#bababa', marginLeft: -10, marginBottom: 15 }}></View>
       <TouchableOpacity style={{ flexDirection: "row", marginLeft: 10, marginBottom: 5 }}
         onPress={() => { alert("logout") }}
       >
         <Icons name="exit-to-app" size={35} style={{ marginLeft: 5, marginTop: -3 }}
           color={"#fff"}
           backgroundColor="black" />
-        <Text style={{ color: "#fff", fontSize: 18, marginLeft: 10 }}>singout</Text>
+        <Text style={{ color: "#fff", fontSize: 18, marginLeft: 10 }}>Sign Out</Text>
       </TouchableOpacity>
 
 

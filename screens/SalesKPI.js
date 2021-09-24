@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Swiper from 'react-native-swiper'
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { WebView } from 'react-native-webview';
+import AppStyles from '../AppStyles'
 
 const SalesKPI = (props) => {
   const { navigation } = props
@@ -164,7 +165,7 @@ const SalesKPI = (props) => {
         onScroll={Animated.event([
           { nativeEvent: { contentOffset: { y: AnimatedHeaderValue } } },
         ])}>
-        <View style={{ backgroundColor: '#FFF', borderTopLeftRadius: Content_Border_Radius, borderTopRightRadius: Content_Border_Radius }}>
+        <View style={{ borderTopLeftRadius: Content_Border_Radius, borderTopRightRadius: Content_Border_Radius }}>
           <View style={styles.swiperCardView}>
             <SwiperCards />
             <View>
@@ -180,7 +181,7 @@ const SalesKPI = (props) => {
                 renderItem={({ item }) =>
                   <View style={{ margin: -10 }}>
                     <LinearGradient
-                      colors={data && data.data.best_salesman.color}
+                      colors={["#fff", "#fff"]}
                       style={styles.bestSalesGradientView}
                       start={{ x: 0, y: 1 }}
                       end={{ x: 1, y: 1 }}
@@ -190,8 +191,8 @@ const SalesKPI = (props) => {
                         <Text style={{ marginLeft: 5, width: "80%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>{item.UserName}</Text>
                       </View>
                       <Text style={{ fontSize: 12, color: "black" }} numberOfLines={1}>{item.UserEmail}</Text>
-                      <View style={{ borderRadius: 10, backgroundColor: "#e8f6ff", padding: 10, margin: 5 }}>
-                        <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 15, opacity: 0.8, color: "black" }}>Sale: {item.sales}</Text>
+                      <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width:"100%",marginTop:5 }}>
+                        <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>Sale: {item.sales}</Text>
                       </View>
                     </LinearGradient>
                   </View>
@@ -210,7 +211,8 @@ const SalesKPI = (props) => {
               renderItem={({ item }) =>
                 <View style={{ margin: -10 }}>
                   <LinearGradient
-                    colors={data && data.data.best_salesman.color}
+                    // colors={data && data.data.best_salesman.color}
+                    colors={["#fff", "#fff"]}
                     style={styles.bestSalesGradientView}
                     start={{ x: 0, y: 1 }}
                     end={{ x: 1, y: 1 }}
@@ -220,16 +222,19 @@ const SalesKPI = (props) => {
                       <Text style={{ marginLeft: 5, width: "80%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>{item.UserName}</Text>
                     </View>
                     <Text style={{ fontSize: 12, color: "black" }} numberOfLines={1}>{item.UserEmail}</Text>
-                    <View style={{ borderRadius: 10, backgroundColor: "#e8f6ff", padding: 10, margin: 5 }}>
-                      <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 15, opacity: 0.8, color: "black" }}>GP: {item.profit}</Text>
+                    <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width:"100%",marginTop:5 }}>
+                      <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>GP: {item.profit}</Text>
                     </View>
                   </LinearGradient>
                 </View>
               }
             />
             {data && data.data.company_sales &&
-              <View style={{ height: 200, backgroundColor: "#f0f0f0", elevation: 8 }}>
-                <WebView style={{ marginTop: 5 }} source={{ html: data && data.data.company_sales }} />
+              <View style={{marginTop: -25, }}>
+                  <Text style={[styles.bestSalesManText,{marginLeft:15,marginBottom:-10}]}>Company Sale</Text>
+                <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
+                  <WebView style={{ marginTop: 5 }} source={{ html: data && data.data.company_sales }} />
+                </View>
               </View>
             }
           </View>
@@ -297,7 +302,7 @@ const styles = StyleSheet.create({
   },
   MainContainer: {
     flex: 1,
-    backgroundColor: "#fff"
+    // backgroundColor: "#fff"
   },
 
   Header: {
@@ -330,7 +335,7 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   swiperCardView: {
-    backgroundColor: "#fff",
+    // backgroundColor: "#fff",
     marginTop: Platform.OS == 'ios' ? -25 : 20
   },
   bestSalesMan: {
@@ -340,18 +345,21 @@ const styles = StyleSheet.create({
   },
   bestSalesManText: {
     fontSize: 15,
-    color: "#29248a",
+    color: AppStyles.Colors.screensHeaderColor,
     fontWeight: "bold",
-    marginLeft: 10
+    marginLeft: 10,
+    marginBottom:-5
   },
-  bestSalesGradientView:{
-    backgroundColor: "#fff",
+  bestSalesGradientView: {
+    // backgroundColor: "#fff",
     margin: 15,
     width: 160,
     padding: 10,
     borderRadius: 8,
     height: 100,
     marginBottom: 40,
+    borderWidth: 0.5,
+    borderColor: "#bababa"
   }
 })
 
