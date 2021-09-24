@@ -32,7 +32,7 @@ const DATA = [
 const SalesExecutiveOverview = () => {
 
     const renderItem = ({ item }) => (
-        <View style={{ backgroundColor: '#fff', padding: 20, marginVertical: 8, marginHorizontal: 30, borderLeftWidth: 2, borderLeftColor: "red", borderBottomWidth: 2, borderBottomColor: "green" }}>
+        <View style={{ backgroundColor: '#fff', margin: 5, padding: 15, borderLeftWidth: 4, borderBottomWidth: 4, borderLeftColor: "#009387", borderBottomColor: "#009387", borderRadius: 10, elevation: 3, marginVertical: 8, marginHorizontal: 30, }}>
             <Avatar.Image
                 resizeMode="contain"
                 style={{ backgroundColor: "#e6d3d3", alignSelf: "center" }}

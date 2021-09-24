@@ -28,7 +28,6 @@ const MyStack = (props) => {
   console.disableYellowBox = true;
 
   function BackButtonAndDrawer({ navigation }) {
-    const [state, setstate] = useState(false)
 
     return (
       <View style={{ flexDirection: 'row' }}>
@@ -107,7 +106,6 @@ const DrawerContent = (props) => {
 
   const { navigation } = props;
   const [active, setActive] = useState('Sales KPI');
-
 
   const handleNavigation = useCallback(
     (to) => {
