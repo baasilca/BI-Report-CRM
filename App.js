@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, Image, ImageSourcePropType, ImageBackground, Platform, Alert, StatusBar } from 'react-native';
+import { View, Image, ImageSourcePropType, ImageBackground, Platform, Alert, StatusBar, TouchableOpacity, Text } from 'react-native';
 import AppStyles from './AppStyles'
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import {
@@ -21,6 +21,7 @@ import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { store } from './Redux/Store'
 import { Provider } from 'react-redux'
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { Avatar } from 'react-native-paper';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -139,7 +140,16 @@ const DrawerContent = (props) => {
   ];
 
   return (
-    <View style={{backgroundColor:"#177d99" , flex:1}}>
+    <View style={{ backgroundColor: "#177d99", flex: 1 }}>
+      <View style={{ flexDirection: "row", padding: 10 }}>
+        <Avatar.Image
+          resizeMode="contain"
+          style={{ backgroundColor: "#e6d3d3" }}
+          size={65}
+          source={{ uri: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }}
+        />
+        <Text style={{ color: "#fff", fontSize: 18, marginLeft: 15, marginTop: 20 }}>Administator</Text>
+      </View>
       <DrawerContentScrollView
         {...props}
         scrollEnabled
@@ -159,7 +169,7 @@ const DrawerContent = (props) => {
                 />
               )}
               inactiveTintColor='black'
-              style={{ backgroundColor:isActive ?"#439db5" :"#177d99"}}
+              style={{ backgroundColor: isActive ? "#439db5" : "#177d99" }}
               label={screen.to}
               labelStyle={{ color: "#fff" }}
               color="#fff"
@@ -169,8 +179,20 @@ const DrawerContent = (props) => {
           )
         })
         }
+
       </DrawerContentScrollView>
-      </View>
+      <View style={{ borderWidth: 0.2, borderColor: '#fff', marginLeft: -10, marginBottom: 15 }}></View>
+      <TouchableOpacity style={{ flexDirection: "row", marginLeft: 10, marginBottom: 5 }}
+        onPress={() => { alert("logout") }}
+      >
+        <Icons name="exit-to-app" size={35} style={{ marginLeft: 5, marginTop: -3 }}
+          color={"#fff"}
+          backgroundColor="black" />
+        <Text style={{ color: "#fff", fontSize: 18, marginLeft: 10 }}>singout</Text>
+      </TouchableOpacity>
+
+
+    </View>
   )
 }
 
