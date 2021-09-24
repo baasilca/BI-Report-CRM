@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "CRM Operation",
-    "slug": "CRM_Operation",
+    "name": "CRM BI-REPORT",
+    "slug": "CRM_BI_REPORT",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
