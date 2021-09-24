@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import { Platform,View, Text, Image, ImageBackground, TextInput, StyleSheet, ScrollView, Alert, Animated, SafeAreaView, StatusBar } from "react-native";
+import { Platform, View, Text, Image, ImageBackground, TextInput, StyleSheet, ScrollView, Alert, Animated, SafeAreaView, StatusBar } from "react-native";
 import { useGetSalesKPIQuery } from '../Redux/Slices/salesKPI'
 import { Card } from "react-native-paper";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -11,12 +11,12 @@ import { WebView } from 'react-native-webview';
 const SalesKPI = (props) => {
   const { navigation } = props
   const { data, isLoading, isError } = useGetSalesKPIQuery()
-  const Header_Maximum_Height =Platform.OS == 'ios' ? 250 : 180;
+  const Header_Maximum_Height = Platform.OS == 'ios' ? 250 : 180;
   const Header_Minimum_Height = Platform.OS == 'ios' ? 90 : 50;
   const Content_Border_Radius = 30;
   const AnimatedHeaderValue = new Animated.Value(0);
   const AnStatusBar = Animated.createAnimatedComponent(StatusBar)
-  const AnImage = Animated.createAnimatedComponent(Image)
+  const AnIcon = Animated.createAnimatedComponent(Icon)
 
   const AnimateHeaderBackgroundColor = AnimatedHeaderValue.interpolate({
     inputRange: [0, Header_Maximum_Height - Header_Minimum_Height],
@@ -35,12 +35,12 @@ const SalesKPI = (props) => {
   });
   const AnimatedMarginTOP = AnimatedHeaderValue.interpolate({
     inputRange: [0, Header_Maximum_Height - Header_Minimum_Height],
-    outputRange: [10, Platform.OS == 'ios' ? 90  : 60],
+    outputRange: [10, Platform.OS == 'ios' ? 90 : 60],
     extrapolate: 'clamp',
   });
-  const AnimatedSize = AnimatedHeaderValue.interpolate({
+  const AnimatedFilterIconWidth = AnimatedHeaderValue.interpolate({
     inputRange: [0, Header_Maximum_Height - Header_Minimum_Height],
-    outputRange: [0, 25],
+    outputRange: [0,170],
     extrapolate: 'clamp',
   });
   const AnimateHeaderHeight = AnimatedHeaderValue.interpolate({
@@ -165,7 +165,7 @@ const SalesKPI = (props) => {
           { nativeEvent: { contentOffset: { y: AnimatedHeaderValue } } },
         ])}>
         <View style={{ backgroundColor: '#FFF', borderTopLeftRadius: Content_Border_Radius, borderTopRightRadius: Content_Border_Radius }}>
-          <View style={{ backgroundColor: "#fff", marginTop: Platform.OS == 'ios' ? -25  :20 }}>
+          <View style={{ backgroundColor: "#fff", marginTop: Platform.OS == 'ios' ? -25 : 20 }}>
             <SwiperCards />
             <View>
               <View style={{ padding: 5, marginTop: -30, marginBottom: -10 }}>
@@ -268,31 +268,27 @@ const SalesKPI = (props) => {
             marginTop: AnimatedMarginTOP,
             alignItems: "center",
             paddingHorizontal: 40,
-          }}>
-            <Icon name="menu" size={30} color="#fff" style={[{ width: 20 }, Platform.OS == 'ios' && { marginLeft:20}]}
+          }}>       
+            <Icon name="menu" size={30} color="#fff" style={[{ width: 20 }, Platform.OS == 'ios' && { marginLeft: 20 }]}
               onPress={() => { navigation.openDrawer() }}
+              // onPress={() => { navigation.navigate('LLL') }}
             />
             <Animated.Text style={{ color: HeaderSecondColor, fontSize: 20, marginLeft: 10 }} >Sales KPI</Animated.Text>
-            <AnImage
-              source={require("../images/filter.png")}
-              style={{ width: AnimatedSize, height: AnimatedSize, marginLeft: 130, marginRight: 10 }}
-            />
-            <Icon name="account-circle" size={33} color="#fff" style={{}} />
+            <Animated.View style={{width:AnimatedFilterIconWidth}}>
+              <Icon name="filter" size={33} color={"#ffa069"} style={{ marginLeft: 130, marginRight: 10 }} />
+            </Animated.View>
           </Animated.View>
           <View style={{ paddingHorizontal: 40, marginTop: 10 }}>
             <View style={{ flexDirection: 'row' }}>
               <Animated.Text style={[styles.headerText, { color: HeaderFirstColor }]} >Sales KPI</Animated.Text>
-              <Animated.Text style={{ marginTop:Platform.OS == 'ios' ? 15 : 10, color: HeaderFirstColor, fontSize: Platform.OS == 'ios' ? 20 :17 }}>({data && data.data.data_details_date})</Animated.Text>
+              <Animated.Text style={{ marginTop: Platform.OS == 'ios' ? 15 : 10, color: HeaderFirstColor, fontSize: Platform.OS == 'ios' ? 20 : 17 }}>({data && data.data.data_details_date})</Animated.Text>
             </View>
-            <Card style={{ backgroundColor: "#f79179", borderRadius: 30, padding: Platform.OS == 'ios' ? 4 :2, width: "60%", justifyContent: "center", marginBottom: 5 }}>
+            <Card style={{ backgroundColor: "#f79179", borderRadius: 30, padding: Platform.OS == 'ios' ? 4 : 2, width: "60%", justifyContent: "center", marginBottom: 5 }}>
               <Text style={{ color: "#fff", alignSelf: "center", fontWeight: 'bold' }}>Remaining Days {data && data.data.remaining_days}</Text>
             </Card>
           </View>
         </Animated.View>
-        <Image
-          source={require("../images/filter.png")}
-          style={{ width: "8%", height: "13%", alignSelf: 'flex-end', marginRight: 20, marginTop: -25 }}
-        />
+        <Icon name="filter" size={33} color="#ffa069" style={{ width: "8%", height: "13%", alignSelf: 'flex-end', marginRight: 20, marginTop: -25 }} />
       </Animated.View>
     </SafeAreaView>
   );
@@ -306,7 +302,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
   },
   headerText: {
-    fontSize:Platform.OS == 'ios' ? 40  : 30,
+    fontSize: Platform.OS == 'ios' ? 40 : 30,
     color: "#fff",
   },
   description: {
@@ -319,7 +315,7 @@ const styles = StyleSheet.create({
   MainContainer: {
     flex: 1,
     // paddingTop: Platform.OS == 'ios' ? 20 : 0,
-    backgroundColor:"#fff"
+    backgroundColor: "#fff"
   },
 
   Header: {
