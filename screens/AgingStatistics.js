@@ -61,45 +61,51 @@ const AgingStatistics = () => {
 
     return (
         <ScrollView >
-            <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "bold", marginTop: 10, marginBottom: 10 }}>opportunity</Text>
+            <View style={{ backgroundColor: "#fff", marginTop: 20, paddingBottom: 15, marginHorizontal: 10, borderRadius: 30, borderWidth: 0.3 }}>
+                <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "bold", marginTop: 10, marginBottom: 10 }}>opportunity</Text>
 
-            <FlatList
-                data={[
-                    { label: "1 to 3 Months", amount: "8", color: "#607d8b" },
-                    { label: "3 to 6 Months", amount: "222", color: "#ec3674" },
-                    { label: "6 to 1 Year", amount: "7", color: "#a741b9" },
-                    { label: "1 Year Above", amount: "11", color: "#ff9800" },
+                <FlatList
+                    data={[
+                        { label: "1 to 3 Months", amount: "8", color: "#607d8b" },
+                        { label: "3 to 6 Months", amount: "222", color: "#ec3674" },
+                        { label: "6 to 1 Year", amount: "7", color: "#a741b9" },
+                        { label: "1 Year Above", amount: "11", color: "#ff9800" },
 
-                ]}
-                renderItem={renderOpportunity}
-                numColumns="2"
-            />
-            <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "bold", marginBottom: 10, marginTop: 10 }}>Invoice</Text>
+                    ]}
+                    renderItem={renderOpportunity}
+                    numColumns="2"
+                />
+            </View>
+            <View style={{ backgroundColor: "#fff", marginTop: 20, paddingBottom: 15, marginHorizontal: 10, borderRadius: 30, borderWidth: 0.3 }}>
+                <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "bold", marginBottom: 10, marginTop: 10 }}>Invoice</Text>
 
-            <FlatList
-                data={[
-                    { label: "1 to 3 Months", amount: "1", color: "#607d8b" },
-                    { label: "3 to 6 Months", amount: "0", color: "#ec3674" },
-                    { label: "6 to 1 Year", amount: "2", color: "#a741b9" },
-                    { label: "1 Year Above", amount: "8", color: "#ff9800" },
+                <FlatList
+                    data={[
+                        { label: "1 to 3 Months", amount: "1", color: "#607d8b" },
+                        { label: "3 to 6 Months", amount: "0", color: "#ec3674" },
+                        { label: "6 to 1 Year", amount: "2", color: "#a741b9" },
+                        { label: "1 Year Above", amount: "8", color: "#ff9800" },
 
-                ]}
-                renderItem={renderInvoice}
-                numColumns="2"
-            />
-            <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "bold", marginBottom: 10, marginTop: 10 }}>Key customer</Text>
+                    ]}
+                    renderItem={renderInvoice}
+                    numColumns="2"
+                />
+            </View>
+            <View style={{ backgroundColor: "#fff", marginTop: 20, paddingBottom: 15, marginHorizontal: 10, borderRadius: 30, borderWidth: 0.3 }}>
+                <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "bold", marginBottom: 10, marginTop: 10 }}>Key customer</Text>
 
-            <FlatList
-                data={[
-                    { label: "No Opportunity", amount: "16", color: "#607d8b" },
-                    { label: "3 to 6 Months", amount: "6", color: "#ec3674" },
-                    { label: "6 to 1 Year", amount: "3", color: "#a741b9" },
-                    { label: "1 Year Above", amount: "8", color: "#ff9800" },
+                <FlatList
+                    data={[
+                        { label: "No Opportunity", amount: "16", color: "#607d8b" },
+                        { label: "3 to 6 Months", amount: "6", color: "#ec3674" },
+                        { label: "6 to 1 Year", amount: "3", color: "#a741b9" },
+                        { label: "1 Year Above", amount: "8", color: "#ff9800" },
 
-                ]}
-                renderItem={renderCustomer}
-                numColumns="2"
-            />
+                    ]}
+                    renderItem={renderCustomer}
+                    numColumns="2"
+                />
+            </View>
         </ScrollView>
     );
 }
