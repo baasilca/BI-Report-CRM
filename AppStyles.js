@@ -1,7 +1,7 @@
 const colors = {
     bottomTabColor: '#009387',
     tabHeaderBarColor: '#fff',
-    screensHeaderColor: '#009387',
+    screensHeaderColor: '#177d99',
     tabBarColor: '#009387',
     drawerTextColor: '#fff',
     drawerBackgroundColor: '#009387',

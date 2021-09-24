@@ -32,7 +32,7 @@ const MyStack = (props) => {
     return (
       <View style={{ flexDirection: 'row' }}>
         <StatusBar
-          backgroundColor="#009387"
+          backgroundColor="#177d99"
         />
         <Icons name="menu" size={30} style={{ marginLeft: 10 }}
           color={"#fff"}
@@ -116,12 +116,12 @@ const DrawerContent = (props) => {
 
   const handleNavigation = useCallback(
     (to) => {
-      if (navigation.dangerouslyGetState() &&
-        navigation.dangerouslyGetState().routes[0] &&
-        navigation.dangerouslyGetState().routes[0].state &&
-        navigation.dangerouslyGetState().routes[0].state.index > 0) {
-        props.navigation.dispatch(StackActions.popToTop());
-      }
+      // if (navigation.dangerouslyGetState() &&
+      //   navigation.dangerouslyGetState().routes[0] &&
+      //   navigation.dangerouslyGetState().routes[0].state &&
+      //   navigation.dangerouslyGetState().routes[0].state.index > 0) {
+      //   props.navigation.dispatch(StackActions.popToTop());
+      // }
       setActive(to);
       navigation.navigate(to);
     },
@@ -139,10 +139,7 @@ const DrawerContent = (props) => {
   ];
 
   return (
-    <ImageBackground
-      source={require("./images/back.png")}
-      style={{ width: "100%", height: "100%" }}
-    >
+    <View style={{backgroundColor:"#177d99" , flex:1}}>
       <DrawerContentScrollView
         {...props}
         scrollEnabled
@@ -157,25 +154,25 @@ const DrawerContent = (props) => {
               icon={({ size }) => (
                 <Icon
                   name={screen.icon}
-                  color={isActive ? "red" : "black"}
+                  color={"#fff"}
                   size={20}
                 />
               )}
               inactiveTintColor='black'
+              style={{ backgroundColor:isActive ?"#439db5" :"#177d99"}}
               label={screen.to}
-              labelStyle={{ color: isActive ? "red" : "black" }}
+              labelStyle={{ color: "#fff" }}
               color="#fff"
+              backgroundColor="red"
               onPress={() => { handleNavigation(screen.to) }}
             />
           )
         })
         }
-
       </DrawerContentScrollView>
-    </ImageBackground>
+      </View>
   )
 }
-
 
 export default function App() {
   return (
@@ -183,13 +180,10 @@ export default function App() {
       <NavigationContainer>
         <Drawer.Navigator
           drawerType="slide"
-          // overlayColor="transparent"
-          // sceneContainerStyle={{ backgroundColor: 'transparent' }}
           drawerStyle={{
             flex: 1,
             width: '70%',
             borderRightWidth: 0,
-            // backgroundColor: 'transparent',
           }}
           drawerContent={props => <DrawerContent {...props} />}>
           <Drawer.Screen name="Home" component={MyStack} />
