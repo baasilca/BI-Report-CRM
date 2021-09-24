@@ -32,7 +32,7 @@ const MyStack = (props) => {
     return (
       <View style={{ flexDirection: 'row' }}>
         <StatusBar
-          backgroundColor="#177d99"
+          backgroundColor={AppStyles.Colors.screensHeaderColor}
         />
         <Icons name="menu" size={30} style={{ marginLeft: 10 }}
           color={"#fff"}
@@ -57,10 +57,6 @@ const MyStack = (props) => {
     <Stack.Navigator   >
       <Stack.Screen name="Sales KPI" component={SalesKPI} options={{
         headerShown: false,
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
-        headerLeft: () => (
-          <BackButtonAndDrawer {...props} />
-        )
       }} />
       <Stack.Screen name="Convertion Analytics" component={ConvertionAnalytics} options={{
         headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',

@@ -2,6 +2,7 @@ import React from 'react';
 import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar } from 'react-native';
 import { Appbar, Divider, List, Avatar } from 'react-native-paper';
 import Button from 'react-native-button';
+import AppStyles from '../AppStyles'
 
 const DATA = [
     {
@@ -65,7 +66,7 @@ const SalesExecutiveOverview = () => {
     return (
         <>
             <StatusBar
-                backgroundColor="#177d99"
+                backgroundColor={AppStyles.Colors.screensHeaderColor}
             />
             <SafeAreaView style={styles.container}>
                 <FlatList

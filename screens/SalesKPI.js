@@ -40,7 +40,7 @@ const SalesKPI = (props) => {
   });
   const AnimatedFilterIconWidth = AnimatedHeaderValue.interpolate({
     inputRange: [0, Header_Maximum_Height - Header_Minimum_Height],
-    outputRange: [0,170],
+    outputRange: [0, 170],
     extrapolate: 'clamp',
   });
   const AnimateHeaderHeight = AnimatedHeaderValue.interpolate({
@@ -66,7 +66,7 @@ const SalesKPI = (props) => {
                     colors={item.bg}
                     start={{ x: 0, y: 1 }}
                     end={{ x: 1, y: 1 }}
-                    style={{ padding: 10, margin: 5, borderRadius: 5, flexDirection: "row" }}
+                    style={styles.swiperCards}
                   >
                     <View style={{ width: "60%" }}>
                       <Text style={{ color: "#fff", fontWeight: 'bold', }}>{item.title}</Text>
@@ -94,7 +94,7 @@ const SalesKPI = (props) => {
                   style={{}}
                   start={{ x: 0, y: 1 }}
                   end={{ x: 1, y: 1 }}
-                  style={{ padding: 10, margin: 5, borderRadius: 5, flexDirection: "row" }}
+                  style={styles.swiperCards}
                 >
                   <View style={{ justifyContent: "center", alignSelf: "center", flexDirection: 'row', flex: 1 }}>
                     <View>
@@ -117,7 +117,7 @@ const SalesKPI = (props) => {
                       style={{}}
                       start={{ x: 0, y: 1 }}
                       end={{ x: 1, y: 1 }}
-                      style={{ padding: 10, margin: 5, borderRadius: 5, flexDirection: "row" }}
+                      style={styles.swiperCards}
                     >
                       <View style={{ width: "60%" }}>
                         <Text style={{ color: "#fff", fontWeight: 'bold', }}>{item.title}</Text>
@@ -137,7 +137,7 @@ const SalesKPI = (props) => {
                       style={{}}
                       start={{ x: 0, y: 1 }}
                       end={{ x: 1, y: 1 }}
-                      style={{ padding: 10, margin: 5, borderRadius: 5, flexDirection: "row" }}
+                      style={styles.swiperCards}
                     >
                       <View style={{ justifyContent: "center", alignSelf: "center", flexDirection: 'row', flex: 1 }}>
                         <View>
@@ -165,11 +165,11 @@ const SalesKPI = (props) => {
           { nativeEvent: { contentOffset: { y: AnimatedHeaderValue } } },
         ])}>
         <View style={{ backgroundColor: '#FFF', borderTopLeftRadius: Content_Border_Radius, borderTopRightRadius: Content_Border_Radius }}>
-          <View style={{ backgroundColor: "#fff", marginTop: Platform.OS == 'ios' ? -25 : 20 }}>
+          <View style={styles.swiperCardView}>
             <SwiperCards />
             <View>
-              <View style={{ padding: 5, marginTop: -30, marginBottom: -10 }}>
-                <Text style={{ fontSize: 15, color: "#29248a", fontWeight: "bold", marginLeft: 10 }}>Best Salesman (Sale)</Text>
+              <View style={styles.bestSalesMan}>
+                <Text style={styles.bestSalesManText}>Best Salesman (Sale)</Text>
               </View>
               <SwiperFlatList
                 style={{ margin: 10 }}
@@ -181,15 +181,7 @@ const SalesKPI = (props) => {
                   <View style={{ margin: -10 }}>
                     <LinearGradient
                       colors={data && data.data.best_salesman.color}
-                      style={{
-                        backgroundColor: "#fff",
-                        margin: 15,
-                        width: 160,
-                        padding: 10,
-                        borderRadius: 8,
-                        height: 100,
-                        marginBottom: 40,
-                      }}
+                      style={styles.bestSalesGradientView}
                       start={{ x: 0, y: 1 }}
                       end={{ x: 1, y: 1 }}
                     >
@@ -206,8 +198,8 @@ const SalesKPI = (props) => {
                 }
               />
             </View>
-            <View style={{ padding: 5, marginTop: -30, marginBottom: -10 }}>
-              <Text style={{ fontSize: 15, color: "#29248a", fontWeight: "bold", marginLeft: 10 }}>Best Salesman (Gross Profit)</Text>
+            <View style={styles.bestSalesMan}>
+              <Text style={styles.bestSalesManText}>Best Salesman (Gross Profit)</Text>
             </View>
             <SwiperFlatList
               style={{ margin: 10 }}
@@ -219,15 +211,7 @@ const SalesKPI = (props) => {
                 <View style={{ margin: -10 }}>
                   <LinearGradient
                     colors={data && data.data.best_salesman.color}
-                    style={{
-                      backgroundColor: "#fff",
-                      margin: 15,
-                      width: 160,
-                      padding: 10,
-                      borderRadius: 8,
-                      height: 100,
-                      marginBottom: 40,
-                    }}
+                    style={styles.bestSalesGradientView}
                     start={{ x: 0, y: 1 }}
                     end={{ x: 1, y: 1 }}
                   >
@@ -268,12 +252,12 @@ const SalesKPI = (props) => {
             marginTop: AnimatedMarginTOP,
             alignItems: "center",
             paddingHorizontal: 40,
-          }}>       
+          }}>
             <Icon name="menu" size={30} color="#fff" style={[{ width: 20 }, Platform.OS == 'ios' && { marginLeft: 20 }]}
               onPress={() => { navigation.openDrawer() }}
             />
             <Animated.Text style={{ color: HeaderSecondColor, fontSize: 20, marginLeft: 10 }} >Sales KPI</Animated.Text>
-            <Animated.View style={{width:AnimatedFilterIconWidth}}>
+            <Animated.View style={{ width: AnimatedFilterIconWidth }}>
               <Icon name="filter" size={33} color={"#ffa069"} style={{ marginLeft: 130, marginRight: 10 }} />
             </Animated.View>
           </Animated.View>
@@ -339,6 +323,36 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 7,
   },
+  swiperCards: {
+    padding: 10,
+    margin: 5,
+    borderRadius: 5,
+    flexDirection: "row"
+  },
+  swiperCardView: {
+    backgroundColor: "#fff",
+    marginTop: Platform.OS == 'ios' ? -25 : 20
+  },
+  bestSalesMan: {
+    padding: 5,
+    marginTop: -30,
+    marginBottom: -10
+  },
+  bestSalesManText: {
+    fontSize: 15,
+    color: "#29248a",
+    fontWeight: "bold",
+    marginLeft: 10
+  },
+  bestSalesGradientView:{
+    backgroundColor: "#fff",
+    margin: 15,
+    width: 160,
+    padding: 10,
+    borderRadius: 8,
+    height: 100,
+    marginBottom: 40,
+  }
 })
 
 export default SalesKPI
