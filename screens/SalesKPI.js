@@ -271,7 +271,6 @@ const SalesKPI = (props) => {
           }}>       
             <Icon name="menu" size={30} color="#fff" style={[{ width: 20 }, Platform.OS == 'ios' && { marginLeft: 20 }]}
               onPress={() => { navigation.openDrawer() }}
-              // onPress={() => { navigation.navigate('LLL') }}
             />
             <Animated.Text style={{ color: HeaderSecondColor, fontSize: 20, marginLeft: 10 }} >Sales KPI</Animated.Text>
             <Animated.View style={{width:AnimatedFilterIconWidth}}>
@@ -288,7 +287,7 @@ const SalesKPI = (props) => {
             </Card>
           </View>
         </Animated.View>
-        <Icon name="filter" size={33} color="#ffa069" style={{ width: "8%", height: "13%", alignSelf: 'flex-end', marginRight: 20, marginTop: -25 }} />
+        <Icon name="filter" size={33} color="#ffa069" style={{ width: "8%", height: "17%", alignSelf: 'flex-end', marginRight: 20, marginTop: -30 }} />
       </Animated.View>
     </SafeAreaView>
   );
@@ -314,7 +313,6 @@ const styles = StyleSheet.create({
   },
   MainContainer: {
     flex: 1,
-    // paddingTop: Platform.OS == 'ios' ? 20 : 0,
     backgroundColor: "#fff"
   },
 
@@ -324,7 +322,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    // top: Platform.OS == 'ios' ? 20 : 0,
     overflow: 'hidden',
     elevation: 2,
   },

@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, Image, ImageSourcePropType, ImageBackground, Platform, Alert, StatusBar } from 'react-native';
 import AppStyles from './AppStyles'
 import { NavigationContainer, StackActions } from '@react-navigation/native';
@@ -101,11 +101,18 @@ const MyStack = (props) => {
     </Stack.Navigator>
   )
 }
-
 const DrawerContent = (props) => {
 
   const { navigation } = props;
   const [active, setActive] = useState('Sales KPI');
+
+  useEffect(() => {
+    if ((navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
+      navigation.dangerouslyGetState().routes[0].state &&
+      navigation.dangerouslyGetState().routes[0].state.routes.length) === 1) {
+      setActive("Sales KPI")
+    }
+  }, [navigation.dangerouslyGetState()])
 
   const handleNavigation = useCallback(
     (to) => {
@@ -142,7 +149,6 @@ const DrawerContent = (props) => {
         removeClippedSubviews
         renderToHardwareTextureAndroid
       >
-
 
         {screens?.map((screen, index) => {
           const isActive = active === screen.to;
