@@ -16,7 +16,7 @@ const SalesKPI = (props) => {
   const Content_Border_Radius = 30;
   const AnimatedHeaderValue = new Animated.Value(0);
   const AnStatusBar = Animated.createAnimatedComponent(StatusBar)
-  const AnImage = Animated.createAnimatedComponent(Image)
+  const AnIcon = Animated.createAnimatedComponent(Icon)
 
   const AnimateHeaderBackgroundColor = AnimatedHeaderValue.interpolate({
     inputRange: [0, Header_Maximum_Height - Header_Minimum_Height],
@@ -38,9 +38,9 @@ const SalesKPI = (props) => {
     outputRange: [10, Platform.OS == 'ios' ? 90 : 60],
     extrapolate: 'clamp',
   });
-  const AnimatedSize = AnimatedHeaderValue.interpolate({
+  const AnimatedFilterIconWidth = AnimatedHeaderValue.interpolate({
     inputRange: [0, Header_Maximum_Height - Header_Minimum_Height],
-    outputRange: [0, 25],
+    outputRange: [0,170],
     extrapolate: 'clamp',
   });
   const AnimateHeaderHeight = AnimatedHeaderValue.interpolate({
@@ -268,16 +268,14 @@ const SalesKPI = (props) => {
             marginTop: AnimatedMarginTOP,
             alignItems: "center",
             paddingHorizontal: 40,
-          }}>
+          }}>       
             <Icon name="menu" size={30} color="#fff" style={[{ width: 20 }, Platform.OS == 'ios' && { marginLeft: 20 }]}
               onPress={() => { navigation.openDrawer() }}
             />
             <Animated.Text style={{ color: HeaderSecondColor, fontSize: 20, marginLeft: 10 }} >Sales KPI</Animated.Text>
-            <AnImage
-              source={require("../images/filter.png")}
-              style={{ width: AnimatedSize, height: AnimatedSize, marginLeft: 130, marginRight: 10 }}
-            />
-            <Icon name="account-circle" size={33} color="#fff" style={{}} />
+            <Animated.View style={{width:AnimatedFilterIconWidth}}>
+              <Icon name="filter" size={33} color={"#ffa069"} style={{ marginLeft: 130, marginRight: 10 }} />
+            </Animated.View>
           </Animated.View>
           <View style={{ paddingHorizontal: 40, marginTop: 10 }}>
             <View style={{ flexDirection: 'row' }}>
@@ -289,10 +287,7 @@ const SalesKPI = (props) => {
             </Card>
           </View>
         </Animated.View>
-        <Image
-          source={require("../images/filter.png")}
-          style={{ width: "8%", height: "13%", alignSelf: 'flex-end', marginRight: 20, marginTop: -25 }}
-        />
+        <Icon name="filter" size={33} color="#ffa069" style={{ width: "8%", height: "17%", alignSelf: 'flex-end', marginRight: 20, marginTop: -30 }} />
       </Animated.View>
     </SafeAreaView>
   );
@@ -318,7 +313,6 @@ const styles = StyleSheet.create({
   },
   MainContainer: {
     flex: 1,
-    // paddingTop: Platform.OS == 'ios' ? 20 : 0,
     backgroundColor: "#fff"
   },
 
@@ -328,7 +322,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    // top: Platform.OS == 'ios' ? 20 : 0,
     overflow: 'hidden',
     elevation: 2,
   },
