@@ -16,6 +16,7 @@ import SalesExecutiveOverview from './screens/SalesExecutiveOverview';
 import AgingStatistics from './screens/AgingStatistics';
 import Performance from './screens/Performance';
 import CustomKPI from './screens/CustomKPI';
+import SalesDetails from './screens/SalesDetails';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { store } from './Redux/Store'
@@ -94,6 +95,12 @@ const MyStack = (props) => {
         )
       }} />
       <Stack.Screen name="Custom KPI" component={CustomKPI} options={{
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
+        headerLeft: () => (
+          <BackButtonAndDrawer {...props} />
+        )
+      }} />
+      <Stack.Screen name="Sales Details" component={SalesDetails} options={{
         headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
         headerLeft: () => (
           <BackButtonAndDrawer {...props} />

@@ -61,7 +61,7 @@ const AgingStatistics = () => {
 
     return (
         <ScrollView >
-            <View style={{ backgroundColor: "#fff", marginTop: 20, paddingBottom: 15, marginHorizontal: 10, borderRadius: 30, borderWidth: 0.3 }}>
+            <View style={{ backgroundColor: "#fff", marginTop: 20, paddingBottom: 15, marginHorizontal: 10, borderRadius: 30, borderWidth: 0.444 }}>
                 <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "bold", marginTop: 10, marginBottom: 10 }}>opportunity</Text>
 
                 <FlatList
@@ -76,7 +76,7 @@ const AgingStatistics = () => {
                     numColumns="2"
                 />
             </View>
-            <View style={{ backgroundColor: "#fff", marginTop: 20, paddingBottom: 15, marginHorizontal: 10, borderRadius: 30, borderWidth: 0.3 }}>
+            <View style={{ backgroundColor: "#fff", marginTop: 20, paddingBottom: 15, marginHorizontal: 10, borderRadius: 30, borderWidth: 0.444 }}>
                 <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "bold", marginBottom: 10, marginTop: 10 }}>Invoice</Text>
 
                 <FlatList
@@ -91,7 +91,7 @@ const AgingStatistics = () => {
                     numColumns="2"
                 />
             </View>
-            <View style={{ backgroundColor: "#fff", marginTop: 20, paddingBottom: 15, marginHorizontal: 10, borderRadius: 30, borderWidth: 0.3 }}>
+            <View style={{ backgroundColor: "#fff", marginTop: 20, paddingBottom: 15, marginHorizontal: 10, borderRadius: 30, borderWidth: 0.444 }}>
                 <Text style={{ textAlign: "center", fontSize: 16, fontWeight: "bold", marginBottom: 10, marginTop: 10 }}>Key customer</Text>
 
                 <FlatList

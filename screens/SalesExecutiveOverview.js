@@ -9,27 +9,36 @@ const DATA = [
         title: 'Abdul Rasakh',
         description: 'Marketing Manager',
         target: '3000.00',
-        acheived: '1500.00'
+        acheived: '1500.00',
+        email: 'abdulrasak@cezcon.com',
+        mobile: '9539293708',
+        profile: 'user'
     },
     {
         avatar: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png',
         title: 'Ahmad Abdullah',
         description: 'Sales Executive',
         target: '4500.00',
-        acheived: '2200.00'
+        acheived: '2200.00',
+        email: 'ahmedk@cezcon.com',
+        mobile: '9961693615',
+        profile: 'user'
     },
     {
         avatar: 'https://cdn2.vectorstock.com/i/1000x1000/49/86/man-character-face-avatar-in-glasses-vector-17074986.jpg',
         title: 'Demo User',
         description: 'Sales Supervisor',
         target: '3500.00',
-        acheived: '1545.00'
+        acheived: '1545.00',
+        email: 'demouser@cezcon.com',
+        mobile: '8078007956',
+        profile: 'user'
     },
 ];
 
 
 
-const SalesExecutiveOverview = () => {
+const SalesExecutiveOverview = (props) => {
 
     const renderItem = ({ item }) => (
         <View style={{ backgroundColor: '#fff', margin: 5, padding: 15, borderLeftWidth: 4, borderBottomWidth: 4, borderLeftColor: "#177d99", borderBottomColor: "#177d99", borderRadius: 10, elevation: 3, marginVertical: 8, marginHorizontal: 30, }}>
@@ -54,7 +63,16 @@ const SalesExecutiveOverview = () => {
                         borderRadius: 30
                     }}
                     style={{ color: 'white', fontSize: 13 }}
-                    onPress={() => { }}
+                    onPress={() => {
+                        props.navigation.navigate('Sales Details', {
+                            title: item.title,
+                            avatar: item.avatar,
+                            designation: item.description,
+                            email: item.email,
+                            mobile: item.mobile,
+                            user: item.profile
+                        })
+                    }}
                 >
                     Overview
                 </Button>
