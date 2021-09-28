@@ -22,8 +22,8 @@ const SalesDetails = (props) => {
                     padding: 15,
                     borderLeftWidth: 4,
                     borderBottomWidth: 4,
-                    borderLeftColor: "red",
-                    borderBottomColor: "green",
+                    borderLeftColor: item.color,
+                    borderBottomColor: item.color,
                     borderRadius: 10,
                     elevation: 3,
                     marginVertical: 8,
@@ -53,8 +53,8 @@ const SalesDetails = (props) => {
                     padding: 15,
                     borderLeftWidth: 4,
                     borderBottomWidth: 4,
-                    borderLeftColor: "red",
-                    borderBottomColor: "green",
+                    borderLeftColor: item.color,
+                    borderBottomColor: item.color,
                     borderRadius: 10,
                     elevation: 3,
                     marginVertical: 8,
@@ -231,14 +231,14 @@ const SalesDetails = (props) => {
             <View style={{ marginTop: 20 }}>
                 <FlatList
                     data={[
-                        { title: 'Sale Target', amount: "20,000.00", status: "Achieved", badge: "0%", type: "1" },
-                        { title: 'Sale', amount: "0.00", status: "Average Sale", badge: "0.00", type: "1" },
-                        { title: 'Collection Target', amount: "20,000.00", status: "Reached", badge: "0%", type: "1" },
-                        { title: 'Lead', amount: "0", status: "Qualified", badge: "0%", type: "1" },
-                        { amount: "10,000.00", msg: "Required Average Sales/Day", type: "0" },
-                        { amount: "2", msg: "Number of Sale Conversion Required", type: "0" },
-                        { amount: "6", msg: "Number of Opportunity Required", type: "0" },
-                        { amount: "0.00", msg: "Sales From Existing Customer", type: "0" },
+                        { title: 'Sale Target', amount: "20,000.00", status: "Achieved", badge: "0%", color: "#321fdb", type: "1" },
+                        { title: 'Sale', amount: "0.00", status: "Average Sale", badge: "0.00", color: "#39f", type: "1" },
+                        { title: 'Collection Target', amount: "20,000.00", status: "Reached", badge: "0%", color: "#f9b115", type: "1" },
+                        { title: 'Lead', amount: "0", status: "Qualified", badge: "0%", color: "#e55353", type: "1" },
+                        { amount: "10,000.00", msg: "Required Average Sales/Day", color: "#4CAF50", type: "0" },
+                        { amount: "2", msg: "Number of Sale Conversion Required", color: "#9E9E9E", type: "0" },
+                        { amount: "6", msg: "Number of Opportunity Required", color: "#0044cc", type: "0" },
+                        { amount: "0.00", msg: "Sales From Existing Customer", color: "#F44336", type: "0" },
 
                     ]}
 
