@@ -40,7 +40,7 @@ const SalesKPI = (props) => {
   });
   const AnimatedFilterIconWidth = AnimatedHeaderValue.interpolate({
     inputRange: [0, Header_Maximum_Height - Header_Minimum_Height],
-    outputRange: [0,170],
+    outputRange: [0, 170],
     extrapolate: 'clamp',
   });
   const AnimateHeaderHeight = AnimatedHeaderValue.interpolate({
@@ -268,12 +268,12 @@ const SalesKPI = (props) => {
             marginTop: AnimatedMarginTOP,
             alignItems: "center",
             paddingHorizontal: 40,
-          }}>       
+          }}>
             <Icon name="menu" size={30} color="#fff" style={[{ width: 20 }, Platform.OS == 'ios' && { marginLeft: 20 }]}
               onPress={() => { navigation.openDrawer() }}
             />
             <Animated.Text style={{ color: HeaderSecondColor, fontSize: 20, marginLeft: 10 }} >Sales KPI</Animated.Text>
-            <Animated.View style={{width:AnimatedFilterIconWidth}}>
+            <Animated.View style={{ width: AnimatedFilterIconWidth }}>
               <Icon name="filter" size={33} color={"#ffa069"} style={{ marginLeft: 130, marginRight: 10 }} />
             </Animated.View>
           </Animated.View>
