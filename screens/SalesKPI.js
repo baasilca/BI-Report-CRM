@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import { Platform, View, Text, Image, ImageBackground, TextInput, StyleSheet, ScrollView, Alert, Animated, SafeAreaView, StatusBar } from "react-native";
 import { useGetSalesKPIQuery } from '../Redux/Slices/salesKPI'
@@ -8,16 +8,31 @@ import Swiper from 'react-native-swiper'
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { WebView } from 'react-native-webview';
 import AppStyles from '../AppStyles'
+import ModalSelector from 'react-native-modal-selector'
 
 const SalesKPI = (props) => {
   const { navigation } = props
   const { data, isLoading, isError } = useGetSalesKPIQuery()
+  const [filterValue, setFilterValue] = useState('')
+  const abc = useRef()
   const Header_Maximum_Height = Platform.OS == 'ios' ? 250 : 180;
   const Header_Minimum_Height = Platform.OS == 'ios' ? 90 : 50;
   const Content_Border_Radius = 30;
   const AnimatedHeaderValue = new Animated.Value(0);
   const AnStatusBar = Animated.createAnimatedComponent(StatusBar)
   const AnIcon = Animated.createAnimatedComponent(Icon)
+  let index = 0;
+  const FilterData = [
+    { key: index++, section: true, label: 'Fruits'},
+    { key: index++, label: 'This Month'},
+    { key: index++, label: 'This Quarter'} ,
+    { key: index++, label: 'This Year'},
+    { key: index++, label: 'Life Time'},
+    // etc...
+    // Can also add additional custom keys which are passed to the onChange callback
+    { key: index++, label: 'Vegetable', customKey: 'Not a fruit' }
+  ];
+
 
   const AnimateHeaderBackgroundColor = AnimatedHeaderValue.interpolate({
     inputRange: [0, Header_Maximum_Height - Header_Minimum_Height],
@@ -191,7 +206,7 @@ const SalesKPI = (props) => {
                         <Text style={{ marginLeft: 5, width: "80%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>{item.UserName}</Text>
                       </View>
                       <Text style={{ fontSize: 12, color: "black" }} numberOfLines={1}>{item.UserEmail}</Text>
-                      <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width:"100%",marginTop:5 }}>
+                      <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width: "100%", marginTop: 5 }}>
                         <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>Sale: {item.sales}</Text>
                       </View>
                     </LinearGradient>
@@ -211,7 +226,6 @@ const SalesKPI = (props) => {
               renderItem={({ item }) =>
                 <View style={{ margin: -10 }}>
                   <LinearGradient
-                    // colors={data && data.data.best_salesman.color}
                     colors={["#fff", "#fff"]}
                     style={styles.bestSalesGradientView}
                     start={{ x: 0, y: 1 }}
@@ -222,7 +236,7 @@ const SalesKPI = (props) => {
                       <Text style={{ marginLeft: 5, width: "80%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>{item.UserName}</Text>
                     </View>
                     <Text style={{ fontSize: 12, color: "black" }} numberOfLines={1}>{item.UserEmail}</Text>
-                    <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width:"100%",marginTop:5 }}>
+                    <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width: "100%", marginTop: 5 }}>
                       <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>GP: {item.profit}</Text>
                     </View>
                   </LinearGradient>
@@ -230,10 +244,26 @@ const SalesKPI = (props) => {
               }
             />
             {data && data.data.company_sales &&
-              <View style={{marginTop: -25, }}>
-                  <Text style={[styles.bestSalesManText,{marginLeft:15,marginBottom:-10}]}>Company Sale</Text>
+              <View style={{ marginTop: -25, }}>
+                <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Company Sale</Text>
                 <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
                   <WebView style={{ marginTop: 5 }} source={{ html: data && data.data.company_sales }} />
+                </View>
+              </View>
+            }
+            {data && data.data.top_industry_sale &&
+              <View style={{}}>
+                <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Industry Sale</Text>
+                <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
+                  <WebView style={{ marginTop: 5 }} source={{ html: data && data.data.top_industry_sale }} />
+                </View>
+              </View>
+            }
+            {data && data.data.top_source_sale &&
+              <View style={{}}>
+                <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Source Sale</Text>
+                <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
+                  <WebView style={{ marginTop: 5 }} source={{ html: data && data.data.top_source_sale }} />
                 </View>
               </View>
             }
@@ -276,8 +306,25 @@ const SalesKPI = (props) => {
             </Card>
           </View>
         </Animated.View>
-        <Icon name="filter" size={33} color="#ffa069" style={{ width: "8%", height: "17%", alignSelf: 'flex-end', marginRight: 20, marginTop: -30 }} />
+        <View style={{ flexDirection: 'row' }}>
+          <ModalSelector
+            ref={abc}
+            data={FilterData}
+            initValue="This Quarter"
+            selectedItemTextStyle={{color:"red"}}
+            selectTextStyle={{color:"#fff"}}
+            selectStyle={{borderWidth:0}}
+            value
+            onChange={(option) => { alert(`${option.label} (${option.key}) nom nom nom`) }} />
+            
+          <Icon name="filter" size={33} color="#ffa069" style={{ }}
+            onPress={() => {
+              abc.current.open()
+            }}
+          />
+        </View>
       </Animated.View>
+
     </SafeAreaView>
   );
 }
@@ -348,7 +395,7 @@ const styles = StyleSheet.create({
     color: AppStyles.Colors.screensHeaderColor,
     fontWeight: "bold",
     marginLeft: 10,
-    marginBottom:-5
+    marginBottom: -5
   },
   bestSalesGradientView: {
     // backgroundColor: "#fff",
