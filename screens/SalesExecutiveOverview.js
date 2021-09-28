@@ -41,7 +41,22 @@ const DATA = [
 const SalesExecutiveOverview = (props) => {
 
     const renderItem = ({ item }) => (
-        <View style={{ backgroundColor: '#fff', margin: 5, padding: 15, borderLeftWidth: 4, borderBottomWidth: 4, borderLeftColor: "#177d99", borderBottomColor: "#177d99", borderRadius: 10, elevation: 3, marginVertical: 8, marginHorizontal: 30, }}>
+        <View style={{
+            backgroundColor: '#fff',
+            margin: 5,
+            padding: 15,
+            borderLeftWidth: 4,
+            borderBottomWidth: 4,
+            borderLeftColor: "#177d99",
+            borderBottomColor: "#177d99",
+            borderRadius: 10,
+            elevation: 3,
+            marginVertical: 8,
+            marginHorizontal: 30,
+            borderWidth: 0.5,
+            borderTopColor: "#bababa",
+            borderRightColor: "#bababa"
+        }}>
             <Avatar.Image
                 resizeMode="contain"
                 style={{ backgroundColor: "#e6d3d3", alignSelf: "center" }}
