@@ -10,12 +10,13 @@ import {
 } from '@react-navigation/drawer';
 import { Assets, createStackNavigator } from "@react-navigation/stack";
 import SalesKPI from './screens/SalesKPI';
-import ConvertionAnalytics from './screens/ConvertionAnalytics';
+import ConvertionAnalyticsMain from './screens/ConvertionAnalyticsMain';
 import YearlyOverview from './screens/YearlyOverview';
 import SalesExecutiveOverview from './screens/SalesExecutiveOverview';
 import AgingStatistics from './screens/AgingStatistics';
 import Performance from './screens/Performance';
 import CustomKPI from './screens/CustomKPI';
+import SalesDetails from './screens/SalesDetails';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { store } from './Redux/Store'
@@ -59,7 +60,7 @@ const MyStack = (props) => {
       <Stack.Screen name="Sales KPI" component={SalesKPI} options={{
         headerShown: false,
       }} />
-      <Stack.Screen name="Convertion Analytics" component={ConvertionAnalytics} options={{
+      <Stack.Screen name="Convertion Analytics" component={ConvertionAnalyticsMain} options={{
         headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
         headerLeft: () => (
           <BackButtonAndDrawer {...props} />
@@ -90,6 +91,12 @@ const MyStack = (props) => {
         )
       }} />
       <Stack.Screen name="Custom KPI" component={CustomKPI} options={{
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
+        headerLeft: () => (
+          <BackButtonAndDrawer {...props} />
+        )
+      }} />
+      <Stack.Screen name="Sales Details" component={SalesDetails} options={{
         headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
         headerLeft: () => (
           <BackButtonAndDrawer {...props} />
