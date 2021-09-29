@@ -102,13 +102,25 @@ const DrawerContent = (props) => {
 
   const { navigation } = props;
   const [active, setActive] = useState('Sales KPI');
+  // console.log('==================', navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
+  //   navigation.dangerouslyGetState().routes[0].state &&
+  //   navigation.dangerouslyGetState().routes[0].state.routes[
+  //   (navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
+  //     navigation.dangerouslyGetState().routes[0].state &&
+  //     navigation.dangerouslyGetState().routes[0].state.routes.length) - 1
+  //   ].name);
 
   useEffect(() => {
-    if ((navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
+
+    setActive(
+      navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
       navigation.dangerouslyGetState().routes[0].state &&
-      navigation.dangerouslyGetState().routes[0].state.routes.length) === 1) {
-      setActive("Sales KPI")
-    }
+      navigation.dangerouslyGetState().routes[0].state.routes[
+        (navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
+          navigation.dangerouslyGetState().routes[0].state &&
+          navigation.dangerouslyGetState().routes[0].state.routes.length) - 1
+      ].name
+    )
   }, [navigation.dangerouslyGetState()])
 
   const handleNavigation = useCallback(

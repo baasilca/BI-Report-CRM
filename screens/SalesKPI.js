@@ -9,6 +9,7 @@ import SwiperFlatList from "react-native-swiper-flatlist";
 import { WebView } from 'react-native-webview';
 import AppStyles from '../AppStyles'
 import ModalSelector from 'react-native-modal-selector'
+// import { set } from "immer/dist/internal";
 
 const SalesKPI = (props) => {
   const { navigation } = props
@@ -23,11 +24,11 @@ const SalesKPI = (props) => {
   const AnIcon = Animated.createAnimatedComponent(Icon)
   let index = 0;
   const FilterData = [
-    { key: index++, section: true, label: 'Fruits'},
-    { key: index++, label: 'This Month'},
-    { key: index++, label: 'This Quarter'} ,
-    { key: index++, label: 'This Year'},
-    { key: index++, label: 'Life Time'},
+    { key: index++, section: true, label: 'Fruits' },
+    { key: index++, label: 'This Month' },
+    { key: index++, label: 'This Quarter' },
+    { key: index++, label: 'This Year' },
+    { key: index++, label: 'Life Time' },
     // etc...
     // Can also add additional custom keys which are passed to the onChange callback
     { key: index++, label: 'Vegetable', customKey: 'Not a fruit' }
@@ -64,6 +65,9 @@ const SalesKPI = (props) => {
     outputRange: [Header_Maximum_Height, Header_Minimum_Height],
     extrapolate: 'clamp',
   });
+  const set =(item)=>{
+setFilterValue(item)
+  }
 
   const SwiperCards = () => {
     return (
@@ -311,13 +315,18 @@ const SalesKPI = (props) => {
             ref={abc}
             data={FilterData}
             initValue="This Quarter"
-            selectedItemTextStyle={{color:"red"}}
-            selectTextStyle={{color:"#fff"}}
-            selectStyle={{borderWidth:0}}
-            value
-            onChange={(option) => { alert(`${option.label} (${option.key}) nom nom nom`) }} />
-            
-          <Icon name="filter" size={33} color="#ffa069" style={{ }}
+            selectedItemTextStyle={{ color: "red" }}
+            selectTextStyle={{ color: "#fff" }}
+            selectStyle={{ borderWidth: 0 }}
+            onChange={(option) =>
+              // setFilterValue(option.label)
+              set(option.label)
+            }
+             >
+           
+          </ModalSelector>
+
+          <Icon name="filter" size={33} color="#ffa069" style={{}}
             onPress={() => {
               abc.current.open()
             }}
