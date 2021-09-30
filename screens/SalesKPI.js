@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Swiper from 'react-native-swiper'
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { WebView } from 'react-native-webview';
+import DashboardSkeleton from '../Components/DashboardSkeleton'
 import AppStyles from '../AppStyles'
 import ModalSelector from "react-native-modal-selector";
 const _dateRangeOptions = [
@@ -169,7 +170,12 @@ const SalesKPI = (props) => {
       </View>
     )
   }
-
+  if(isLoading==true){
+return(
+<DashboardSkeleton/>
+)
+  }
+else{
   return (
     <SafeAreaView style={styles.MainContainer}>
       <ScrollView
@@ -336,7 +342,7 @@ const SalesKPI = (props) => {
 
     </SafeAreaView>
   );
-}
+}}
 
 const styles = StyleSheet.create({
   container: {
