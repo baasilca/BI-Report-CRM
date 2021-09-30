@@ -34,7 +34,7 @@ const MyStack = (props) => {
     return (
       <View style={{ flexDirection: 'row' }}>
         <StatusBar
-          backgroundColor="#177d99"
+          backgroundColor={AppStyles.Colors.screensHeaderColor}
         />
         <Icons name="menu" size={30} style={{ marginLeft: 10 }}
           color={"#fff"}
@@ -59,10 +59,6 @@ const MyStack = (props) => {
     <Stack.Navigator   >
       <Stack.Screen name="Sales KPI" component={SalesKPI} options={{
         headerShown: false,
-        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
-        headerLeft: () => (
-          <BackButtonAndDrawer {...props} />
-        )
       }} />
       <Stack.Screen name="Convertion Analytics" component={ConvertionAnalyticsMain} options={{
         headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
@@ -113,12 +109,32 @@ const DrawerContent = (props) => {
 
   const { navigation } = props;
   const [active, setActive] = useState('Sales KPI');
+  // console.log('==================', navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
+  //   navigation.dangerouslyGetState().routes[0].state &&
+  //   navigation.dangerouslyGetState().routes[0].state.routes[
+  //   (navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
+  //     navigation.dangerouslyGetState().routes[0].state &&
+  //     navigation.dangerouslyGetState().routes[0].state.routes.length) - 1
+  //   ].name);
 
   useEffect(() => {
-    if ((navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
+    const ScreenName = navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
       navigation.dangerouslyGetState().routes[0].state &&
-      navigation.dangerouslyGetState().routes[0].state.routes.length) === 1) {
-      setActive("Sales KPI")
+      navigation.dangerouslyGetState().routes[0].state.routes[
+        (navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
+          navigation.dangerouslyGetState().routes[0].state &&
+          navigation.dangerouslyGetState().routes[0].state.routes.length) - 1].name
+    if (
+      ScreenName === "Sales KPI" ||
+      ScreenName === "Convertion Analytics" ||
+      ScreenName === "Yearly Overview" ||
+      ScreenName === "Sales Executive Overview" ||
+      ScreenName === "Aging Statistics" ||
+      ScreenName === "Aging Statistics" ||
+      ScreenName === "Performance" ||
+      ScreenName === "Custom KPI"
+    ) {
+      setActive(ScreenName)
     }
   }, [navigation.dangerouslyGetState()])
 
@@ -188,14 +204,14 @@ const DrawerContent = (props) => {
         }
 
       </DrawerContentScrollView>
-      <View style={{ borderWidth: 0.2, borderColor: '#fff', marginLeft: -10, marginBottom: 15 }}></View>
+      <View style={{ borderWidth: 0.444, borderColor: '#bababa', marginLeft: -10, marginBottom: 15 }}></View>
       <TouchableOpacity style={{ flexDirection: "row", marginLeft: 10, marginBottom: 5 }}
         onPress={() => { alert("logout") }}
       >
         <Icons name="exit-to-app" size={35} style={{ marginLeft: 5, marginTop: -3 }}
           color={"#fff"}
           backgroundColor="black" />
-        <Text style={{ color: "#fff", fontSize: 18, marginLeft: 10 }}>singout</Text>
+        <Text style={{ color: "#fff", fontSize: 18, marginLeft: 10 }}>Sign Out</Text>
       </TouchableOpacity>
 
 
