@@ -7,7 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Swiper from 'react-native-swiper'
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { WebView } from 'react-native-webview';
-import Skeleton from 'biskeleton'
+import DashboardSkeleton from '../Components/DashboardSkeleton'
 import AppStyles from '../AppStyles'
 import ModalSelector from "react-native-modal-selector";
 const _dateRangeOptions = [
@@ -172,7 +172,7 @@ const SalesKPI = (props) => {
   }
   if(isLoading==true){
 return(
-<Skeleton/>
+<DashboardSkeleton/>
 )
   }
 else{
