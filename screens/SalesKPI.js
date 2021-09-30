@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import Swiper from 'react-native-swiper'
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { WebView } from 'react-native-webview';
+import Skeleton from 'biskeleton'
 
 const SalesKPI = (props) => {
   const { navigation } = props
@@ -155,7 +156,12 @@ const SalesKPI = (props) => {
       </View>
     )
   }
-
+  if(isLoading==true){
+return(
+<Skeleton/>
+)
+  }
+else{
   return (
     <SafeAreaView style={styles.MainContainer}>
       <ScrollView
@@ -291,7 +297,7 @@ const SalesKPI = (props) => {
       </Animated.View>
     </SafeAreaView>
   );
-}
+}}
 
 const styles = StyleSheet.create({
   container: {
