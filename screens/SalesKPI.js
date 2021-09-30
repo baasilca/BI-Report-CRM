@@ -8,13 +8,18 @@ import Swiper from 'react-native-swiper'
 import SwiperFlatList from "react-native-swiper-flatlist";
 import { WebView } from 'react-native-webview';
 import AppStyles from '../AppStyles'
-import ModalSelector from 'react-native-modal-selector'
-// import { set } from "immer/dist/internal";
+import ModalSelector from "react-native-modal-selector";
+const _dateRangeOptions = [
+  { key: 'This_Month', label: 'This Month' },
+  { key: 'This_Quarter', label: 'This Quarter' },
+  { key: 'This_Year', label: 'This Year' },
+  { key: 'Life_Time', label: 'Life Time' },
+];
 
 const SalesKPI = (props) => {
   const { navigation } = props
   const { data, isLoading, isError } = useGetSalesKPIQuery()
-  const [filterValue, setFilterValue] = useState('')
+  const [filterValue, setFilterValue] = useState({ key: 'today', label: 'Today' })
   const abc = useRef()
   const Header_Maximum_Height = Platform.OS == 'ios' ? 250 : 180;
   const Header_Minimum_Height = Platform.OS == 'ios' ? 90 : 50;
@@ -22,18 +27,6 @@ const SalesKPI = (props) => {
   const AnimatedHeaderValue = new Animated.Value(0);
   const AnStatusBar = Animated.createAnimatedComponent(StatusBar)
   const AnIcon = Animated.createAnimatedComponent(Icon)
-  let index = 0;
-  const FilterData = [
-    { key: index++, section: true, label: 'Fruits' },
-    { key: index++, label: 'This Month' },
-    { key: index++, label: 'This Quarter' },
-    { key: index++, label: 'This Year' },
-    { key: index++, label: 'Life Time' },
-    // etc...
-    // Can also add additional custom keys which are passed to the onChange callback
-    { key: index++, label: 'Vegetable', customKey: 'Not a fruit' }
-  ];
-
 
   const AnimateHeaderBackgroundColor = AnimatedHeaderValue.interpolate({
     inputRange: [0, Header_Maximum_Height - Header_Minimum_Height],
@@ -52,7 +45,7 @@ const SalesKPI = (props) => {
   });
   const AnimatedMarginTOP = AnimatedHeaderValue.interpolate({
     inputRange: [0, Header_Maximum_Height - Header_Minimum_Height],
-    outputRange: [10, Platform.OS == 'ios' ? 90 : 60],
+    outputRange: [10, Platform.OS == 'ios' ? 140 : 110],
     extrapolate: 'clamp',
   });
   const AnimatedFilterIconWidth = AnimatedHeaderValue.interpolate({
@@ -65,8 +58,9 @@ const SalesKPI = (props) => {
     outputRange: [Header_Maximum_Height, Header_Minimum_Height],
     extrapolate: 'clamp',
   });
-  const set =(item)=>{
-setFilterValue(item)
+
+  const onChanageDateRangeOption = (option) => {
+    setFilterValue(option);
   }
 
   const SwiperCards = () => {
@@ -297,10 +291,14 @@ setFilterValue(item)
             />
             <Animated.Text style={{ color: HeaderSecondColor, fontSize: 20, marginLeft: 10 }} >Sales KPI</Animated.Text>
             <Animated.View style={{ width: AnimatedFilterIconWidth }}>
-              <Icon name="filter" size={33} color={"#ffa069"} style={{ marginLeft: 130, marginRight: 10 }} />
+              <Icon name="filter" size={33} color={"#ffa069"} style={{ marginLeft: 130, marginRight: 10 }}
+               onPress={() => {
+                abc.current.open()
+              }}
+               />
             </Animated.View>
           </Animated.View>
-          <View style={{ paddingHorizontal: 40, marginTop: 10 }}>
+          <View style={{ paddingHorizontal: 40, marginTop: 10,top:10 }}>
             <View style={{ flexDirection: 'row' }}>
               <Animated.Text style={[styles.headerText, { color: HeaderFirstColor }]} >Sales KPI</Animated.Text>
               <Animated.Text style={{ marginTop: Platform.OS == 'ios' ? 15 : 10, color: HeaderFirstColor, fontSize: Platform.OS == 'ios' ? 20 : 17 }}>({data && data.data.data_details_date})</Animated.Text>
@@ -310,23 +308,25 @@ setFilterValue(item)
             </Card>
           </View>
         </Animated.View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{ flexDirection: 'row',alignSelf:'flex-end',right:20}}>
           <ModalSelector
             ref={abc}
-            data={FilterData}
-            initValue="This Quarter"
-            selectedItemTextStyle={{ color: "red" }}
-            selectTextStyle={{ color: "#fff" }}
-            selectStyle={{ borderWidth: 0 }}
-            onChange={(option) =>
-              // setFilterValue(option.label)
-              set(option.label)
-            }
-             >
-           
+            touchableActiveOpacity={0.9}
+            data={_dateRangeOptions}
+            backdropPressToClose={true}
+            cancelText={"Cancel"}
+            initValue={filterValue.label}
+            onChange={onChanageDateRangeOption}
+            overlayStyle={{ flex: 1, padding: '5%', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.7)' }}
+          >
+            <View style={{ padding: 10 }}>
+              <Text style={{ color: "#fff" }}>
+                {filterValue.label}
+              </Text>
+            </View>
           </ModalSelector>
 
-          <Icon name="filter" size={33} color="#ffa069" style={{}}
+          <Icon name="filter" size={22} color="#ffa069" style={{top:8}}
             onPress={() => {
               abc.current.open()
             }}
@@ -358,7 +358,6 @@ const styles = StyleSheet.create({
   },
   MainContainer: {
     flex: 1,
-    // backgroundColor: "#fff"
   },
 
   Header: {
@@ -391,7 +390,6 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   swiperCardView: {
-    // backgroundColor: "#fff",
     marginTop: Platform.OS == 'ios' ? -25 : 20
   },
   bestSalesMan: {
@@ -407,7 +405,6 @@ const styles = StyleSheet.create({
     marginBottom: -5
   },
   bestSalesGradientView: {
-    // backgroundColor: "#fff",
     margin: 15,
     width: 160,
     padding: 10,

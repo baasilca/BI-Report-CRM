@@ -118,16 +118,24 @@ const DrawerContent = (props) => {
   //   ].name);
 
   useEffect(() => {
-
-    setActive(
-      navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
+    const ScreenName = navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
       navigation.dangerouslyGetState().routes[0].state &&
       navigation.dangerouslyGetState().routes[0].state.routes[
         (navigation.dangerouslyGetState() && navigation.dangerouslyGetState().routes[0] &&
           navigation.dangerouslyGetState().routes[0].state &&
-          navigation.dangerouslyGetState().routes[0].state.routes.length) - 1
-      ].name
-    )
+          navigation.dangerouslyGetState().routes[0].state.routes.length) - 1].name
+    if (
+      ScreenName === "Sales KPI" ||
+      ScreenName === "Convertion Analytics" ||
+      ScreenName === "Yearly Overview" ||
+      ScreenName === "Sales Executive Overview" ||
+      ScreenName === "Aging Statistics" ||
+      ScreenName === "Aging Statistics" ||
+      ScreenName === "Performance" ||
+      ScreenName === "Custom KPI"
+    ) {
+      setActive(ScreenName)
+    }
   }, [navigation.dangerouslyGetState()])
 
   const handleNavigation = useCallback(
