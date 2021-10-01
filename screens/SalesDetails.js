@@ -125,110 +125,121 @@ const SalesDetails = (props) => {
                     <Text style={{ top: 5, fontSize: 13, opacity: 0.5 }}>{designation}</Text>
                 </View>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", marginTop: 10 }}>
 
-                <View>
-                    <View style={{ backgroundColor: "#ffb74d", borderRadius: 50, height: 80, width: 80, left: "30%", justifyContent: "center" }}>
+                <View style={{ flex: 1 }}>
+                    <View style={{ backgroundColor: "#ffb74d", borderRadius: 50, height: 80, width: 80, alignSelf: "center" }}>
                         <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
                             <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>7</Text>
                         </View>
                         <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
+                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 4 }}
                             source={{
                                 uri: 'https://www.crm-app-portal.com/crm/static/logo/hot_opportunity.jpg',
                             }}
                         />
                     </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 20 }}>Hot Opportunity</Text>
+                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center" }}>Hot Opportunity</Text>
                 </View>
-                <View>
-                    <View style={{ backgroundColor: "#F48FB1", borderRadius: 50, height: 80, width: 80, left: "60%", justifyContent: "center" }}>
+
+
+
+                <View style={{ flex: 1 }}>
+                    <View style={{ backgroundColor: "#F48FB1", borderRadius: 50, height: 80, width: 80, alignSelf: "center" }}>
                         <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
                             <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>0</Text>
                         </View>
 
                         <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
+                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 4 }}
                             source={{
                                 uri: 'https://www.crm-app-portal.com/crm/static/logo/this_month_opportunity.png',
                             }}
                         />
 
                     </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 45 }}>This Month Opportunity</Text>
+                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center" }}>This Month Opportunity</Text>
                 </View>
-                <View>
-                    <View style={{ backgroundColor: "#CE93D8", borderRadius: 50, height: 80, width: 80, left: "96%", justifyContent: "center" }}>
+
+
+                <View style={{ flex: 1 }}>
+                    <View style={{ backgroundColor: "#CE93D8", borderRadius: 50, height: 80, width: 80, alignSelf: "center" }}>
                         <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
                             <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>58</Text>
                         </View>
 
                         <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
+                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 4 }}
                             source={{
                                 uri: 'https://www.crm-app-portal.com/crm/static/logo/opportunity_due.png',
                             }}
                         />
 
                     </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 75 }}>Due Opportunity</Text>
+                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center" }}>Due Opportunity</Text>
                 </View>
+
 
             </View>
             <View style={{ flexDirection: "row", marginTop: 10 }}>
 
-                <View>
-                    <View style={{ backgroundColor: "#B39DDB", borderRadius: 50, height: 80, width: 80, left: "30%", justifyContent: "center" }}>
+                <View style={{ flex: 1 }}>
+                    <View style={{ backgroundColor: "#B39DDB", borderRadius: 50, height: 80, width: 80, alignSelf: "center" }}>
                         <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
                             <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>1</Text>
                         </View>
                         <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
+                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 4 }}
                             source={{
                                 uri: "https://www.crm-app-portal.com/crm/static/logo/hot_leads.png",
                             }}
                         />
                     </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 20 }}>Hot Leads</Text>
+                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center" }}>Hot Leads</Text>
                 </View>
-                <View>
-                    <View style={{ backgroundColor: "#9FA8DA", borderRadius: 50, height: 80, width: 80, left: "70%", justifyContent: "center" }}>
+
+
+                <View style={{ flex: 1 }}>
+                    <View style={{ backgroundColor: "#9FA8DA", borderRadius: 50, height: 80, width: 80, alignSelf: "center" }}>
                         <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
                             <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>5</Text>
                         </View>
 
                         <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
+                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 4 }}
                             source={{
                                 uri: 'https://www.crm-app-portal.com/crm/static/logo/todays_task.png',
                             }}
                         />
 
                     </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 55 }}>Task Pending Today</Text>
+                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center" }}>Task Pending Today</Text>
                 </View>
-                <View>
-                    <View style={{ backgroundColor: "#90caf9", borderRadius: 50, height: 80, width: 80, left: "110%", justifyContent: "center" }}>
+
+
+                <View style={{ flex: 1 }}>
+                    <View style={{ backgroundColor: "#90caf9", borderRadius: 50, height: 80, width: 80, alignSelf: "center" }}>
                         <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
                             <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>0</Text>
                         </View>
 
                         <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
+                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 4 }}
                             source={{
                                 uri: 'https://www.crm-app-portal.com/crm/static/logo/task_expired.png',
                             }}
                         />
 
                     </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 86 }}>Task Expired</Text>
+                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center" }}>Task Expired</Text>
                 </View>
+
 
             </View>
             <View style={{ flexDirection: "row" }}>
 
             </View>
-            <View style={{ marginTop: 20 }}>
+            <View style={{ marginTop: 20, alignSelf: 'center' }}>
                 <FlatList
                     data={[
                         { title: 'Sale Target', amount: "20,000.00", status: "Achieved", badge: "0%", color: "#321fdb", type: "1" },
