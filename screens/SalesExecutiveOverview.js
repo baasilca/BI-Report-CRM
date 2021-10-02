@@ -42,51 +42,24 @@ const DATA = [
 const SalesExecutiveOverview = (props) => {
 
     const renderItem = ({ item }) => (
-        <View style={{
-            backgroundColor: '#fff',
-            margin: 5,
-            padding: 15,
-            borderLeftWidth: 4,
-            borderBottomWidth: 4,
-            borderLeftColor: "#177d99",
-            borderBottomColor: "#177d99",
-            borderRadius: 10,
-            elevation: 3,
-            marginVertical: 8,
-            marginHorizontal: 30,
-            borderWidth: 0.5,
-            borderTopColor: "#bababa",
-            borderRightColor: "#bababa"
-        }}>
+        <View style={styles.card}>
             <Avatar.Image
                 resizeMode="contain"
                 style={{ backgroundColor: "#e6d3d3", alignSelf: "center" }}
                 size={55}
                 source={{ uri: item.avatar }}
             />
-            <Text style={{ textAlign: "center", top: 3, fontSize: 16, fontWeight: "bold" }}>{item.title}</Text>
-            <Text style={{ textAlign: "center", top: 3, fontSize: 13 }}>{item.description}</Text>
-            <Text style={{ textAlign: "center", top: 5, fontSize: 10 }}>Target (Q3): {item.target}</Text>
-            <Text style={{ textAlign: "center", top: 8, fontSize: 10 }}>Achieved (Q3):: {item.acheived}</Text>
+            <Text style={styles.titleStyle}>{item.title}</Text>
+            <Text style={styles.descriptionStyle}>{item.description}</Text>
+            <Text style={styles.targetStyle}>Target (Q3): {item.target}</Text>
+            <Text style={styles.acheivedStyle}>Achieved (Q3):: {item.acheived}</Text>
             <View style={{ marginTop: 15, alignSelf: "center" }}>
                 <Button
-                    containerStyle={{
-                        width: 80,
-                        height: 30,
-                        backgroundColor: '#eb2459',
-                        padding: 5,
-                        alignItems: 'center',
-                        borderRadius: 30
-                    }}
+                    containerStyle={styles.buttonStyle}
                     style={{ color: 'white', fontSize: 13 }}
                     onPress={() => {
                         props.navigation.navigate('Sales Details', {
-                            title: item.title,
-                            avatar: item.avatar,
-                            designation: item.description,
-                            email: item.email,
-                            mobile: item.mobile,
-                            user: item.profile
+                            data: item,
                         })
                     }}
                 >
@@ -115,6 +88,51 @@ const SalesExecutiveOverview = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    card: {
+        backgroundColor: '#fff',
+        margin: 5,
+        padding: 15,
+        borderLeftWidth: 4,
+        borderBottomWidth: 4,
+        borderLeftColor: "#177d99",
+        borderBottomColor: "#177d99",
+        borderRadius: 10,
+        elevation: 3,
+        marginVertical: 8,
+        marginHorizontal: 30,
+        borderWidth: 0.5,
+        borderTopColor: "#bababa",
+        borderRightColor: "#bababa"
+    },
+    titleStyle: {
+        textAlign: "center",
+        top: 3,
+        fontSize: 16,
+        fontWeight: "bold"
+    },
+    descriptionStyle: {
+        textAlign: "center",
+        top: 3,
+        fontSize: 13
+    },
+    targetStyle: {
+        textAlign: "center",
+        top: 5,
+        fontSize: 10
+    },
+    acheivedStyle: {
+        textAlign: "center",
+        top: 8,
+        fontSize: 10
+    },
+    buttonStyle: {
+        width: 80,
+        height: 30,
+        backgroundColor: '#eb2459',
+        padding: 5,
+        alignItems: 'center',
+        borderRadius: 30
     }
 
 });
