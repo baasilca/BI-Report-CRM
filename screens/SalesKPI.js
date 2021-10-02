@@ -20,7 +20,7 @@ const _dateRangeOptions = [
 const SalesKPI = (props) => {
   const { navigation } = props
   const { data, isLoading, isError } = useGetSalesKPIQuery()
-  const [filterValue, setFilterValue] = useState({ key: 'today', label: 'Today' })
+  const [filterValue, setFilterValue] = useState({ key: 'This_Quarter', label: 'This Quarter' })
   const abc = useRef()
   const Header_Maximum_Height = Platform.OS == 'ios' ? 250 : 180;
   const Header_Minimum_Height = Platform.OS == 'ios' ? 90 : 50;
@@ -73,63 +73,13 @@ const SalesKPI = (props) => {
           barStyle={'light-content'}
         />
         <Swiper showsButtons={false} dotColor={"#808080"} activeDotColor={"#4286F4"} loop={false} height={370} autoplay={false} >
-          <View style={{ padding: 10 }}>
-            {
-              data && data.data.sales_kpi_details.row1.map((item, index) => {
-                return (
-                  <LinearGradient
-                    colors={item.bg}
-                    start={{ x: 0, y: 1 }}
-                    end={{ x: 1, y: 1 }}
-                    style={styles.swiperCards}
-                  >
-                    <View style={{ width: "60%" }}>
-                      <Text style={{ color: "#fff", fontWeight: 'bold', }}>{item.title}</Text>
-                      <Text style={{ fontSize: 22, fontWeight: "bold", color: "#fff" }}>{item.left_value}</Text>
-                    </View>
-
-                    <View style={{ justifyContent: 'center', flexDirection: 'row', flex: 1, alignSelf: 'center', marginLeft: 40 }}>
-                      <View>
-                        <Text style={{ alignSelf: "center", fontWeight: "bold", color: "#fff" }} >{item.value}</Text>
-                        <Text style={{ color: "#fff" }} >{item.text}</Text>
-                      </View>
-                    </View>
-
-                  </LinearGradient>
-                )
-              })
-            }
-          </View>
-
-          <View style={{ padding: 10 }}>
-            {data && data.data.sales_kpi_details.row2.map((item, index) => {
-              return (
-                <LinearGradient
-                  colors={item.bg}
-                  style={{}}
-                  start={{ x: 0, y: 1 }}
-                  end={{ x: 1, y: 1 }}
-                  style={styles.swiperCards}
-                >
-                  <View style={{ justifyContent: "center", alignSelf: "center", flexDirection: 'row', flex: 1 }}>
-                    <View>
-                      <Text style={{ alignSelf: "center", fontWeight: "bold", fontSize: 22, color: "#fff" }}>{item.value}</Text>
-                      <Text style={{ color: "#fff" }}>{item.text}</Text>
-                    </View>
-                  </View>
-                </LinearGradient>
-              )
-            })}
-          </View>
-
-          <View style={{ padding: 10 }}>
-            {data && data.data.sales_kpi_details.row3.map((item, index) => {
-              return (
-                <>
-                  {item.type === 1 ?
+          {data && data.data && data.data.sales_kpi_details && data.data.sales_kpi_details.row1 &&
+            <View style={{ padding: 10 }}>
+              {
+                data && data.data && data.data.sales_kpi_details && data.data.sales_kpi_details.row1 && data.data.sales_kpi_details.row1.map((item, index) => {
+                  return (
                     <LinearGradient
                       colors={item.bg}
-                      style={{}}
                       start={{ x: 0, y: 1 }}
                       end={{ x: 1, y: 1 }}
                       style={styles.swiperCards}
@@ -145,58 +95,143 @@ const SalesKPI = (props) => {
                           <Text style={{ color: "#fff" }} >{item.text}</Text>
                         </View>
                       </View>
+
                     </LinearGradient>
-                    :
-                    <LinearGradient
-                      colors={item.bg}
-                      style={{}}
-                      start={{ x: 0, y: 1 }}
-                      end={{ x: 1, y: 1 }}
-                      style={styles.swiperCards}
-                    >
-                      <View style={{ justifyContent: "center", alignSelf: "center", flexDirection: 'row', flex: 1 }}>
-                        <View>
-                          <Text style={{ alignSelf: "center", fontWeight: "bold", fontSize: 22, color: "#fff" }}>{item.value}</Text>
-                          <Text style={{ color: "#fff" }}>{item.text}</Text>
-                        </View>
+                  )
+                })
+              }
+            </View>
+          }
+          {data && data.data && data.data.sales_kpi_details && data.data.sales_kpi_details.row2 &&
+
+            <View style={{ padding: 10 }}>
+              {data && data.data && data.data.sales_kpi_details && data.data.sales_kpi_details.row2 && data.data.sales_kpi_details.row2.map((item, index) => {
+                return (
+                  <LinearGradient
+                    colors={item.bg}
+                    style={{}}
+                    start={{ x: 0, y: 1 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.swiperCards}
+                  >
+                    <View style={{ justifyContent: "center", alignSelf: "center", flexDirection: 'row', flex: 1 }}>
+                      <View>
+                        <Text style={{ alignSelf: "center", fontWeight: "bold", fontSize: 22, color: "#fff" }}>{item.value}</Text>
+                        <Text style={{ color: "#fff" }}>{item.text}</Text>
                       </View>
-                    </LinearGradient>
-                  }
-                </>
-              )
-            })}
-          </View>
+                    </View>
+                  </LinearGradient>
+                )
+              })}
+            </View>
+          }
+          {data && data.data && data.data.sales_kpi_details && data.data.sales_kpi_details.row3 &&
+            <View style={{ padding: 10 }}>
+              {data && data.data && data.data.sales_kpi_details && data.data.sales_kpi_details.row3 && data.data.sales_kpi_details.row3.map((item, index) => {
+                return (
+                  <>
+                    {item.type === 1 ?
+                      <LinearGradient
+                        colors={item.bg}
+                        style={{}}
+                        start={{ x: 0, y: 1 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.swiperCards}
+                      >
+                        <View style={{ width: "60%" }}>
+                          <Text style={{ color: "#fff", fontWeight: 'bold', }}>{item.title}</Text>
+                          <Text style={{ fontSize: 22, fontWeight: "bold", color: "#fff" }}>{item.left_value}</Text>
+                        </View>
+
+                        <View style={{ justifyContent: 'center', flexDirection: 'row', flex: 1, alignSelf: 'center', marginLeft: 40 }}>
+                          <View>
+                            <Text style={{ alignSelf: "center", fontWeight: "bold", color: "#fff" }} >{item.value}</Text>
+                            <Text style={{ color: "#fff" }} >{item.text}</Text>
+                          </View>
+                        </View>
+                      </LinearGradient>
+                      :
+                      <LinearGradient
+                        colors={item.bg}
+                        style={{}}
+                        start={{ x: 0, y: 1 }}
+                        end={{ x: 1, y: 1 }}
+                        style={styles.swiperCards}
+                      >
+                        <View style={{ justifyContent: "center", alignSelf: "center", flexDirection: 'row', flex: 1 }}>
+                          <View>
+                            <Text style={{ alignSelf: "center", fontWeight: "bold", fontSize: 22, color: "#fff" }}>{item.value}</Text>
+                            <Text style={{ color: "#fff" }}>{item.text}</Text>
+                          </View>
+                        </View>
+                      </LinearGradient>
+                    }
+                  </>
+                )
+              })}
+            </View>
+          }
         </Swiper>
       </View>
     )
   }
-  if(isLoading==true){
-return(
-<DashboardSkeleton/>
-)
+  if (isLoading) {
+    return (
+      <DashboardSkeleton />
+    )
   }
-else{
-  return (
-    <SafeAreaView style={styles.MainContainer}>
-      <ScrollView
-        scrollEventThrottle={16}
-        contentContainerStyle={{ paddingTop: Header_Maximum_Height - Content_Border_Radius, zIndex: 9, elevation: 3 }}
-        onScroll={Animated.event([
-          { nativeEvent: { contentOffset: { y: AnimatedHeaderValue } } },
-        ])}>
-        <View style={{ borderTopLeftRadius: Content_Border_Radius, borderTopRightRadius: Content_Border_Radius }}>
-          <View style={styles.swiperCardView}>
-            <SwiperCards />
-            <View>
+  else {
+    return (
+      <SafeAreaView style={styles.MainContainer}>
+        <ScrollView
+          scrollEventThrottle={16}
+          contentContainerStyle={{ paddingTop: Header_Maximum_Height - Content_Border_Radius, zIndex: 9, elevation: 3 }}
+          onScroll={Animated.event([
+            { nativeEvent: { contentOffset: { y: AnimatedHeaderValue } } },
+          ])}>
+          <View style={{ borderTopLeftRadius: Content_Border_Radius, borderTopRightRadius: Content_Border_Radius }}>
+            <View style={styles.swiperCardView}>
+              <SwiperCards />
+              <View>
+                <View style={styles.bestSalesMan}>
+                  <Text style={styles.bestSalesManText}>Best Salesman (Sale)</Text>
+                </View>
+                <SwiperFlatList
+                  style={{ margin: 10 }}
+                  autoplayDelay={6}
+                  autoplayLoop={true}
+                  autoplayLoopKeepAnimation={true}
+                  data={data && data.data.best_salesman.sale}
+                  renderItem={({ item }) =>
+                    <View style={{ margin: -10 }}>
+                      <LinearGradient
+                        colors={["#fff", "#fff"]}
+                        style={styles.bestSalesGradientView}
+                        start={{ x: 0, y: 1 }}
+                        end={{ x: 1, y: 1 }}
+                      >
+                        <View style={{ flexDirection: "row" }}>
+                          <Image style={{ width: 20, height: 20, alignSelf: 'center' }} source={{ uri: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }} />
+                          <Text style={{ marginLeft: 5, width: "80%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>{item.UserName}</Text>
+                        </View>
+                        <Text style={{ fontSize: 12, color: "black" }} numberOfLines={1}>{item.UserEmail}</Text>
+                        <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width: "100%", marginTop: 5 }}>
+                          <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>Sale: {item.sales}</Text>
+                        </View>
+                      </LinearGradient>
+                    </View>
+                  }
+                />
+              </View>
               <View style={styles.bestSalesMan}>
-                <Text style={styles.bestSalesManText}>Best Salesman (Sale)</Text>
+                <Text style={styles.bestSalesManText}>Best Salesman (Gross Profit)</Text>
               </View>
               <SwiperFlatList
                 style={{ margin: 10 }}
                 autoplayDelay={6}
                 autoplayLoop={true}
                 autoplayLoopKeepAnimation={true}
-                data={data && data.data.best_salesman.sale}
+                data={data && data.data.best_salesman.gp}
                 renderItem={({ item }) =>
                   <View style={{ margin: -10 }}>
                     <LinearGradient
@@ -211,138 +246,109 @@ else{
                       </View>
                       <Text style={{ fontSize: 12, color: "black" }} numberOfLines={1}>{item.UserEmail}</Text>
                       <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width: "100%", marginTop: 5 }}>
-                        <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>Sale: {item.sales}</Text>
+                        <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>GP: {item.profit}</Text>
                       </View>
                     </LinearGradient>
                   </View>
                 }
               />
-            </View>
-            <View style={styles.bestSalesMan}>
-              <Text style={styles.bestSalesManText}>Best Salesman (Gross Profit)</Text>
-            </View>
-            <SwiperFlatList
-              style={{ margin: 10 }}
-              autoplayDelay={6}
-              autoplayLoop={true}
-              autoplayLoopKeepAnimation={true}
-              data={data && data.data.best_salesman.gp}
-              renderItem={({ item }) =>
-                <View style={{ margin: -10 }}>
-                  <LinearGradient
-                    colors={["#fff", "#fff"]}
-                    style={styles.bestSalesGradientView}
-                    start={{ x: 0, y: 1 }}
-                    end={{ x: 1, y: 1 }}
-                  >
-                    <View style={{ flexDirection: "row" }}>
-                      <Image style={{ width: 20, height: 20, alignSelf: 'center' }} source={{ uri: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }} />
-                      <Text style={{ marginLeft: 5, width: "80%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>{item.UserName}</Text>
-                    </View>
-                    <Text style={{ fontSize: 12, color: "black" }} numberOfLines={1}>{item.UserEmail}</Text>
-                    <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width: "100%", marginTop: 5 }}>
-                      <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>GP: {item.profit}</Text>
-                    </View>
-                  </LinearGradient>
+              {data && data.data.company_sales &&
+                <View style={{ marginTop: -25, }}>
+                  <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Company Sale</Text>
+                  <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
+                    <WebView style={{ marginTop: 5 }} source={{ html: data && data.data.company_sales }} />
+                  </View>
                 </View>
               }
-            />
-            {data && data.data.company_sales &&
-              <View style={{ marginTop: -25, }}>
-                <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Company Sale</Text>
-                <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
-                  <WebView style={{ marginTop: 5 }} source={{ html: data && data.data.company_sales }} />
+              {data && data.data.top_industry_sale &&
+                <View style={{}}>
+                  <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Industry Sale</Text>
+                  <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
+                    <WebView style={{ marginTop: 5 }} source={{ html: data && data.data.top_industry_sale }} />
+                  </View>
                 </View>
-              </View>
-            }
-            {data && data.data.top_industry_sale &&
-              <View style={{}}>
-                <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Industry Sale</Text>
-                <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
-                  <WebView style={{ marginTop: 5 }} source={{ html: data && data.data.top_industry_sale }} />
+              }
+              {data && data.data.top_source_sale &&
+                <View style={{}}>
+                  <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Source Sale</Text>
+                  <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
+                    <WebView style={{ marginTop: 5 }} source={{ html: data && data.data.top_source_sale }} />
+                  </View>
                 </View>
-              </View>
-            }
-            {data && data.data.top_source_sale &&
-              <View style={{}}>
-                <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Source Sale</Text>
-                <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
-                  <WebView style={{ marginTop: 5 }} source={{ html: data && data.data.top_source_sale }} />
-                </View>
-              </View>
-            }
+              }
+            </View>
           </View>
-        </View>
-      </ScrollView>
-      <Animated.View
-        style={[
-          styles.Header,
-          {
-            height: AnimateHeaderHeight,
-            backgroundColor: AnimateHeaderBackgroundColor,
-            borderBottomLeftRadius: 30,
-            borderBottomRightRadius: 30
-          },
-        ]}>
-        <Animated.View style={{ backgroundColor: AnimateHeaderBackgroundColor }}>
+        </ScrollView>
+        <Animated.View
+          style={[
+            styles.Header,
+            {
+              height: AnimateHeaderHeight,
+              backgroundColor: AnimateHeaderBackgroundColor,
+              borderBottomLeftRadius: 30,
+              borderBottomRightRadius: 30
+            },
+          ]}>
+          <Animated.View style={{ backgroundColor: AnimateHeaderBackgroundColor }}>
 
-          <Animated.View style={{
-            flexDirection: "row",
-            marginTop: AnimatedMarginTOP,
-            alignItems: "center",
-            paddingHorizontal: 40,
-          }}>
-            <Icon name="menu" size={30} color="#fff" style={[{ width: 20 }, Platform.OS == 'ios' && { marginLeft: 20 }]}
-              onPress={() => { navigation.openDrawer() }}
-            />
-            <Animated.Text style={{ color: HeaderSecondColor, fontSize: 20, marginLeft: 10 }} >Sales KPI</Animated.Text>
-            <Animated.View style={{ width: AnimatedFilterIconWidth }}>
-              <Icon name="filter" size={33} color={"#ffa069"} style={{ marginLeft: 130, marginRight: 10 }}
-               onPress={() => {
+            <Animated.View style={{
+              flexDirection: "row",
+              marginTop: AnimatedMarginTOP,
+              alignItems: "center",
+              paddingHorizontal: 40,
+            }}>
+              <Icon name="menu" size={30} color="#fff" style={[{ width: 20 }, Platform.OS == 'ios' && { marginLeft: 20 }]}
+                onPress={() => { navigation.openDrawer() }}
+              />
+              <Animated.Text style={{ color: HeaderSecondColor, fontSize: 20, marginLeft: 10 }} >Sales KPI</Animated.Text>
+              <Animated.View style={{ width: AnimatedFilterIconWidth }}>
+                <Icon name="filter" size={33} color={"#ffa069"} style={{ marginLeft: 130, marginRight: 10 }}
+                  onPress={() => {
+                    abc.current.open()
+                  }}
+                />
+              </Animated.View>
+            </Animated.View>
+            <View style={{ paddingHorizontal: 40, marginTop: 10, top: 10 }}>
+              <View style={{ flexDirection: 'row' }}>
+                <Animated.Text style={[styles.headerText, { color: HeaderFirstColor }]} >Sales KPI</Animated.Text>
+                <Animated.Text style={{ marginTop: Platform.OS == 'ios' ? 15 : 10, color: HeaderFirstColor, fontSize: Platform.OS == 'ios' ? 20 : 17 }}>({data && data.data.data_details_date})</Animated.Text>
+              </View>
+              <Card style={{ backgroundColor: "#f79179", borderRadius: 30, padding: Platform.OS == 'ios' ? 4 : 2, width: "60%", justifyContent: "center", marginBottom: 5 }}>
+                <Text style={{ color: "#fff", alignSelf: "center", fontWeight: 'bold' }}>Remaining Days {data && data.data.remaining_days}</Text>
+              </Card>
+            </View>
+          </Animated.View>
+          <View style={{ flexDirection: 'row', alignSelf: 'flex-end', right: 20 }}>
+            <ModalSelector
+              ref={abc}
+              touchableActiveOpacity={0.9}
+              data={_dateRangeOptions}
+              backdropPressToClose={true}
+              cancelText={"Cancel"}
+              initValue={filterValue.label}
+              onChange={onChanageDateRangeOption}
+              overlayStyle={{ flex: 1, padding: '5%', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.7)' }}
+            >
+              <View style={{ padding: 10 }}>
+                <Text style={{ color: "#fff" }}>
+                  {filterValue.label}
+                </Text>
+              </View>
+            </ModalSelector>
+
+            <Icon name="filter" size={22} color="#ffa069" style={{ top: 8 }}
+              onPress={() => {
                 abc.current.open()
               }}
-               />
-            </Animated.View>
-          </Animated.View>
-          <View style={{ paddingHorizontal: 40, marginTop: 10,top:10 }}>
-            <View style={{ flexDirection: 'row' }}>
-              <Animated.Text style={[styles.headerText, { color: HeaderFirstColor }]} >Sales KPI</Animated.Text>
-              <Animated.Text style={{ marginTop: Platform.OS == 'ios' ? 15 : 10, color: HeaderFirstColor, fontSize: Platform.OS == 'ios' ? 20 : 17 }}>({data && data.data.data_details_date})</Animated.Text>
-            </View>
-            <Card style={{ backgroundColor: "#f79179", borderRadius: 30, padding: Platform.OS == 'ios' ? 4 : 2, width: "60%", justifyContent: "center", marginBottom: 5 }}>
-              <Text style={{ color: "#fff", alignSelf: "center", fontWeight: 'bold' }}>Remaining Days {data && data.data.remaining_days}</Text>
-            </Card>
+            />
           </View>
         </Animated.View>
-        <View style={{ flexDirection: 'row',alignSelf:'flex-end',right:20}}>
-          <ModalSelector
-            ref={abc}
-            touchableActiveOpacity={0.9}
-            data={_dateRangeOptions}
-            backdropPressToClose={true}
-            cancelText={"Cancel"}
-            initValue={filterValue.label}
-            onChange={onChanageDateRangeOption}
-            overlayStyle={{ flex: 1, padding: '5%', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.7)' }}
-          >
-            <View style={{ padding: 10 }}>
-              <Text style={{ color: "#fff" }}>
-                {filterValue.label}
-              </Text>
-            </View>
-          </ModalSelector>
 
-          <Icon name="filter" size={22} color="#ffa069" style={{top:8}}
-            onPress={() => {
-              abc.current.open()
-            }}
-          />
-        </View>
-      </Animated.View>
-
-    </SafeAreaView>
-  );
-}}
+      </SafeAreaView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   container: {
