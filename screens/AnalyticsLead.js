@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper'
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import moment from "moment";
 
 import ModalSelector from "react-native-modal-selector";
 const _dateRangeOptions = [
@@ -17,17 +18,17 @@ const AnalyticsLead = (props) => {
 
     const [filterValue, setFilterValue] = useState({ key: 'today', label: 'Today' })
     const abc = useRef()
+    const [startDate, setstartDate] = useState()
+    const [endDate, setendDate] = useState()
 
     const onChanageDateRangeOption = (option) => {
         if (option.label === 'Custom Range') {
             props.navigation.navigate('CustomRange', {
                 callback: (item) => {
-
-                    console.log(item);
-
+                    setstartDate(JSON.stringify(moment(item.startDate).format('DD-MM-YYYY')))
+                    setendDate(JSON.stringify(moment(item.endDate).format('DD-MM-YYYY')))
                 },
             })
-
         }
         setFilterValue(option);
     }
@@ -58,7 +59,26 @@ const AnalyticsLead = (props) => {
                     }}
                 />
             </View>
-            <Card style={styles.cardContainer}>
+            {filterValue.label === 'Custom Range' ?
+                <>
+                    <View style={{ alignSelf: "flex-end", right: 200, bottom: 20 }}>
+                        <Text style={{ fontSize: 10, top: 15 }}>from</Text>
+                        <Text style={{ fontSize: 10, left: 100 }}>To</Text>
+
+                        <View style={{ width: 90, height: 25, backgroundColor: "#fff", borderWidth: 0.444 }}>
+                            <Text style={{ left: 5 }}>{startDate}</Text>
+
+                        </View>
+                        <View style={{ width: 90, height: 25, backgroundColor: "#fff", borderWidth: 0.444, left: 100, bottom: 25 }}>
+                            <Text style={{ left: 5 }}>{endDate}</Text>
+
+                        </View>
+                    </View>
+                </>
+                : <View>
+                </View>}
+
+            <Card style={[styles.cardContainer, { bottom: filterValue.label === 'Custom Range' ? 30 : 0 }]}>
                 <Text style={styles.heading}>Lead Conversion Analytics</Text>
 
                 <View style={styles.firstRow}>
@@ -107,6 +127,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         padding: 10,
         margin: 10,
+
     },
     heading: {
         fontWeight: "bold",
