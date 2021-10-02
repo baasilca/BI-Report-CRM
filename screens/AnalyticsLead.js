@@ -20,13 +20,17 @@ const AnalyticsLead = (props) => {
 
     const onChanageDateRangeOption = (option) => {
         if (option.label === 'Custom Range') {
-            props.navigation.navigate('CustomRange')
+            props.navigation.navigate('CustomRange', {
+                callback: (item) => {
+
+                    console.log(item);
+
+                },
+            })
+
         }
-        console.log(option)
         setFilterValue(option);
     }
-
-
 
     return (
 
