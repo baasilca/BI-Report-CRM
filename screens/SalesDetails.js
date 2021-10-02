@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, View, FlatList, StyleSheet, Text, StatusBar, Image, ScrollView } from 'react-native';
-import { Appbar, Divider, List, Avatar } from 'react-native-paper';
+import { View, FlatList, StyleSheet, Text, StatusBar, Image, ScrollView, Alert } from 'react-native';
+import { Avatar } from 'react-native-paper';
 
 const SalesDetails = (props) => {
 
     const { route } = props;
-    const { title, avatar, designation, email, mobile, user } = route.params;
+    const { avatar, title, mobile, profile, description, email } = route.params.data;
 
 
     const renderItem = ({ item }) => {
@@ -15,24 +15,7 @@ const SalesDetails = (props) => {
 
             return (
 
-                <View style={{
-                    height: 80,
-                    width: 160,
-                    backgroundColor: "#fff",
-                    padding: 15,
-                    borderLeftWidth: 4,
-                    borderBottomWidth: 4,
-                    borderLeftColor: "red",
-                    borderBottomColor: "green",
-                    borderRadius: 10,
-                    elevation: 3,
-                    marginVertical: 8,
-                    marginHorizontal: 10,
-                    paddingBottom: 35,
-                    borderWidth: 0.5,
-                    borderTopColor: "#bababa",
-                    borderRightColor: "#bababa"
-                }}>
+                <View style={[styles.firstCard, { borderLeftColor: item.color, borderBottomColor: item.color, }]}>
 
                     <Text style={{ fontSize: 13, fontWeight: "bold" }}>{item.title}</Text>
 
@@ -46,26 +29,7 @@ const SalesDetails = (props) => {
             )
         } else {
             return (
-                <View style={{
-                    height: 90,
-                    width: 160,
-                    backgroundColor: "#fff",
-                    padding: 15,
-                    borderLeftWidth: 4,
-                    borderBottomWidth: 4,
-                    borderLeftColor: "red",
-                    borderBottomColor: "green",
-                    borderRadius: 10,
-                    elevation: 3,
-                    marginVertical: 8,
-                    marginHorizontal: 10,
-                    paddingBottom: 35,
-                    borderWidth: 0.5,
-                    borderTopColor: "#bababa",
-                    borderRightColor: "#bababa"
-                }}>
-
-
+                <View style={[styles.secondCard, { borderLeftColor: item.color, borderBottomColor: item.color, }]}>
 
                     <Text style={{ fontSize: 13, fontWeight: "bold", textAlign: "center" }}>{item.amount}</Text>
 
@@ -74,171 +38,153 @@ const SalesDetails = (props) => {
 
                 </View>
             )
-
         }
     }
-
 
     return (
         <ScrollView>
             <StatusBar
                 backgroundColor="#177d99"
             />
-            <View style={{
-                backgroundColor: '#fff',
-                margin: 5,
-                padding: 15,
-                borderLeftWidth: 4,
-                borderBottomWidth: 4,
-                borderLeftColor: "#177d99",
-                borderBottomColor: "#177d99",
-                borderRadius: 10,
-                elevation: 3,
-                marginVertical: 8,
-                marginHorizontal: 40,
-                paddingBottom: 30,
-                borderWidth: 0.5,
-                borderTopColor: "#bababa",
-                borderRightColor: "#bababa"
-            }}>
+            <View style={styles.mainCard}>
                 <Avatar.Image
                     resizeMode="contain"
                     style={{ backgroundColor: "#e6d3d3", alignSelf: "center" }}
                     size={55}
                     source={{ uri: avatar }}
+
                 />
                 <Text style={{ textAlign: "center", top: 3, fontSize: 16, fontWeight: "bold" }}>{title}</Text>
                 <View style={{ flexDirection: "row", top: 5 }}>
-                    <Text style={{ top: 5, fontSize: 13, opacity: 0.5 }}>Mobile: </Text>
-                    <Text style={{ top: 5, fontSize: 13, opacity: 0.5 }}>{mobile}</Text>
+                    <Text style={styles.cardText}>Mobile: </Text>
+                    <Text style={styles.cardText}>{mobile}</Text>
                 </View>
                 <View style={{ flexDirection: "row", top: 5 }}>
-                    <Text style={{ top: 5, fontSize: 13, opacity: 0.5 }}>Email: </Text>
-                    <Text style={{ top: 5, fontSize: 13, opacity: 0.5 }}>{email}</Text>
+                    <Text style={styles.cardText}>Email: </Text>
+                    <Text style={styles.cardText}>{email}</Text>
                 </View>
                 <View style={{ flexDirection: "row", top: 5 }}>
-                    <Text style={{ top: 5, fontSize: 13, opacity: 0.5 }}>Profile: </Text>
-                    <Text style={{ top: 5, fontSize: 13, opacity: 0.5 }}>{user}</Text>
+                    <Text style={styles.cardText}>Profile: </Text>
+                    <Text style={styles.cardText}>{profile}</Text>
                 </View>
                 <View style={{ flexDirection: "row", top: 5 }}>
-                    <Text style={{ top: 5, fontSize: 13, opacity: 0.5 }}>Designation: </Text>
-                    <Text style={{ top: 5, fontSize: 13, opacity: 0.5 }}>{designation}</Text>
+                    <Text style={styles.cardText}>Designation: </Text>
+                    <Text style={styles.cardText}>{description}</Text>
                 </View>
             </View>
-            <View style={{ flexDirection: "row" }}>
+            <View style={{ flexDirection: "row", marginTop: 10 }}>
 
-                <View>
-                    <View style={{ backgroundColor: "#ffb74d", borderRadius: 50, height: 80, width: 80, left: "30%", justifyContent: "center" }}>
-                        <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
-                            <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>7</Text>
+                <View style={{ flex: 1 }}>
+                    <View style={[styles.NotificationCircle, { backgroundColor: "#ffb74d" }]}>
+                        <View style={styles.badge}>
+                            <Text style={styles.badgeText}>7</Text>
                         </View>
                         <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
-                            source={{
-                                uri: 'https://www.crm-app-portal.com/crm/static/logo/hot_opportunity.jpg',
-                            }}
+                            style={styles.imageStyle}
+                            source={require('../assets/hot_opportunity.jpg')}
                         />
                     </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 20 }}>Hot Opportunity</Text>
+                    <Text style={styles.label}>Hot Opportunity</Text>
                 </View>
-                <View>
-                    <View style={{ backgroundColor: "#F48FB1", borderRadius: 50, height: 80, width: 80, left: "60%", justifyContent: "center" }}>
-                        <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
-                            <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>0</Text>
-                        </View>
 
-                        <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
-                            source={{
-                                uri: 'https://www.crm-app-portal.com/crm/static/logo/this_month_opportunity.png',
-                            }}
-                        />
 
-                    </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 45 }}>This Month Opportunity</Text>
-                </View>
-                <View>
-                    <View style={{ backgroundColor: "#CE93D8", borderRadius: 50, height: 80, width: 80, left: "96%", justifyContent: "center" }}>
-                        <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
-                            <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>58</Text>
+
+                <View style={{ flex: 1 }}>
+                    <View style={[styles.NotificationCircle, { backgroundColor: "#F48FB1" }]}>
+                        <View style={styles.badge}>
+                            <Text style={styles.badgeText}>0</Text>
                         </View>
 
                         <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
-                            source={{
-                                uri: 'https://www.crm-app-portal.com/crm/static/logo/opportunity_due.png',
-                            }}
+                            style={styles.imageStyle}
+                            source={require('../assets/this_month_opportunity.png')}
                         />
 
                     </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 75 }}>Due Opportunity</Text>
+                    <Text style={styles.label}>This Month Opportunity</Text>
                 </View>
+
+
+                <View style={{ flex: 1 }}>
+                    <View style={[styles.NotificationCircle, { backgroundColor: "#CE93D8" }]}>
+                        <View style={styles.badge}>
+                            <Text style={styles.badgeText}>58</Text>
+                        </View>
+
+                        <Image
+                            style={styles.imageStyle}
+                            source={require('../assets/opportunity_due.png')}
+                        />
+
+                    </View>
+                    <Text style={styles.label}>Due Opportunity</Text>
+                </View>
+
 
             </View>
             <View style={{ flexDirection: "row", marginTop: 10 }}>
 
-                <View>
-                    <View style={{ backgroundColor: "#B39DDB", borderRadius: 50, height: 80, width: 80, left: "30%", justifyContent: "center" }}>
-                        <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
-                            <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>1</Text>
+                <View style={{ flex: 1 }}>
+                    <View style={[styles.NotificationCircle, { backgroundColor: "#B39DDB" }]}>
+                        <View style={styles.badge}>
+                            <Text style={styles.badgeText}>1</Text>
                         </View>
                         <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
-                            source={{
-                                uri: "https://www.crm-app-portal.com/crm/static/logo/hot_leads.png",
-                            }}
+                            style={styles.imageStyle}
+                            source={require('../assets/hot_leads.png')}
                         />
                     </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 20 }}>Hot Leads</Text>
+                    <Text style={styles.label}>Hot Leads</Text>
                 </View>
-                <View>
-                    <View style={{ backgroundColor: "#9FA8DA", borderRadius: 50, height: 80, width: 80, left: "70%", justifyContent: "center" }}>
-                        <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
-                            <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>5</Text>
-                        </View>
 
-                        <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
-                            source={{
-                                uri: 'https://www.crm-app-portal.com/crm/static/logo/todays_task.png',
-                            }}
-                        />
 
-                    </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 55 }}>Task Pending Today</Text>
-                </View>
-                <View>
-                    <View style={{ backgroundColor: "#90caf9", borderRadius: 50, height: 80, width: 80, left: "110%", justifyContent: "center" }}>
-                        <View style={{ backgroundColor: "red", width: 20, height: 20, borderRadius: 30, alignSelf: "flex-end", justifyContent: "center" }}>
-                            <Text style={{ color: "#fff", alignSelf: "center", fontSize: 10 }}>0</Text>
+                <View style={{ flex: 1 }}>
+                    <View style={[styles.NotificationCircle, { backgroundColor: "#9FA8DA" }]}>
+                        <View style={styles.badge}>
+                            <Text style={styles.badgeText}>5</Text>
                         </View>
 
                         <Image
-                            style={{ height: 40, width: 40, alignSelf: "center", bottom: 8 }}
-                            source={{
-                                uri: 'https://www.crm-app-portal.com/crm/static/logo/task_expired.png',
-                            }}
+                            style={styles.imageStyle}
+                            source={require('../assets/todays_task.png')}
                         />
 
                     </View>
-                    <Text style={{ fontSize: 10, color: "black", alignSelf: "center", left: 86 }}>Task Expired</Text>
+                    <Text style={styles.label}>Task Pending Today</Text>
                 </View>
+
+
+                <View style={{ flex: 1 }}>
+                    <View style={[styles.NotificationCircle, { backgroundColor: "#90caf9" }]}>
+                        <View style={styles.badge}>
+                            <Text style={styles.badgeText}>0</Text>
+                        </View>
+
+                        <Image
+                            style={styles.imageStyle}
+                            source={require('../assets/task_expired.png')}
+                        />
+
+                    </View>
+                    <Text style={styles.label}>Task Expired</Text>
+                </View>
+
 
             </View>
             <View style={{ flexDirection: "row" }}>
 
             </View>
-            <View style={{ marginTop: 20 }}>
+            <View style={{ marginTop: 20, alignSelf: 'center' }}>
                 <FlatList
                     data={[
-                        { title: 'Sale Target', amount: "20,000.00", status: "Achieved", badge: "0%", type: "1" },
-                        { title: 'Sale', amount: "0.00", status: "Average Sale", badge: "0.00", type: "1" },
-                        { title: 'Collection Target', amount: "20,000.00", status: "Reached", badge: "0%", type: "1" },
-                        { title: 'Lead', amount: "0", status: "Qualified", badge: "0%", type: "1" },
-                        { amount: "10,000.00", msg: "Required Average Sales/Day", type: "0" },
-                        { amount: "2", msg: "Number of Sale Conversion Required", type: "0" },
-                        { amount: "6", msg: "Number of Opportunity Required", type: "0" },
-                        { amount: "0.00", msg: "Sales From Existing Customer", type: "0" },
+                        { title: 'Sale Target', amount: "20,000.00", status: "Achieved", badge: "0%", color: "#321fdb", type: "1" },
+                        { title: 'Sale', amount: "0.00", status: "Average Sale", badge: "0.00", color: "#39f", type: "1" },
+                        { title: 'Collection Target', amount: "20,000.00", status: "Reached", badge: "0%", color: "#f9b115", type: "1" },
+                        { title: 'Lead', amount: "0", status: "Qualified", badge: "0%", color: "#e55353", type: "1" },
+                        { amount: "10,000.00", msg: "Required Average Sales/Day", color: "#4CAF50", type: "0" },
+                        { amount: "2", msg: "Number of Sale Conversion Required", color: "#9E9E9E", type: "0" },
+                        { amount: "6", msg: "Number of Opportunity Required", color: "#0044cc", type: "0" },
+                        { amount: "0.00", msg: "Sales From Existing Customer", color: "#F44336", type: "0" },
 
                     ]}
 
@@ -258,6 +204,90 @@ const SalesDetails = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    mainCard: {
+        backgroundColor: '#fff',
+        margin: 5,
+        padding: 15,
+        borderLeftWidth: 4,
+        borderBottomWidth: 4,
+        borderLeftColor: "#177d99",
+        borderBottomColor: "#177d99",
+        borderRadius: 10,
+        elevation: 3,
+        marginVertical: 8,
+        marginHorizontal: 40,
+        paddingBottom: 30,
+        borderWidth: 0.5,
+        borderTopColor: "#bababa",
+        borderRightColor: "#bababa"
+    },
+    firstCard: {
+        height: 80,
+        width: 160,
+        backgroundColor: "#fff",
+        padding: 15,
+        borderLeftWidth: 4,
+        borderBottomWidth: 4,
+        borderRadius: 10,
+        elevation: 3,
+        marginVertical: 8,
+        marginHorizontal: 10,
+        paddingBottom: 35,
+        borderWidth: 0.5,
+        borderTopColor: "#bababa",
+        borderRightColor: "#bababa"
+    },
+    secondCard: {
+        height: 90,
+        width: 160,
+        backgroundColor: "#fff",
+        padding: 15,
+        borderLeftWidth: 4,
+        borderBottomWidth: 4,
+        borderRadius: 10,
+        elevation: 3,
+        marginVertical: 8,
+        marginHorizontal: 10,
+        paddingBottom: 35,
+        borderWidth: 0.5,
+        borderTopColor: "#bababa",
+        borderRightColor: "#bababa"
+    },
+    cardText: {
+        top: 5,
+        fontSize: 13,
+        opacity: 0.5
+    },
+    badge: {
+        backgroundColor: "red",
+        width: 20,
+        height: 20,
+        borderRadius: 30,
+        alignSelf: "flex-end",
+        justifyContent: "center"
+    },
+    badgeText: {
+        color: "#fff",
+        alignSelf: "center",
+        fontSize: 10
+    },
+    label: {
+        fontSize: 10,
+        color: "black",
+        alignSelf: "center"
+    },
+    imageStyle: {
+        height: 40,
+        width: 40,
+        alignSelf: "center",
+        bottom: 4
+    },
+    NotificationCircle: {
+        borderRadius: 50,
+        height: 80,
+        width: 80,
+        alignSelf: "center"
     }
 
 });
