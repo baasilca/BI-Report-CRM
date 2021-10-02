@@ -2,8 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 import { Card } from 'react-native-paper'
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
-import moment from "moment";
-import DateRangePicker from '../Components/dateRangePicker/DateRangePicker'
+
 import ModalSelector from "react-native-modal-selector";
 const _dateRangeOptions = [
     { key: 'today', label: 'Today' },
@@ -14,118 +13,87 @@ const _dateRangeOptions = [
     { key: 'Last_Month', label: 'Last Month' },
     { key: 'Custom_Range', label: 'Custom Range' },
 ];
-const AnalyticsLead = () => {
+const AnalyticsLead = (props) => {
 
     const [filterValue, setFilterValue] = useState({ key: 'today', label: 'Today' })
     const abc = useRef()
 
-    const [startDate, SetStartDate] = useState(null)
-    const [endDate, SetEndDate] = useState(null)
-    const [displayedDate, SetDisplayedDate] = useState(moment())
-    const [openModel, setOpenModel] = useState(false)
-
-
     const onChanageDateRangeOption = (option) => {
+        if (option.label === 'Custom Range') {
+            props.navigation.navigate('CustomRange')
+        }
         console.log(option)
         setFilterValue(option);
     }
 
 
-    const setDates = (dates) => {
-        if (dates.startDate) {
-            SetStartDate(dates.startDate)
-        }
-        if (dates.endDate) {
-            SetEndDate(dates.endDate)
-        }
-        if (dates.displayedDate) {
-            SetDisplayedDate(dates.displayedDate)
-        }
-        if (dates.endDate) {
-            setOpenModel(false)
-
-        }
-    };
-
 
     return (
-        <>
-            <DateRangePicker
-                onChange={setDates}
-                endDate={endDate}
-                startDate={startDate}
-                displayedDate={displayedDate}
-                range
-                open={openModel}
-            >
 
-            </DateRangePicker>
-            <View style={{ flex: 1 }}>
+        <View style={{ flex: 1 }}>
+            <View style={{ flexDirection: 'row', alignSelf: 'flex-end', right: 20 }}>
+                <ModalSelector
+                    ref={abc}
+                    touchableActiveOpacity={0.9}
+                    data={_dateRangeOptions}
+                    backdropPressToClose={true}
+                    cancelText={"Cancel"}
+                    initValue={filterValue.label}
+                    onChange={onChanageDateRangeOption}
+                    overlayStyle={{ flex: 1, padding: '5%', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.7)' }}
+                >
+                    <View style={{ padding: 10 }}>
+                        <Text style={{ color: "black" }}>
+                            {filterValue.label}
+                        </Text>
+                    </View>
+                </ModalSelector>
+                <Icon name="filter" size={22} color="#ffa069" style={{ top: 8 }}
+                    onPress={() => {
+                        abc.current.open()
+                    }}
+                />
+            </View>
+            <Card style={styles.cardContainer}>
+                <Text style={styles.heading}>Lead Conversion Analytics</Text>
 
-                <View style={{ flexDirection: 'row', alignSelf: 'flex-end', right: 20 }}>
-                    <ModalSelector
-                        ref={abc}
-                        touchableActiveOpacity={0.9}
-                        data={_dateRangeOptions}
-                        backdropPressToClose={true}
-                        cancelText={"Cancel"}
-                        initValue={filterValue.label}
-                        onChange={onChanageDateRangeOption}
-                        overlayStyle={{ flex: 1, padding: '5%', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.7)' }}
-                    >
-                        <View style={{ padding: 10 }}>
-                            <Text style={{ color: "black" }}>
-                                {filterValue.label}
-                            </Text>
-                        </View>
-                    </ModalSelector>
-                    <Icon name="filter" size={22} color="#ffa069" style={{ top: 8 }}
-                        onPress={() => {
-                            abc.current.open()
-                        }}
-                    />
+                <View style={styles.firstRow}>
+                    <Text style={styles.textStyle}>14</Text>
                 </View>
-                <Card style={styles.cardContainer}>
-                    <Text style={styles.heading}>Lead Conversion Analytics</Text>
+                <Text style={styles.secondText}>7.14%</Text>
 
-                    <View style={styles.firstRow}>
-                        <Text style={styles.textStyle}>14</Text>
-                    </View>
-                    <Text style={styles.secondText}>7.14%</Text>
+                <View style={styles.secondRow}>
+                    <Text style={styles.textStyle}>1</Text>
+                </View>
+                <Text style={styles.secondText}>100.00%</Text>
 
-                    <View style={styles.secondRow}>
-                        <Text style={styles.textStyle}>1</Text>
-                    </View>
-                    <Text style={styles.secondText}>100.00%</Text>
+                <View style={styles.thirdRow}>
+                    <Text style={styles.textStyle}>1</Text>
+                </View>
+                <Text style={styles.secondText}>0.00%</Text>
 
-                    <View style={styles.thirdRow}>
-                        <Text style={styles.textStyle}>1</Text>
-                    </View>
-                    <Text style={styles.secondText}>0.00%</Text>
+                <View style={styles.fourthRow}>
+                    <Text style={styles.textStyle}>0</Text>
+                </View>
 
-                    <View style={styles.fourthRow}>
-                        <Text style={styles.textStyle}>0</Text>
-                    </View>
+                <View style={{ flexDirection: "row" }}>
 
-                    <View style={{ flexDirection: "row" }}>
+                    <View style={styles.leadsBox}></View>
+                    <Text style={styles.text}>LEADS CREATED</Text>
+                    <View style={styles.leadsConverted}></View>
+                    <Text style={styles.text}> LEADS CONVERTED</Text>
 
-                        <View style={styles.leadsBox}></View>
-                        <Text style={styles.text}>LEADS CREATED</Text>
-                        <View style={styles.leadsConverted}></View>
-                        <Text style={styles.text}> LEADS CONVERTED</Text>
+                </View>
+                <View style={{ flexDirection: "row" }}>
 
-                    </View>
-                    <View style={{ flexDirection: "row" }}>
+                    <View style={styles.opportunityBox}></View>
+                    <Text style={styles.text}> OPPORTUNITY CREATED</Text>
+                    <View style={styles.orderBox}></View>
+                    <Text style={styles.text}> ORDER RECEIVED</Text>
 
-                        <View style={styles.opportunityBox}></View>
-                        <Text style={styles.text}> OPPORTUNITY CREATED</Text>
-                        <View style={styles.orderBox}></View>
-                        <Text style={styles.text}> ORDER RECEIVED</Text>
-
-                    </View>
-                </Card >
-            </View >
-        </>
+                </View>
+            </Card >
+        </View >
     );
 }
 
