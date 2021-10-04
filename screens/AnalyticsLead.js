@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Alert, Platform } from 'react-native';
 import { Card } from 'react-native-paper'
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import moment from "moment";
@@ -68,11 +68,16 @@ const AnalyticsLead = (props) => {
                         </Text>
                     </View>
                 </ModalSelector>
-                <Icon name="filter" size={22} color="#ffa069" style={{ top: filterValue.label === "Custom Range" ? 11 : 8 }}
-                    onPress={() => {
-                        abc.current.open()
+                <TouchableOpacity hitSlop={{ top: 2, bottom: 2, left: 2, right: 2 }} onPress={() => {
+                    abc.current.open()
+                }}>
+                    <Icon name="filter" size={22} color="#ffa069" style={{
+                        top: filterValue.label === "Custom Range" && Platform.OS === "ios" ? 22 :
+                            filterValue.label === "Custom Range" && Platform.OS === "android" ? 11 : 8,
                     }}
-                />
+
+                    />
+                </TouchableOpacity>
             </View>
 
             {filterValue.label === "Custom Range" ?
@@ -91,7 +96,7 @@ const AnalyticsLead = (props) => {
                         },
                     })
                 }} style={{ marginTop: 18, alignSelf: "flex-end", right: 45, bottom: 30 }}>
-                    <View style={{ width: 170, height: 25, backgroundColor: "#fff", borderWidth: 0.444, borderRadius: 5 }}>
+                    <View style={{ width: Platform.OS === "ios" ? 185 : 170, height: 25, backgroundColor: "#fff", borderWidth: 0.444, borderRadius: 5 }}>
                         <View style={{ flexDirection: "row" }}>
                             <Icon name="calendar-multiselect" size={20} color="#177d99" style={{ top: 3, left: 3 }}
 

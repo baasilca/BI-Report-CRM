@@ -171,7 +171,7 @@ const DrawerContent = (props) => {
 
   return (
     <View style={{ backgroundColor: "#177d99", flex: 1 }}>
-      <View style={{ flexDirection: "row", padding: 10 }}>
+      <View style={{ flexDirection: "row", padding: 10, top: Platform.OS === "ios" ? 40 : 0 }}>
         <Avatar.Image
           resizeMode="contain"
           style={{ backgroundColor: "#e6d3d3" }}
