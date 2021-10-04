@@ -23,6 +23,7 @@ const AnalyticsLead = (props) => {
     const [endDate, setendDate] = useState()
     const [eDate, setEDate] = useState()
     const [DDate, setDDate] = useState()
+
     const onChanageDateRangeOption = (option) => {
         if (option.label !== 'Custom Range') {
             setstartDate(null)

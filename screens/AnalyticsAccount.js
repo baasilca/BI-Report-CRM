@@ -1,17 +1,126 @@
-import React, { useState } from "react";
-import { Text, View, StyleSheet } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity, Alert, Platform } from 'react-native';
 import { Card } from 'react-native-paper'
+import Icon from "@expo/vector-icons/MaterialCommunityIcons";
+import moment from "moment";
 import SelectDropdown from './../Components/SelectDropdown';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import ModalSelector from "react-native-modal-selector";
 
-const AnalyticsAccount = () => {
+const _dateRangeOptions = [
+    { key: 'today', label: 'Today' },
+    { key: 'Yesterday', label: 'Yesterday' },
+    { key: 'Last_7_days', label: 'Last 7 Days' },
+    { key: 'Last_30_days', label: 'Last 30 Days' },
+    { key: 'This_Month', label: 'This Month' },
+    { key: 'Last_Month', label: 'Last Month' },
+    { key: 'Custom_Range', label: 'Custom Range' },
+];
 
+const AnalyticsAccount = (props) => {
+
+
+    const [filterValue, setFilterValue] = useState({ key: 'today', label: 'Today' })
+    const abc = useRef()
+    const [startDate, setstartDate] = useState()
+    const [sDate, setSDate] = useState()
+    const [endDate, setendDate] = useState()
+    const [eDate, setEDate] = useState()
+    const [DDate, setDDate] = useState()
     const tagging = ["All", "Premium", "No Website"]
     const KeyCustomer = ["All", "Yes", "No"]
 
+    const onChanageDateRangeOption = (option) => {
+        if (option.label !== 'Custom Range') {
+            setstartDate(null)
+            setSDate(null)
+            setendDate(null)
+            setEDate(null)
+            setDDate(null)
+        }
+        if (option.label === 'Custom Range') {
+            props.navigation.navigate('CustomRange', {
+                callback: (item) => {
+                    setDDate(item.displayedDate)
+                    setSDate(item.startDate)
+                    setEDate(item.endDate)
+                    setstartDate(JSON.stringify(moment(item.startDate).format('DD-MM-YYYY')))
+                    setendDate(JSON.stringify(moment(item.endDate).format('DD-MM-YYYY')))
+                },
+            })
+        }
+        setFilterValue(option);
+    }
     return (
         <View style={{ flex: 1 }}>
-            <Card style={styles.cardContainer}>
+            <View style={{ flexDirection: 'row', alignSelf: 'flex-end', right: 20 }}>
+                <ModalSelector
+                    ref={abc}
+                    touchableActiveOpacity={0.9}
+                    data={_dateRangeOptions}
+                    backdropPressToClose={true}
+                    cancelText={"Cancel"}
+                    initValue={filterValue.label}
+                    onChange={onChanageDateRangeOption}
+                    overlayStyle={{ flex: 1, padding: '5%', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.7)' }}
+                >
+                    <View style={{ padding: 10 }}>
+                        <Text style={{ color: "black" }}>
+                            {filterValue.label === "Custom Range" ?
+                                <View></View>
+                                : filterValue.label}
+                        </Text>
+                    </View>
+                </ModalSelector>
+                <TouchableOpacity hitSlop={{ top: 2, bottom: 2, left: 2, right: 2 }} onPress={() => {
+                    abc.current.open()
+                }}>
+                    <Icon name="filter" size={22} color="#ffa069" style={{
+                        top: filterValue.label === "Custom Range" && Platform.OS === "ios" ? 22 :
+                            filterValue.label === "Custom Range" && Platform.OS === "android" ? 11 : 8,
+                    }}
+
+                    />
+                </TouchableOpacity>
+            </View>
+
+
+            {filterValue.label === "Custom Range" ?
+                <TouchableOpacity onPress={() => {
+                    props.navigation.navigate('CustomRange', {
+                        startdate: sDate,
+                        enddate: eDate,
+                        displaydate: DDate ? DDate : moment(),
+                        fromUpdate: true,
+                        callback: (item) => {
+                            setDDate(item.displayedDate)
+                            setSDate(item.startDate)
+                            setEDate(item.endDate)
+                            setstartDate(JSON.stringify(moment(item.startDate).format('DD-MM-YYYY')))
+                            setendDate(JSON.stringify(moment(item.endDate).format('DD-MM-YYYY')))
+                        },
+                    })
+                }} style={{ marginTop: 18, alignSelf: "flex-end", right: 45, bottom: 30 }}>
+                    <View style={{ width: Platform.OS === "ios" ? 185 : 170, height: 25, backgroundColor: "#fff", borderWidth: 0.444, borderRadius: 5 }}>
+                        <View style={{ flexDirection: "row" }}>
+                            <Icon name="calendar-multiselect" size={20} color="#177d99" style={{ top: 3, left: 3 }}
+
+                            />
+                            {!startDate ?
+                                <Text style={{ left: 5, top: 5, fontSize: 11 }}>Select Date Range</Text>
+                                :
+                                <>
+                                    <Text style={{ left: 5, top: 5, fontSize: 11 }}>{startDate}</Text>
+                                    <Text style={{ left: 5, top: 5, fontSize: 11 }}>--</Text>
+                                    <Text style={{ left: 5, top: 5, fontSize: 11 }}>{endDate}</Text>
+                                </>
+                            }
+                        </View>
+                    </View>
+                </TouchableOpacity> : null}
+
+
+            <Card style={[styles.cardContainer, { bottom: filterValue.label === "Custom Range" ? 30 : 0 }]}>
                 <Text style={styles.heading}>Account Overview</Text>
                 <View style={{ flexDirection: "row" }}>
                     <Text style={{ left: 5, }}>Tagging</Text>
