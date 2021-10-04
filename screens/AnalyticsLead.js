@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import { Card } from 'react-native-paper'
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import moment from "moment";
@@ -19,12 +19,24 @@ const AnalyticsLead = (props) => {
     const [filterValue, setFilterValue] = useState({ key: 'today', label: 'Today' })
     const abc = useRef()
     const [startDate, setstartDate] = useState()
+    const [sDate, setSDate] = useState()
     const [endDate, setendDate] = useState()
-
+    const [eDate, setEDate] = useState()
+    const [DDate, setDDate] = useState()
     const onChanageDateRangeOption = (option) => {
+        if (option.label !== 'Custom Range') {
+            setstartDate(null)
+            setSDate(null)
+            setendDate(null)
+            setEDate(null)
+            setDDate(null)
+        }
         if (option.label === 'Custom Range') {
             props.navigation.navigate('CustomRange', {
                 callback: (item) => {
+                    setDDate(item.displayedDate)
+                    setSDate(item.startDate)
+                    setEDate(item.endDate)
                     setstartDate(JSON.stringify(moment(item.startDate).format('DD-MM-YYYY')))
                     setendDate(JSON.stringify(moment(item.endDate).format('DD-MM-YYYY')))
                 },
@@ -32,6 +44,7 @@ const AnalyticsLead = (props) => {
         }
         setFilterValue(option);
     }
+
 
     return (
 
@@ -49,36 +62,55 @@ const AnalyticsLead = (props) => {
                 >
                     <View style={{ padding: 10 }}>
                         <Text style={{ color: "black" }}>
-                            {filterValue.label}
+                            {filterValue.label === "Custom Range" ?
+                                <View></View>
+                                : filterValue.label}
                         </Text>
                     </View>
                 </ModalSelector>
-                <Icon name="filter" size={22} color="#ffa069" style={{ top: 8 }}
+                <Icon name="filter" size={22} color="#ffa069" style={{ top: filterValue.label === "Custom Range" ? 11 : 8 }}
                     onPress={() => {
                         abc.current.open()
                     }}
                 />
             </View>
-            {filterValue.label === 'Custom Range' ?
-                <>
-                    <View style={{ alignSelf: "flex-end", right: 200, bottom: 20 }}>
-                        <Text style={{ fontSize: 10, top: 15 }}>from</Text>
-                        <Text style={{ fontSize: 10, left: 100 }}>To</Text>
 
-                        <View style={{ width: 90, height: 25, backgroundColor: "#fff", borderWidth: 0.444 }}>
-                            <Text style={{ left: 5 }}>{startDate}</Text>
+            {filterValue.label === "Custom Range" ?
+                <TouchableOpacity onPress={() => {
+                    props.navigation.navigate('CustomRange', {
+                        startdate: sDate,
+                        enddate: eDate,
+                        displaydate: DDate ? DDate : moment(),
+                        fromUpdate: true,
+                        callback: (item) => {
+                            setDDate(item.displayedDate)
+                            setSDate(item.startDate)
+                            setEDate(item.endDate)
+                            setstartDate(JSON.stringify(moment(item.startDate).format('DD-MM-YYYY')))
+                            setendDate(JSON.stringify(moment(item.endDate).format('DD-MM-YYYY')))
+                        },
+                    })
+                }} style={{ marginTop: 18, alignSelf: "flex-end", right: 45, bottom: 30 }}>
+                    <View style={{ width: 170, height: 25, backgroundColor: "#fff", borderWidth: 0.444, borderRadius: 5 }}>
+                        <View style={{ flexDirection: "row" }}>
+                            <Icon name="calendar-multiselect" size={20} color="#177d99" style={{ top: 3, left: 3 }}
 
-                        </View>
-                        <View style={{ width: 90, height: 25, backgroundColor: "#fff", borderWidth: 0.444, left: 100, bottom: 25 }}>
-                            <Text style={{ left: 5 }}>{endDate}</Text>
-
+                            />
+                            {!startDate ?
+                                <Text style={{ left: 5, top: 5, fontSize: 11 }}>Select Date Range</Text>
+                                :
+                                <>
+                                    <Text style={{ left: 5, top: 5, fontSize: 11 }}>{startDate}</Text>
+                                    <Text style={{ left: 5, top: 5, fontSize: 11 }}>--</Text>
+                                    <Text style={{ left: 5, top: 5, fontSize: 11 }}>{endDate}</Text>
+                                </>
+                            }
                         </View>
                     </View>
-                </>
-                : <View>
-                </View>}
+                </TouchableOpacity> : null}
 
-            <Card style={[styles.cardContainer, { bottom: filterValue.label === 'Custom Range' ? 30 : 0 }]}>
+
+            <Card style={[styles.cardContainer, { bottom: filterValue.label === "Custom Range" ? 30 : 0 }]}>
                 <Text style={styles.heading}>Lead Conversion Analytics</Text>
 
                 <View style={styles.firstRow}>
