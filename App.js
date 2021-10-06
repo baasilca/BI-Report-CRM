@@ -17,6 +17,7 @@ import AgingStatistics from './screens/AgingStatistics';
 import Performance from './screens/Performance';
 import CustomKPI from './screens/CustomKPI';
 import SalesDetails from './screens/SalesDetails';
+import CustomRange from './screens/CustomRange';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { store } from './Redux/Store'
@@ -102,6 +103,12 @@ const MyStack = (props) => {
           <BackButtonAndDrawer {...props} />
         )
       }} />
+      <Stack.Screen name="CustomRange" component={CustomRange} options={{
+        headerStyle: { backgroundColor: AppStyles.Colors.screensHeaderColor }, headerTintColor: '#fff',
+        headerLeft: () => (
+          <BackButtonAndDrawer {...props} />
+        )
+      }} />
     </Stack.Navigator>
   )
 }
@@ -164,7 +171,7 @@ const DrawerContent = (props) => {
 
   return (
     <View style={{ backgroundColor: "#177d99", flex: 1 }}>
-      <View style={{ flexDirection: "row", padding: 10 }}>
+      <View style={{ flexDirection: "row", padding: 10, top: Platform.OS === "ios" ? 40 : 0 }}>
         <Avatar.Image
           resizeMode="contain"
           style={{ backgroundColor: "#e6d3d3" }}
