@@ -22,8 +22,8 @@ const _dateRangeOptions = [
 const SalesKPI = (props) => {
   const { navigation } = props
   const [filterValue, setFilterValue] = useState({ key: 'this_quarter', label: 'This Quarter' })
-  const { data, isLoading,isFetching } = useGetSalesKPIQuery({ sales_kpi_sort: filterValue.key});
-
+  const { data, isLoading, isFetching } = useGetSalesKPIQuery({ sales_kpi_sort: filterValue.key });
+  const [appLoaded, setappLoaded] = useState(false)
   const abc = useRef()
   const Header_Maximum_Height = Platform.OS == 'ios' ? 250 : 180;
   const Header_Minimum_Height = Platform.OS == 'ios' ? 90 : 50;
@@ -31,6 +31,12 @@ const SalesKPI = (props) => {
   const AnimatedHeaderValue = new Animated.Value(0);
   const AnStatusBar = Animated.createAnimatedComponent(StatusBar)
   const AnIcon = Animated.createAnimatedComponent(Icon)
+
+  useEffect(() => {
+    if (data && data.data) {
+      setappLoaded(true)
+    }
+  }, [data])
 
   const {
     sales_kpi_details,
@@ -188,11 +194,11 @@ const SalesKPI = (props) => {
     )
   }
 
-  // if (isLoading) {
-  //   return (
-  //     <DashboardSkeleton />
-  //   )
-  // }
+  if (!appLoaded && isLoading) {
+    return (
+      <DashboardSkeleton />
+    )
+  }
   // if (isUpdating) {
   //   return (
   //     <DialogWithLoadingIndicator visible title={"Please Wait..."}/>
@@ -214,66 +220,72 @@ const SalesKPI = (props) => {
         <View style={{ borderTopLeftRadius: Content_Border_Radius, borderTopRightRadius: Content_Border_Radius }}>
           <View style={styles.swiperCardView}>
             <SwiperCards />
-            <View>
-              <View style={styles.bestSalesMan}>
-                <Text style={styles.bestSalesManText}>Best Salesman (Sale)</Text>
-              </View>
-              <SwiperFlatList
-                style={{ margin: 10 }}
-                autoplayDelay={6}
-                autoplayLoop={true}
-                autoplayLoopKeepAnimation={true}
-                data={best_salesman && best_salesman.sale}
-                renderItem={({ item }) =>
-                  <View style={{ margin: -10 }}>
-                    <LinearGradient
-                      colors={["#fff", "#fff"]}
-                      style={styles.bestSalesGradientView}
-                      start={{ x: 0, y: 1 }}
-                      end={{ x: 1, y: 1 }}
-                    >
-                      <View style={{ flexDirection: "row" }}>
-                        <Image style={{ width: 20, height: 20, alignSelf: 'center' }} source={{ uri: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }} />
-                        <Text style={{ marginLeft: 5, width: "80%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>{item.UserName}</Text>
-                      </View>
-                      <Text style={{ fontSize: 12, color: "black" }} numberOfLines={1}>{item.UserEmail}</Text>
-                      <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width: "100%", marginTop: 5 }}>
-                        <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>Sale: {item.sales}</Text>
-                      </View>
-                    </LinearGradient>
-                  </View>
-                }
-              />
-            </View>
-            <View style={styles.bestSalesMan}>
-              <Text style={styles.bestSalesManText}>Best Salesman (Gross Profit)</Text>
-            </View>
-            <SwiperFlatList
-              style={{ margin: 10 }}
-              autoplayDelay={6}
-              autoplayLoop={true}
-              autoplayLoopKeepAnimation={true}
-              data={best_salesman && best_salesman.gp}
-              renderItem={({ item }) =>
-                <View style={{ margin: -10 }}>
-                  <LinearGradient
-                    colors={["#fff", "#fff"]}
-                    style={styles.bestSalesGradientView}
-                    start={{ x: 0, y: 1 }}
-                    end={{ x: 1, y: 1 }}
-                  >
-                    <View style={{ flexDirection: "row" }}>
-                      <Image style={{ width: 20, height: 20, alignSelf: 'center' }} source={{ uri: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }} />
-                      <Text style={{ marginLeft: 5, width: "80%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>{item.UserName}</Text>
-                    </View>
-                    <Text style={{ fontSize: 12, color: "black" }} numberOfLines={1}>{item.UserEmail}</Text>
-                    <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width: "100%", marginTop: 5 }}>
-                      <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>GP: {item.profit}</Text>
-                    </View>
-                  </LinearGradient>
+            {best_salesman && best_salesman.sale &&
+              <View>
+                <View style={styles.bestSalesMan}>
+                  <Text style={styles.bestSalesManText}>Best Salesman (Sale)</Text>
                 </View>
-              }
-            />
+                <SwiperFlatList
+                  style={{ margin: 10 }}
+                  autoplayDelay={6}
+                  // autoplayLoop={true}
+                  // autoplayLoopKeepAnimation={true}
+                  data={best_salesman && best_salesman.sale}
+                  renderItem={({ item }) =>
+                    <View style={{ margin: -10 }}>
+                      <LinearGradient
+                        colors={["#fff", "#fff"]}
+                        style={styles.bestSalesGradientView}
+                        start={{ x: 0, y: 1 }}
+                        end={{ x: 1, y: 1 }}
+                      >
+                        <View style={{ flexDirection: "row" }}>
+                          <Image style={{ width: 20, height: 20, alignSelf: 'center' }} source={{ uri: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }} />
+                          <Text style={{ marginLeft: 5, width: "80%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>{item.UserName}</Text>
+                        </View>
+                        <Text style={{ fontSize: 12, color: "black" }} numberOfLines={1}>{item.UserEmail}</Text>
+                        <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width: "100%", marginTop: 5 }}>
+                          <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>Sale: {item.sales}</Text>
+                        </View>
+                      </LinearGradient>
+                    </View>
+                  }
+                />
+              </View>
+            }
+            {best_salesman && best_salesman.gp &&
+              <>
+                <View style={styles.bestSalesMan}>
+                  <Text style={styles.bestSalesManText}>Best Salesman (Gross Profit)</Text>
+                </View>
+                <SwiperFlatList
+                  style={{ margin: 10 }}
+                  autoplayDelay={6}
+                  // autoplayLoop={true}
+                  // autoplayLoopKeepAnimation={true}
+                  data={best_salesman && best_salesman.gp}
+                  renderItem={({ item }) =>
+                    <View style={{ margin: -10 }}>
+                      <LinearGradient
+                        colors={["#fff", "#fff"]}
+                        style={styles.bestSalesGradientView}
+                        start={{ x: 0, y: 1 }}
+                        end={{ x: 1, y: 1 }}
+                      >
+                        <View style={{ flexDirection: "row" }}>
+                          <Image style={{ width: 20, height: 20, alignSelf: 'center' }} source={{ uri: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }} />
+                          <Text style={{ marginLeft: 5, width: "80%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>{item.UserName}</Text>
+                        </View>
+                        <Text style={{ fontSize: 12, color: "black" }} numberOfLines={1}>{item.UserEmail}</Text>
+                        <View style={{ borderRadius: 5, backgroundColor: "#e8f6ff", padding: 10, width: "100%", marginTop: 5 }}>
+                          <Text style={{ fontWeight: "bold", alignSelf: 'center', fontSize: 12, opacity: 0.8, color: "black" }}>GP: {item.profit}</Text>
+                        </View>
+                      </LinearGradient>
+                    </View>
+                  }
+                />
+              </>
+            }
             {company_sales &&
               <View style={{ marginTop: -25, }}>
                 <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Company Sale</Text>
@@ -366,7 +378,7 @@ const SalesKPI = (props) => {
           />
         </View>
         {
-          isFetching &&
+          appLoaded && isFetching &&
           <DialogWithLoadingIndicator visible title={"Please Wait..."} />
         }
       </Animated.View>
