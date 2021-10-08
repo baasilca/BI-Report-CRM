@@ -1,12 +1,11 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Text, View, TouchableOpacity, Alert } from 'react-native';
 
 const Performance = () => {
+
     return (
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-            <Text>
-                performance
-            </Text>
+        <View>
+                <Text>Next</Text>
         </View>
     );
 }

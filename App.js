@@ -23,7 +23,7 @@ import Icons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { store } from './Redux/Store'
 import { Provider } from 'react-redux'
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { Avatar } from 'react-native-paper';
+import { Avatar ,Provider as PaperProvider} from 'react-native-paper';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -229,6 +229,7 @@ const DrawerContent = (props) => {
 export default function App() {
   return (
     <Provider store={store}>
+      <PaperProvider>
       <NavigationContainer>
         <Drawer.Navigator
           drawerType="slide"
@@ -241,6 +242,7 @@ export default function App() {
           <Drawer.Screen name="Home" component={MyStack} />
         </Drawer.Navigator>
       </NavigationContainer>
+      </PaperProvider>
     </Provider>
   );
 }
