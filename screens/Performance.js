@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, ScrollView, FlatList, Image } from 'react-native';
-import SelectDropdown from './../Components/SelectDropdown';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Divider, Card, IconButton } from 'react-native-paper';
-import { LinearGradient } from 'expo-linear-gradient';
+import { Text, View, TouchableOpacity, Alert } from 'react-native';
 
 const Performance = () => {
+
     return (
-        <ScrollView style={{ flex: 1,margin:'1%' }}>
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text>Business Opportunity Report</Text>
-               
-            </View>
-        </ScrollView>
+        <View>
+                <Text>Next</Text>
+        </View>
     );
 }
 
