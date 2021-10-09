@@ -344,7 +344,7 @@ const SalesKPI = (props) => {
             </Animated.View>
           </Animated.View>
           <View style={{ paddingHorizontal: 40, marginTop: 10, top: 10 }}>
-            <View style={{ flexDirection: 'row',width:300 }}>
+            <View style={{ flexDirection: 'row', width: 300 }}>
               <Animated.Text style={[styles.headerText, { color: HeaderFirstColor }]} >Sales KPI</Animated.Text>
               <Animated.Text style={{ marginTop: Platform.OS == 'ios' ? 15 : 10, color: HeaderFirstColor, fontSize: Platform.OS == 'ios' ? 20 : 17 }}>({data_details_date})</Animated.Text>
             </View>
