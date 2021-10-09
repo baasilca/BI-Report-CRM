@@ -5,51 +5,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { Divider, Card, IconButton } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const filter = [, "2SCFDAFCSDZC019", "20SDFGVDSSCFD20", "20DSFVX21", "2SCFDAFCSDZC019", "20SDFGVDSSCFD20", "20DSFVX21", "2SCFDAFCSDZC019", "20SDFGVDSSCFD20", "20DSFVX21", "2SCFDAFCSDZC019", "20SDFGVDSSCFD20", "20DSFVX21", "2SCFDAFCSDZC019", "20SDFGVDSSCFD20", "20DSFVX21"]
-const Dropdown = () => {
-    return (
-        <SelectDropdown
-            buttonStyle={styles.KeyCustomerButton}
-            buttonTextStyle={{ fontSize: 13 }}
-            data={filter}
-            dropdownStyle={styles.dropdownStyle}
-            defaultButtonText="All"
-            renderDropdownIcon={() => {
-                return (
-                    <MaterialCommunityIcons
-                        name="chevron-down"
-                        color="#099"
-                        size={20}
-                    />
-                )
-            }}
-            onSelect={(selectedItem, index) => {
-                console.log(selectedItem, index)
-            }}
-            buttonTextAfterSelection={(selectedItem, index) => {
-                return selectedItem
-            }}
-            rowTextForSelection={(item, index) => {
-                return item
-            }}
-        />
-
-    )
-}
 const Performance = () => {
     return (
         <ScrollView style={{ flex: 1,margin:'1%' }}>
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text>Business Opportunity Report</Text>
-                <Dropdown />
-            </View>
-            <View style={{}}>
-                <Card style={{
-                    backgroundColor: 'red', width: '90%',
-                    marginLeft: '5%', margin: '1%',
-                }}>
-                    <Text>wsdefrgthjkwsedrftgyui</Text>
-                </Card>
+               
             </View>
         </ScrollView>
     );

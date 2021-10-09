@@ -4,11 +4,11 @@ import SelectDropdown from './../Components/SelectDropdown';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Divider, Card, IconButton } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import Dialog, { DialogContent } from 'react-native-popup-dialog';
+ 
 
+const year = (new Date()).getFullYear();
+const years = Array.from(new Array(3),( val, index) =>   year - index);
 
-const years = ["2019", "2020", "2021"]
 const color = "#dce0dd"
 const tint = "#fff"
 
@@ -21,7 +21,9 @@ const YearlyOverview = () => {
         " telecalling	1	",
         "Exhibition Eng"]
 
-         const [Visible, setVisible] = useState(false)
+         const YearFilter=()=>{
+             return
+         }
 
     const SaleCampaign = () => {
         const renderItem = ({ item }) => (
@@ -89,7 +91,7 @@ const YearlyOverview = () => {
             <LinearGradient
                 colors={["#fff", "#effff9"]}
                 style={{}}
-                start={{ x: 1, y: 5 }}
+                start={{ x: 0, y: 0 }}
                 end={{ x: 0, y: 1 }} >
                 <SelectDropdown
                     buttonStyle={styles.KeyCustomerButton}
