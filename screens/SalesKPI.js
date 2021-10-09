@@ -20,6 +20,10 @@ const _dateRangeOptions = [
 const SalesKPI = (props) => {
   const { navigation } = props
   const { data, isLoading, isError } = useGetSalesKPIQuery()
+  
+console.log("++++++++++++++++++++++++++++++++++++++",data)
+console.log("++++++------------------------++++++++++",isLoading)
+console.log("-=-=-=-=-=-=-==-=-=-=-=-=-=-==-=",isError)
   const [filterValue, setFilterValue] = useState({ key: 'This_Quarter', label: 'This Quarter' })
   const abc = useRef()
   const Header_Maximum_Height = Platform.OS == 'ios' ? 250 : 180;

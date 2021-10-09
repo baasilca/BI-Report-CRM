@@ -4,7 +4,8 @@ import SelectDropdown from './../Components/SelectDropdown';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Divider, Card, IconButton } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
- 
+import { useGetYearlyOverviewQuery } from '../Redux/Slices/yearlyOverview'
+
 
 const year = (new Date()).getFullYear();
 const years = Array.from(new Array(3),( val, index) =>   year - index);
@@ -13,18 +14,21 @@ const color = "#dce0dd"
 const tint = "#fff"
 
 const YearlyOverview = () => {
-    const data = ["Email Marketing Jan 2016- June 2016",
-        " Flyer June-Aug 2016	",
-        " PPC Sep - Desc",
-        "Telemarketing 2017 Jan- Feb	1",
-        "April 2017 E	1	",
-        " telecalling	1	",
-        "Exhibition Eng"]
+    // const data = ["Email Marketing Jan 2016- June 2016",
+    //     " Flyer June-Aug 2016	",
+    //     " PPC Sep - Desc",
+    //     "Telemarketing 2017 Jan- Feb	1",
+    //     "April 2017 E	1	",
+    //     " telecalling	1	",
+    //     "Exhibition Eng"]
 
-         const YearFilter=()=>{
-             return
-         }
+    //      const YearFilter=()=>{
+    //          return
+    //      }
 
+
+const {data,isLoading,isFetching}=useGetYearlyOverviewQuery()
+console.log("++++++++++++++++++++++++++++++++++++++",data)
     const SaleCampaign = () => {
         const renderItem = ({ item }) => (
             <View style={{ flex: 1, flexDirection: 'row', padding: 10, alignItems: 'center', marginBottom: 5 }}>
