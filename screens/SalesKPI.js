@@ -22,7 +22,11 @@ const _dateRangeOptions = [
 const SalesKPI = (props) => {
   const { navigation } = props
   const [filterValue, setFilterValue] = useState({ key: 'this_quarter', label: 'This Quarter' })
-  const { data, isLoading, isFetching } = useGetSalesKPIQuery({ sales_kpi_sort: filterValue.key });
+  const { data, isLoading, isFetching,isError } = useGetSalesKPIQuery({ sales_kpi_sort: filterValue.key });
+
+  // console.log("++++++++++++++++++++++++++++++isError++++++++", isError)
+  // console.log("+++++++++++++++++++++++++++++++++isFetching+++++", isFetching)
+  // console.log("+++++++++++++++++++++++++++isLoading+++++++++++", isLoading)
   const [appLoaded, setappLoaded] = useState(false)
   const abc = useRef()
   const Header_Maximum_Height = Platform.OS == 'ios' ? 250 : 180;

@@ -11,20 +11,3 @@ const Performance = () => {
 }
 
 export default Performance;
-const styles = StyleSheet.create({
-    dropdownStyle: {
-        backgroundColor: '#effff9',
-        borderWidth: .5,
-        borderRadius: 20,
-    }, KeyCustomerButton: {
-        alignSelf: 'flex-start',
-        borderWidth: 0.3,
-        backgroundColor: "#effff9",
-        height: 27,
-        left: 10,
-        margin: '2%',
-        borderRadius: 2,
-        tintColor: 'white',
-        width: "50%"
-    },
-})

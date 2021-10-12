@@ -1,91 +1,111 @@
-import React ,{useState}from 'react';
-import { Text, View, StyleSheet, ScrollView, FlatList, Image } from 'react-native';
-import SelectDropdown from './../Components/SelectDropdown';
+import React, { useState, useEffect } from 'react';
+import { Text, View, StyleSheet, ScrollView, FlatList, Image, Alert } from 'react-native';
+// import SelectDropdown from './../Components/SelectDropdown';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Divider, Card, IconButton } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useGetYearlyOverviewQuery } from '../Redux/Slices/yearlyOverview'
+import SwitchSelector from 'react-native-switch-selector';
 
-
-const year = (new Date()).getFullYear();
-const years = Array.from(new Array(3),( val, index) =>   year - index);
-
-const color = "#dce0dd"
-const tint = "#fff"
+const currentYear = (new Date()).getFullYear();
+const years = Array.from(new Array(3), (val, index) => currentYear - index);
+const sort = years.map((item, index) => (
+    { label: item, value: item }
+)
+)
 
 const YearlyOverview = () => {
-    // const data = ["Email Marketing Jan 2016- June 2016",
-    //     " Flyer June-Aug 2016	",
-    //     " PPC Sep - Desc",
-    //     "Telemarketing 2017 Jan- Feb	1",
-    //     "April 2017 E	1	",
-    //     " telecalling	1	",
-    //     "Exhibition Eng"]
+    const [selectYear, setselectYear] = useState(currentYear)
+    const [appLoaded, setappLoaded] = useState(false)
+    const { data, isLoading, isFetching, isError } = useGetYearlyOverviewQuery({ year: selectYear })
 
-    //      const YearFilter=()=>{
-    //          return
-    //      }
+    const {
+        account,
+        customer,
+        opportunity_closed_lost,
+        opportunity,
+        sales_from_existing_customer,
+        top_industry_sale,
+        top_work_sale,
+        top_source_sale,
+        campaign_wise_sale,
+        top_sale_brought_salesman,
+        top_profit_salesman,
+        top_total_sale_company,
+        sale,
+        sales_and_marketing_exp,
+    } = data && data.data || ";"
 
 
-const {data,isLoading,isFetching}=useGetYearlyOverviewQuery()
-console.log("++++++++++++++++++++++++++++++++++++++",data)
+//   Alert.alert(",.",JSON.stringify(data))
+  console.log("edrftgyh",data);
+    useEffect(() => {
+        if (data && data.data) {
+            setappLoaded(true)
+        }
+    }, [data])
+
     const SaleCampaign = () => {
         const renderItem = ({ item }) => (
-            <View style={{ flex: 1, flexDirection: 'row', padding: 10, alignItems: 'center', marginBottom: 5 }}>
-                <MaterialCommunityIcons
-                    name="checkbox-blank-circle"
-                    color="#099"
-                    size={8}
-                    style={{}}
-                />
-                <Text style={{ width: '40%', marginLeft: 10, color: 'black', }}>{item}</Text>
-                <Text style={{ justifyContent: 'center', alignItems: 'center', width: '22%', fontSize: 14, textAlign: 'center' }}>65</Text>
-                <Text style={{ justifyContent: 'center', alignItems: 'center', width: '28%', fontSize: 14, textAlign: 'right' }}>10,000.00</Text>
+         
+            <Card style={{
+                width: '90%', justifyContent: 'center',
+                marginLeft: '5%', margin: '.5%',
+            }}>
+                <View style={{
+                    flexDirection: 'row',
+                    padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff'
+                }}>
+                    <MaterialCommunityIcons
+                        name="checkbox-blank-circle"
+                        color="#099"
+                        size={8}
+                        style={{}}
+                    />
+                <Text style={{ width: '40%', marginLeft: 10, color: 'black', }}>{item.c_name}</Text>
+                <Text style={{ justifyContent: 'center', alignItems: 'center', width: '22%', fontSize: 14, textAlign: 'center' }}>( {item.count} )</Text>
+                <Text style={{ justifyContent: 'center', alignItems: 'center', width: '28%', fontSize: 14, textAlign: 'right' }}>{item.amount}</Text>
+            
             </View>
+             </Card>  
+         
         )
         return (
-           
-               <Card style={{ width: '90%',  justifyContent:'center',
-                     marginLeft: '5%', margin: '1%', }}>
-                <LinearGradient
-                    colors={["#fff", "#fff"]}
-                    style={{}}
-                    start={{ x: 0, y: 1 }}
-                    end={{ x: 1, y: 1 }} >
+               
                     <FlatList
-                        data={data}
+                        data={campaign_wise_sale}
                         renderItem={renderItem}
-                        keyExtractor={item => item.id}/>
-                </LinearGradient>
-                </Card>
-            
+                        keyExtractor={item => item.id} />
+                
         )
     }
-   
+
 
     const BestSaleman = () => {
         return (
-            <View style={{ flex: 1,  }}>
-                 <Card style={{ width: '90%',  justifyContent:'center',
-                     marginLeft: '5%', margin: '1%', }}>
-                <LinearGradient
-                    colors={["#fff", "#eeff"]}
-                    style={styles.bestSalesGradientView}
-                    start={{ x: 0, y: 1 }}
-                    end={{ x: 1, y: 1 }} >
-                    <View style={{ flexDirection: "row", marginTop: 5 }}>
-                        <Image style={{ width: 20, height: 20, alignSelf: 'center' }} source={{ uri: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }} />
-                        <Text style={{ marginLeft: 5, width: "100%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>TestappMob admin</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', padding: 10 }}>
-                        <Text style={{ justifyContent: 'center', alignItems: 'center', width: '50%', }}>Sale</Text>
-                        <Text style={{ justifyContent: 'center', alignItems: 'center', fontSize: 14, width: '47%', textAlign: 'right' }}>10,000.00</Text>
-                    </View>
-                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 10 }}>
-                        <Text style={{ justifyContent: 'center', alignItems: 'center', width: '50%', }}>Profit(GP)</Text>
-                        <Text style={{ justifyContent: 'center', alignItems: 'center', fontSize: 14, width: '47%', textAlign: 'right' }}>105260.00</Text>
-                    </View>
-                </LinearGradient>
+            <View style={{ flex: 1, marginBottom: 50 }}>
+                <Card style={{
+                    width: '90%', justifyContent: 'center',
+                    marginLeft: '5%', margin: '1%',
+                }}>
+                    <LinearGradient
+                        colors={["#fff", "#fff"]}
+                        style={styles.bestSalesGradientView}
+                        start={{ x: 0, y: 1 }}
+                        end={{ x: 1, y: 1 }} >
+                        <View style={{ flexDirection: "row", marginTop: 5 }}>
+                            <Image style={{ width: 20, height: 20, alignSelf: 'center' }} source={{ uri: 'https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png' }} />
+                            <Text style={{ marginLeft: 5, width: "100%", fontWeight: 'bold', color: "black" }} numberOfLines={1}>TestappMob admin</Text>
+                        </View>
+                        <View style={{ flexDirection: 'row', padding: 10 }}>
+                            <Text style={{ justifyContent: 'center', alignItems: 'center', width: '50%', }}>Sale</Text>
+                            <Text style={{ justifyContent: 'center', alignItems: 'center', fontSize: 14, width: '47%', textAlign: 'right' }}>{top_sale_brought_salesman}</Text>
+                        </View>
+                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', padding: 10 }}>
+                            <Text style={{ justifyContent: 'center', alignItems: 'center', width: '50%', }}>Profit(GP)</Text>
+                            <Text style={{ justifyContent: 'center', alignItems: 'center', fontSize: 14, width: '47%', textAlign: 'right' }}>{top_profit_salesman}</Text>
+                        </View>
+                    </LinearGradient>
                 </Card>
             </View>
         )
@@ -93,220 +113,228 @@ console.log("++++++++++++++++++++++++++++++++++++++",data)
     return (
         <View style={{ flex: 1, }}>
             <LinearGradient
-                colors={["#fff", "#effff9"]}
+                colors={["#fff9e6", '#fff9e6']}
                 style={{}}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 0, y: 1 }} >
-                <SelectDropdown
-                    buttonStyle={styles.KeyCustomerButton}
-                    buttonTextStyle={{ fontSize: 13 }}
-                    data={years}
-                    dropdownStyle={styles.dropdownStyle}
-                    defaultButtonText="All"
-                    renderDropdownIcon={() => {
-                        return (
-                            <MaterialCommunityIcons
-                                name="chevron-down"
-                                color="#099"
-                                size={20}
-                            />
-                        )
-                    }}
-                    onSelect={(selectedItem, index) => {
-                        console.log(selectedItem, index)
-                    }}
-                    buttonTextAfterSelection={(selectedItem, index) => {
-                        return selectedItem
-                    }}
-                    rowTextForSelection={(item, index) => {
-                        return item
-                    }}
+                start={{ x: 1, y: 1 }}
+                end={{ x: 1, y: 1 }} >
+
+                <SwitchSelector
+                    initial={0}
+                    onPress={years => setselectYear(years)}
+                    textColor={'#fff'}
+                    backgroundColor={'#136086'}
+                    selectedColor={'#136086'}
+                    buttonColor={'#fff'}
+                    hasPadding
+                    options={sort}
+                    style={{ margin: '2%', width: '90%', alignSelf: "center" }}
                 />
+
+
+
                 <ScrollView style={{ margin: 5, }}>
                     <View style={styles.row} >
-                         <Text style={styles.propertyTitle}>Total account</Text>
-                         <Card style={{ borderBottomWidth:0,shadowOpacity:'100%',shadowColor:'red',  justifyContent: 'center',  width: '32%',padding:8 }}>
+                        <Text style={styles.propertyTitle}>Total account</Text>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
                                 fontSize: 14,
                                 color: 'black',
                                 alignItems: 'center'
-                            }} >52</Text>
-                       </Card>
+                            }} > {account} </Text>
+                        </Card>
                     </View>
-                    
+                    <Divider />
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>New customers</Text>
-                        <Card style={{ borderBottomWidth:0,shadowOpacity:'100%',shadowColor:'red',  justifyContent: 'center',  width: '32%',padding:8 }}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
                                 fontSize: 14,
                                 color: 'black',
                                 alignItems: 'center'
-                            }} >12</Text>
+                            }} >{customer}</Text>
                         </Card>
                     </View>
+                    <Divider />
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Total opportunity</Text>
-                        <Card style={{ borderBottomWidth:0,shadowOpacity:'100%',shadowColor:'red',  justifyContent: 'center',  width: '32%',padding:8 }}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
                                 fontSize: 14,
                                 color: 'black',
                                 alignItems: 'center'
-                            }} >254</Text>
+                            }} >{opportunity&&opportunity.opportunity}</Text>
                         </Card>
                     </View>
+                    <Divider />
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Opportunity conversion ratio</Text>
-                        <Card style={{ borderBottomWidth:0,shadowOpacity:'100%',shadowColor:'red',  justifyContent: 'center',  width: '32%',padding:8}}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
                                 fontSize: 14,
                                 color: 'black',
                                 alignItems: 'center'
-                            }} >52.6%</Text>
+                            }} >xxxx</Text>
                         </Card>
                     </View>
                     <Divider />
                     <View style={styles.row} >
-                        <Text style={styles.propertyTitle}>Sales From Existing Customers</Text>
-                        <Card style={{ borderBottomWidth:0,shadowOpacity:'100%',shadowColor:'red',  justifyContent: 'center',  width: '32%',padding:8 }}>
+                        <Text style={styles.propertyTitle}>Sales From existing customers</Text>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
                                 fontSize: 14,
                                 color: 'black',
                                 alignItems: 'center'
-                            }} >5300.00</Text>
+                            }} >{sales_from_existing_customer&&sales_from_existing_customer.AMOUNT}</Text>
                         </Card>
                     </View>
                     <Divider />
                     <View style={styles.row} >
-                        <Text style={styles.propertyTitle}>Customer Acquisition Cost</Text>
-                        <Card style={{ borderBottomWidth:0,shadowOpacity:'100%',shadowColor:'red',  justifyContent: 'center',  width: '32%',padding:8 }}>
+                        <Text style={styles.propertyTitle}>Customer acquisition cost</Text>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
                                 fontSize: 14,
                                 color: 'black',
                                 alignItems: 'center'
-                            }} >23000.00</Text>
+                            }} >xxxx</Text>
                         </Card>
                     </View>
                     <Divider />
                     <Divider />
                     <View style={styles.row} >
-                        <Text style={styles.propertyTitle}>Cost per Conversion</Text>
-                        <Card style={{ borderBottomWidth:0,shadowOpacity:'100%',shadowColor:'red',  justifyContent: 'center',  width: '32%',padding:8 }}>
+                        <Text style={styles.propertyTitle}>Cost per conversion</Text>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
                                 fontSize: 14,
                                 color: 'black',
                                 alignItems: 'center'
-                            }} >24530003.00</Text>
+                            }} >xxxx</Text>
                         </Card>
                     </View>
                     <Divider />
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Opportunity lost</Text>
-                        <Card style={{ borderBottomWidth:0,shadowOpacity:'100%',shadowColor:'red',  justifyContent: 'center',  width: '32%',padding:8 }}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
                                 fontSize: 14,
                                 alignItems: 'center', color: "#0077b3"
-                            }} >52</Text>
+                            }} >{opportunity_closed_lost}</Text>
                         </Card>
                     </View>
                     <View style={styles.row} >
-                        <Text style={styles.propertyTitle}>Best sale (Customer)</Text>
+                        <Text style={styles.propertyTitle}>Best sale (customer)</Text>
                     </View>
-                    <Card style={{ width: '90%',  justifyContent:'center',
-                     marginLeft: '5%', margin: '1%', }}>
-                    <View style={{ flexDirection: 'row',
-                     padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff' }}>
-                        <MaterialCommunityIcons
-                            name="checkbox-blank-circle"
-                            color="#099"
-                            size={8}
-                            style={{}}
-                        />
-                        <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}> Emaar group</Text>
-                        <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>5</Text>
-                        <Text style={{   width: '32%', fontSize: 14, textAlign: 'right' }}>10,000.00</Text>
-                    </View>
+                    <Card style={{
+                        width: '90%', justifyContent: 'center',
+                        marginLeft: '5%', margin: '1%',
+                    }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff'
+                        }}>
+                            <MaterialCommunityIcons
+                                name="checkbox-blank-circle"
+                                color="#099"
+                                size={8}
+                                style={{}}
+                            />
+                            <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}>xxxxxxxxx</Text>
+                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>xxxxxxxxx</Text>
+                            <Text style={{ width: '32%', fontSize: 14, textAlign: 'right' }}>xxxxxxxxxx</Text>
+                        </View>
                     </Card>
 
                     <View style={styles.row} >
-                        <Text style={styles.propertyTitle}>Top sale (Work type)</Text>
+                        <Text style={styles.propertyTitle}>Top sale (work type)</Text>
                     </View>
-                    <Card style={{ width: '90%',  justifyContent:'center',
-                     marginLeft: '5%', margin: '1%', }}>
-                    <View style={{ flexDirection: 'row',
-                     padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff' }}>
-                        <MaterialCommunityIcons
-                            name="checkbox-blank-circle"
-                            color="#099"
-                            size={8}
-                            style={{}}
-                        />
-                        <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}> Emaar group</Text>
-                        <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>5</Text>
-                        <Text style={{   width: '32%', fontSize: 14, textAlign: 'right' }}>10,000.00</Text>
-                    </View>
+                    <Card style={{
+                        width: '90%', justifyContent: 'center',
+                        marginLeft: '5%', margin: '1%',
+                    }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff'
+                        }}>
+                            <MaterialCommunityIcons
+                                name="checkbox-blank-circle"
+                                color="#099"
+                                size={8}
+                                style={{}}
+                            />
+                            <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}>{top_work_sale&&top_work_sale.WorkCategory}</Text>
+                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>{top_work_sale&&top_work_sale.sale_count}</Text>
+                            <Text style={{ width: '32%', fontSize: 14, textAlign: 'right' }}>{top_work_sale&&top_work_sale.amount}</Text>
+                        </View>
                     </Card>
                     <View style={styles.row} >
-                        <Text style={styles.propertyTitle}>Top sale (Industry)</Text>
+                        <Text style={styles.propertyTitle}>Top sale (industry)</Text>
                     </View>
-                    <Card style={{ width: '90%',  justifyContent:'center',
-                     marginLeft: '5%', margin: '1%', }}>
-                    <View style={{ flexDirection: 'row',
-                     padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff' }}>
-                        <MaterialCommunityIcons
-                            name="checkbox-blank-circle"
-                            color="#099"
-                            size={8}
-                            style={{}}
-                        />
-                        <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}> Emaar group</Text>
-                        <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>5</Text>
-                        <Text style={{   width: '32%', fontSize: 14, textAlign: 'right' }}>10,000.00</Text>
-                    </View>
+                    <Card style={{
+                        width: '90%', justifyContent: 'center',
+                        marginLeft: '5%', margin: '1%',
+                    }}>
+                        <View style={{
+                            flexDirection: 'row',
+                            padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff'
+                        }}>
+                            <MaterialCommunityIcons
+                                name="checkbox-blank-circle"
+                                color="#099"
+                                size={8}
+                                style={{}}
+                            />
+                            <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}>{top_industry_sale&&top_industry_sale.AccountIndustry}</Text>
+                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>{top_industry_sale&&top_industry_sale.sale_count}</Text>
+                            <Text style={{ width: '32%', fontSize: 14, textAlign: 'right' }}>{top_industry_sale&&top_industry_sale.amount}</Text>
+                        </View>
                     </Card>
                     <View style={styles.row} >
-                        <Text style={styles.propertyTitle}>Top sale (Source)</Text>
+                        <Text style={styles.propertyTitle}>Top sale (source)</Text>
                     </View>
 
-                    <Card style={{ width: '90%',  justifyContent:'center',
-                     marginLeft: '5%', margin: '1%', }}>
-                    <View style={{ flexDirection: 'row',flex:1,
-                     padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff' }}>
-                        <MaterialCommunityIcons
-                            name="checkbox-blank-circle"
-                            color="#099"
-                            size={8}
-                            style={{}}
-                        />
-                        <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}> Emaar group</Text>
-                        <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>5</Text>
-                        <Text style={{   width: '32%', fontSize: 14, textAlign: 'right' }}>10,000.00</Text>
-                    </View>
+                    <Card style={{
+                        width: '90%', justifyContent: 'center',
+                        marginLeft: '5%', margin: '1%',
+                    }}>
+                        <View style={{
+                            flexDirection: 'row', flex: 1,
+                            padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff'
+                        }}>
+                            <MaterialCommunityIcons
+                                name="checkbox-blank-circle"
+                                color="#099"
+                                size={8}
+                                style={{}}
+                            />
+                            <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}>{top_source_sale&&top_source_sale.OpertunitySource}</Text>
+                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>{top_source_sale&&top_source_sale.sale_count}</Text>
+                            <Text style={{ width: '32%', fontSize: 14, textAlign: 'right' }}>{top_source_sale&&top_source_sale.amount}</Text>
+                        </View>
                     </Card>
                     <View style={styles.row} >
-                        <Text style={styles.propertyTitle}>SaleCampaign</Text>
+                        <Text style={styles.propertyTitle}>Sale campaign</Text>
                     </View>
                     <SaleCampaign />
                     <View style={styles.row} >
-                        <Text style={styles.propertyTitle}>{years[0]} best salesman</Text>
+                        <Text style={styles.propertyTitle}>{years[0]} Best salesman</Text>
                     </View>
                     <BestSaleman />
-                    <View style={{height:200,width:200,backgroundColor:'red'}}></View>
+
                 </ScrollView>
             </LinearGradient>
         </View>
@@ -367,7 +395,7 @@ const styles = StyleSheet.create({
         padding: 10,
     },
     bestSalesGradientView: {
-        margin:2,
+        margin: 2,
         padding: 10,
         flex: 1,
     }
