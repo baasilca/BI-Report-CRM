@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import API_CONFIG from '../../Api'
-import { Alert } from 'react-native'
+
 
 export const salesKPIAPI = createApi({
     reducerPath: 'salesKPI',

@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useGetYearlyOverviewQuery } from '../Redux/Slices/yearlyOverview'
 import SwitchSelector from 'react-native-switch-selector';
 import { WebView } from 'react-native-webview';
+import DialogWithLoadingIndicator from '../Components/progressIndicator';
 
 const currentYear = (new Date()).getFullYear();
 const years = Array.from(new Array(3), (val, index) => currentYear - index);
@@ -17,8 +18,8 @@ const sort = mapYears.map((item, index) => (
 )
 
 const YearlyOverview = () => {
-    const [selectYear, setselectYear] = useState(currentYear)
     const [appLoaded, setappLoaded] = useState(false)
+    const [selectYear, setselectYear] = useState( currentYear)
     const { data, isLoading, isFetching, isError } = useGetYearlyOverviewQuery({ year: selectYear })
 
     const {
@@ -44,13 +45,14 @@ const YearlyOverview = () => {
 
 
 //   Alert.alert(",.",JSON.stringify(data))
-  console.log("edrftgyh",data);
+//   console.log("edrftgyh",data);
     useEffect(() => {
         if (data && data.data) {
             setappLoaded(true)
         }
     }, [data])
 
+    
     const SaleCampaign = () => {
         const renderItem = ({ item }) => (
          
@@ -116,6 +118,9 @@ const YearlyOverview = () => {
             </View>
         )
     }
+    if (isFetching===true){
+       return( <DialogWithLoadingIndicator visible title={"Please Wait..."}/>)
+    }else                                   {
     return (
         <View style={{ flex: 1, }}>
             <LinearGradient
@@ -126,7 +131,7 @@ const YearlyOverview = () => {
 
                 <SwitchSelector
                     initial={2}
-                    onPress={years => setselectYear(years)}
+                    onPress={year => setselectYear(year)}
                     textColor={'#fff'}
                     backgroundColor={'#136086'}
                     selectedColor={'#136086'}
@@ -361,7 +366,7 @@ const YearlyOverview = () => {
                 </ScrollView>
             </LinearGradient>
         </View>
-    );
+    );}
 }
 export default YearlyOverview;
 
