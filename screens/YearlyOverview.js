@@ -6,10 +6,12 @@ import { Divider, Card, IconButton } from 'react-native-paper';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useGetYearlyOverviewQuery } from '../Redux/Slices/yearlyOverview'
 import SwitchSelector from 'react-native-switch-selector';
+import { WebView } from 'react-native-webview';
 
 const currentYear = (new Date()).getFullYear();
 const years = Array.from(new Array(3), (val, index) => currentYear - index);
-const sort = years.map((item, index) => (
+const mapYears = years.reverse();
+const sort = mapYears.map((item, index) => (
     { label: item, value: item }
 )
 )
@@ -32,8 +34,12 @@ const YearlyOverview = () => {
         top_sale_brought_salesman,
         top_profit_salesman,
         top_total_sale_company,
-        sale,
-        sales_and_marketing_exp,
+        cost_per_conversion,
+        opportunity_conversion_ratio,
+        customer_acquisition_cost,
+        year_sale_chart,
+        year_opportunity_chart,
+        year_invoice_collection_chart
     } = data && data.data || ";"
 
 
@@ -49,8 +55,8 @@ const YearlyOverview = () => {
         const renderItem = ({ item }) => (
          
             <Card style={{
-                width: '90%', justifyContent: 'center',
-                marginLeft: '5%', margin: '.5%',
+                width: '95%', justifyContent: 'center',alignSelf:'center',
+                margin: '.5%',
             }}>
                 <View style={{
                     flexDirection: 'row',
@@ -63,7 +69,7 @@ const YearlyOverview = () => {
                         style={{}}
                     />
                 <Text style={{ width: '40%', marginLeft: 10, color: 'black', }}>{item.c_name}</Text>
-                <Text style={{ justifyContent: 'center', alignItems: 'center', width: '22%', fontSize: 14, textAlign: 'center' }}>( {item.count} )</Text>
+                <Text style={{ justifyContent: 'center', alignItems: 'center', width: '22%', fontSize: 14, textAlign: 'center',color:'#136086' }}>{item.count}</Text>
                 <Text style={{ justifyContent: 'center', alignItems: 'center', width: '28%', fontSize: 14, textAlign: 'right' }}>{item.amount}</Text>
             
             </View>
@@ -83,10 +89,10 @@ const YearlyOverview = () => {
 
     const BestSaleman = () => {
         return (
-            <View style={{ flex: 1, marginBottom: 50 }}>
+            <View style={{ flex: 1, marginBottom: 0 }}>
                 <Card style={{
-                    width: '90%', justifyContent: 'center',
-                    marginLeft: '5%', margin: '1%',
+                    width: '95%', justifyContent: 'center',
+                    alignSelf:'center',
                 }}>
                     <LinearGradient
                         colors={["#fff", "#fff"]}
@@ -119,7 +125,7 @@ const YearlyOverview = () => {
                 end={{ x: 1, y: 1 }} >
 
                 <SwitchSelector
-                    initial={0}
+                    initial={2}
                     onPress={years => setselectYear(years)}
                     textColor={'#fff'}
                     backgroundColor={'#136086'}
@@ -135,7 +141,7 @@ const YearlyOverview = () => {
                 <ScrollView style={{ margin: 5, }}>
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Total account</Text>
-                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
@@ -148,7 +154,7 @@ const YearlyOverview = () => {
                     <Divider />
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>New customers</Text>
-                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
@@ -161,7 +167,7 @@ const YearlyOverview = () => {
                     <Divider />
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Total opportunity</Text>
-                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
@@ -174,20 +180,20 @@ const YearlyOverview = () => {
                     <Divider />
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Opportunity conversion ratio</Text>
-                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
                                 fontSize: 14,
                                 color: 'black',
                                 alignItems: 'center'
-                            }} >xxxx</Text>
+                            }} >{opportunity_conversion_ratio}</Text>
                         </Card>
                     </View>
                     <Divider />
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Sales From existing customers</Text>
-                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
@@ -200,34 +206,34 @@ const YearlyOverview = () => {
                     <Divider />
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Customer acquisition cost</Text>
-                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
                                 fontSize: 14,
                                 color: 'black',
                                 alignItems: 'center'
-                            }} >xxxx</Text>
+                            }} >{customer_acquisition_cost}</Text>
                         </Card>
                     </View>
                     <Divider />
                     <Divider />
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Cost per conversion</Text>
-                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
                                 fontSize: 14,
                                 color: 'black',
                                 alignItems: 'center'
-                            }} >xxxx</Text>
+                            }} >{cost_per_conversion}</Text>
                         </Card>
                     </View>
                     <Divider />
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Opportunity lost</Text>
-                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', shadowColor: 'red', justifyContent: 'center', width: '32%', padding: 8 }}>
+                        <Card style={{ borderBottomWidth: 0, shadowOpacity: '100%', justifyContent: 'center', width: '32%', padding: 8 }}>
                             <Text style={{
                                 textAlign: 'right',
                                 paddingRight: 15,
@@ -239,10 +245,7 @@ const YearlyOverview = () => {
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Best sale (customer)</Text>
                     </View>
-                    <Card style={{
-                        width: '90%', justifyContent: 'center',
-                        marginLeft: '5%', margin: '1%',
-                    }}>
+                    <Card style={styles.cardViewStyle}>
                         <View style={{
                             flexDirection: 'row',
                             padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff'
@@ -253,19 +256,16 @@ const YearlyOverview = () => {
                                 size={8}
                                 style={{}}
                             />
-                            <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}>xxxxxxxxx</Text>
-                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>xxxxxxxxx</Text>
-                            <Text style={{ width: '32%', fontSize: 14, textAlign: 'right' }}>xxxxxxxxxx</Text>
+                            <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}>{top_total_sale_company&&top_total_sale_company.AccountName}</Text>
+                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center',color:'#136086' }}></Text>
+                            <Text style={{ width: '32%', fontSize: 14, textAlign: 'right' }}>{top_total_sale_company&&top_total_sale_company.amount}</Text>
                         </View>
                     </Card>
 
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Top sale (work type)</Text>
                     </View>
-                    <Card style={{
-                        width: '90%', justifyContent: 'center',
-                        marginLeft: '5%', margin: '1%',
-                    }}>
+                    <Card style={styles.cardViewStyle}>
                         <View style={{
                             flexDirection: 'row',
                             padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff'
@@ -277,17 +277,14 @@ const YearlyOverview = () => {
                                 style={{}}
                             />
                             <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}>{top_work_sale&&top_work_sale.WorkCategory}</Text>
-                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>{top_work_sale&&top_work_sale.sale_count}</Text>
+                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center',color:'#136086' }}>{top_work_sale&&top_work_sale.sale_count}</Text>
                             <Text style={{ width: '32%', fontSize: 14, textAlign: 'right' }}>{top_work_sale&&top_work_sale.amount}</Text>
                         </View>
                     </Card>
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Top sale (industry)</Text>
                     </View>
-                    <Card style={{
-                        width: '90%', justifyContent: 'center',
-                        marginLeft: '5%', margin: '1%',
-                    }}>
+                    <Card style={styles.cardViewStyle}>
                         <View style={{
                             flexDirection: 'row',
                             padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff'
@@ -299,7 +296,7 @@ const YearlyOverview = () => {
                                 style={{}}
                             />
                             <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}>{top_industry_sale&&top_industry_sale.AccountIndustry}</Text>
-                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>{top_industry_sale&&top_industry_sale.sale_count}</Text>
+                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center',color:'#136086' }}>{top_industry_sale&&top_industry_sale.sale_count}</Text>
                             <Text style={{ width: '32%', fontSize: 14, textAlign: 'right' }}>{top_industry_sale&&top_industry_sale.amount}</Text>
                         </View>
                     </Card>
@@ -307,10 +304,7 @@ const YearlyOverview = () => {
                         <Text style={styles.propertyTitle}>Top sale (source)</Text>
                     </View>
 
-                    <Card style={{
-                        width: '90%', justifyContent: 'center',
-                        marginLeft: '5%', margin: '1%',
-                    }}>
+                    <Card style={styles.cardViewStyle}>
                         <View style={{
                             flexDirection: 'row', flex: 1,
                             padding: 10, alignItems: 'center', marginBottom: 5, backgroundColor: '#fff'
@@ -322,7 +316,7 @@ const YearlyOverview = () => {
                                 style={{}}
                             />
                             <Text style={{ width: '40%', marginLeft: 10, color: 'black' }}>{top_source_sale&&top_source_sale.OpertunitySource}</Text>
-                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center' }}>{top_source_sale&&top_source_sale.sale_count}</Text>
+                            <Text style={{ width: '20%', fontSize: 14, textAlign: 'center',color:'#136086' }}>{top_source_sale&&top_source_sale.sale_count}</Text>
                             <Text style={{ width: '32%', fontSize: 14, textAlign: 'right' }}>{top_source_sale&&top_source_sale.amount}</Text>
                         </View>
                     </Card>
@@ -331,10 +325,39 @@ const YearlyOverview = () => {
                     </View>
                     <SaleCampaign />
                     <View style={styles.row} >
-                        <Text style={styles.propertyTitle}>{years[0]} Best salesman</Text>
+                        <Text style={styles.propertyTitle}>{selectYear} Best salesman</Text>
                     </View>
                     <BestSaleman />
-
+                    <View style={styles.row} >
+                        <Text style={styles.propertyTitle}>{selectYear} Sale</Text>
+                    </View>
+                    {year_sale_chart &&
+              <View style={{ marginTop: -15,marginBottom:-15 }}>
+                <Card style={{ height: 160, margin: 15,width:'95%',alignSelf:'center', backgroundColor: "#fff", padding: 5, borderRadius: 5,}}>
+                  <WebView style={{ marginTop: 5 }} source={{ html: year_sale_chart }} />
+                </Card>
+              </View>
+            }
+            <View style={styles.row} >
+                        <Text style={styles.propertyTitle}>{selectYear} Opprtunity</Text>
+                    </View>
+                {year_opportunity_chart &&
+              <View style={{ marginTop: -15,marginBottom:-15 }}>
+              <Card style={{ height: 160, margin: 15,width:'95%', backgroundColor: "#fff",alignSelf:'center',padding: 5, borderRadius: 5, }}>
+              <WebView style={{ marginTop: 5 }} source={{ html: year_opportunity_chart }} />
+            </Card>
+          </View>
+        }
+          <View style={styles.row} >
+                        <Text style={styles.propertyTitle}>{selectYear} Invoice-Collection</Text>
+                    </View>     
+                    {year_invoice_collection_chart &&
+              <View style={{ marginTop: -15,marginBottom:60 }}>
+            <Card style={{ height: 160, margin: 15,width:'95%', backgroundColor: "#fff",alignSelf:'center',padding: 5, borderRadius: 5, }}>
+                  <WebView style={{ marginTop: 5 }} source={{ html: year_invoice_collection_chart }} />
+                </Card>
+              </View>
+            }
                 </ScrollView>
             </LinearGradient>
         </View>
@@ -377,8 +400,8 @@ const styles = StyleSheet.create({
     propertyTitle: {
         justifyContent: 'center', alignItems: 'center',
         fontSize: 14, fontWeight: 'bold', color: '#0077b3',
-        width: '64%',
-        marginLeft: 10,
+        width: '68%',
+        // marginLeft: 10,
         marginTop: 10,
         fontFamily: 'Roboto'
     },
@@ -398,5 +421,10 @@ const styles = StyleSheet.create({
         margin: 2,
         padding: 10,
         flex: 1,
-    }
+    },
+cardViewStyle:{
+    width: '95%', justifyContent: 'center',
+   alignSelf:'center'
+}
+
 });
