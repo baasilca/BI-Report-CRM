@@ -10,7 +10,7 @@ import { WebView } from 'react-native-webview';
 import DashboardSkeleton from '../Components/DashboardSkeleton'
 import AppStyles from '../AppStyles'
 import ModalSelector from "react-native-modal-selector";
-import DialogWithLoadingIndicator from '../Components/progressIndicator';
+import DialogWithLoadingIndicator from 'baasilca-react-native-progrss-loader'
 
 const _dateRangeOptions = [
   { key: 'this_month', label: 'This Month' },
@@ -381,12 +381,11 @@ const SalesKPI = (props) => {
             }}
           />
         </View>
+      </Animated.View>
         {
           appLoaded && isFetching &&
-          <DialogWithLoadingIndicator visible title={"Please Wait..."} />
+            <DialogWithLoadingIndicator visible title={"Please Wait..."} />
         }
-      </Animated.View>
-
     </SafeAreaView>
   );
 }

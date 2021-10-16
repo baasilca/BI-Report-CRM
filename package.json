@@ -16,6 +16,7 @@
     "@react-navigation/stack": "^5.14.5",
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.21.4",
+    "baasilca-react-native-progrss-loader": "^1.0.0",
     "expo": "~41.0.0",
     "expo-image-picker": "^10.2.3",
     "expo-linear-gradient": "^9.2.0",
