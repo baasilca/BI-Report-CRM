@@ -73,21 +73,16 @@ const YearlyOverview = () => {
                 <Text style={{ width: '40%', marginLeft: 10, color: 'black', }}>{item.c_name}</Text>
                 <Text style={{ justifyContent: 'center', alignItems: 'center', width: '22%', fontSize: 14, textAlign: 'center',color:'#136086' }}>{item.count}</Text>
                 <Text style={{ justifyContent: 'center', alignItems: 'center', width: '28%', fontSize: 14, textAlign: 'right' }}>{item.amount}</Text>
-            
             </View>
              </Card>  
-         
         )
         return (
-               
                     <FlatList
                         data={campaign_wise_sale}
                         renderItem={renderItem}
                         keyExtractor={item => item.id} />
-                
         )
     }
-
 
     const BestSaleman = () => {
         return (
@@ -128,7 +123,6 @@ const YearlyOverview = () => {
                 style={{}}
                 start={{ x: 1, y: 1 }}
                 end={{ x: 1, y: 1 }} >
-
                 <SwitchSelector
                     initial={2}
                     onPress={year => setselectYear(year)}
@@ -140,9 +134,6 @@ const YearlyOverview = () => {
                     options={sort}
                     style={{ margin: '2%', width: '90%', alignSelf: "center" }}
                 />
-
-
-
                 <ScrollView style={{ margin: 5, }}>
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Total account</Text>
@@ -266,7 +257,6 @@ const YearlyOverview = () => {
                             <Text style={{ width: '32%', fontSize: 14, textAlign: 'right' }}>{top_total_sale_company&&top_total_sale_company.amount}</Text>
                         </View>
                     </Card>
-
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Top sale (work type)</Text>
                     </View>
@@ -308,7 +298,6 @@ const YearlyOverview = () => {
                     <View style={styles.row} >
                         <Text style={styles.propertyTitle}>Top sale (source)</Text>
                     </View>
-
                     <Card style={styles.cardViewStyle}>
                         <View style={{
                             flexDirection: 'row', flex: 1,
@@ -431,5 +420,4 @@ cardViewStyle:{
     width: '95%', justifyContent: 'center',
    alignSelf:'center'
 }
-
 });
