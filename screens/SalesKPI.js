@@ -290,7 +290,7 @@ const SalesKPI = (props) => {
               <View style={{ marginTop: -25, }}>
                 <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Company Sale</Text>
                 <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
-                  <WebView style={{ marginTop: 5 }} source={{ html: company_sales }} />
+                  <WebView androidHardwareAccelerationDisabled style={{ marginTop: 5 }} source={{ html: company_sales }} />
                 </View>
               </View>
             }
@@ -298,7 +298,7 @@ const SalesKPI = (props) => {
               <View style={{}}>
                 <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Industry Sale</Text>
                 <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
-                  <WebView style={{ marginTop: 5 }} source={{ html: top_industry_sale }} />
+                  <WebView androidHardwareAccelerationDisabled style={{ marginTop: 5 }} source={{ html: top_industry_sale }} />
                 </View>
               </View>
             }
@@ -306,7 +306,7 @@ const SalesKPI = (props) => {
               <View style={{}}>
                 <Text style={[styles.bestSalesManText, { marginLeft: 15, marginBottom: -10 }]}>Source Sale</Text>
                 <View style={{ height: 160, margin: 15, backgroundColor: "#fff", padding: 5, borderRadius: 10, borderWidth: 0.5, borderColor: "#bababa" }}>
-                  <WebView style={{ marginTop: 5 }} source={{ html: top_source_sale }} />
+                  <WebView androidHardwareAccelerationDisabled style={{ marginTop: 5 }} source={{ html: top_source_sale }} />
                 </View>
               </View>
             }
