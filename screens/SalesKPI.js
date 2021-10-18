@@ -11,6 +11,7 @@ import DashboardSkeleton from '../Components/DashboardSkeleton'
 import AppStyles from '../AppStyles'
 import ModalSelector from "react-native-modal-selector";
 import DialogWithLoadingIndicator from 'baasilca-react-native-progrss-loader'
+import useLoader from '../shared/hooks/useLoader';
 
 const _dateRangeOptions = [
   { key: 'this_month', label: 'This Month' },
@@ -23,7 +24,8 @@ const SalesKPI = (props) => {
   const { navigation } = props
   const [filterValue, setFilterValue] = useState({ key: 'this_quarter', label: 'This Quarter' })
   const { data, isLoading, isFetching } = useGetSalesKPIQuery({ sales_kpi_sort: filterValue.key });
-  const [appLoaded, setappLoaded] = useState(false)
+  const { appLoaded } = useLoader(data);
+  // const [appLoaded, setappLoaded] = useState(false)
   const abc = useRef()
   const Header_Maximum_Height = Platform.OS == 'ios' ? 250 : 180;
   const Header_Minimum_Height = Platform.OS == 'ios' ? 90 : 50;
@@ -32,11 +34,11 @@ const SalesKPI = (props) => {
   const AnStatusBar = Animated.createAnimatedComponent(StatusBar)
   const AnIcon = Animated.createAnimatedComponent(Icon)
 
-  useEffect(() => {
-    if (data && data.data) {
-      setappLoaded(true)
-    }
-  }, [data])
+  // useEffect(() => {
+  //   if (data && data.data) {
+  //     setappLoaded(true)
+  //   }
+  // }, [data])
 
   const {
     sales_kpi_details,

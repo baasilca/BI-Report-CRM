@@ -9,120 +9,180 @@ import { Divider } from 'react-native-paper';
 const data1 = [
     {
         label: "Opportunity",
-        value: "25"
+        value: "25",
+        color: "#f9c851"
     },
     {
         label: "Sale Count",
-        value: "11"
+        value: "11",
+        color: "#35b8e0"
     },
     {
         label: "Opportunity Lost",
-        value: "3"
+        value: "3",
+        color: "#ff5b5b"
     },
     {
         label: "Pipeline",
-        value: "11"
+        value: "11",
+        color: "#71b6f9"
     },
     {
         label: "Sale Conversion Ratio",
-        value: "44.00%"
+        value: "44.00%",
+        color: "#ff8acc"
     },
     {
         label: "Average Sale Value",
-        value: "6,272.73"
+        value: "6,272.73",
+        color: "#323a46"
+    },
+    {
+        label: "Revenue",
+        value: "109,500.00",
+        color: "#10c469",
+        revenue: true
     },
 ]
 const data2 = [
     {
         label: "Opportunity",
-        value: "25"
+        value: "25",
+        color: "#f9c851"
     },
     {
         label: "Sale Count",
-        value: "11"
+        value: "11",
+        color: "#35b8e0"
     },
     {
         label: "Opportunity Lost",
-        value: "3"
+        value: "3",
+        color: "#ff5b5b"
     },
     {
         label: "Pipeline",
-        value: "11"
+        value: "11",
+        color: "#71b6f9"
     },
     {
         label: "Sale Conversion Ratio",
-        value: "44.00%"
+        value: "44.00%",
+        color: "#ff8acc"
     },
     {
         label: "Average Sale Value",
-        value: "6,272.73"
+        value: "6,272.73",
+        color: "#323a46"
+    },
+    {
+        label: "Revenue",
+        value: "109,500.00",
+        color: "#10c469",
+        revenue: true
     },
 ]
 const data3 = [
     {
         label: "Opportunity",
-        value: "25"
+        value: "25",
+        color: "#f9c851"
     },
     {
         label: "Sale Count",
-        value: "11"
+        value: "11",
+        color: "#35b8e0"
     },
     {
         label: "Opportunity Lost",
-        value: "3"
+        value: "3",
+        color: "#ff5b5b"
     },
     {
         label: "Pipeline",
-        value: "11"
+        value: "11",
+        color: "#71b6f9"
     },
     {
         label: "Sale Conversion Ratio",
-        value: "44.00%"
+        value: "44.00%",
+        color: "#ff8acc"
     },
     {
         label: "Average Sale Value",
-        value: "6,272.73"
+        value: "6,272.73",
+        color: "#323a46"
+    },
+    {
+        label: "Revenue",
+        value: "109,500.00",
+        color: "#10c469",
+        revenue: true
     },
 ]
 const data4 = [
     {
         label: "Opportunity",
-        value: "25"
+        value: "25",
+        color: "#f9c851"
     },
     {
         label: "Sale Count",
-        value: "11"
+        value: "11",
+        color: "#35b8e0"
     },
     {
         label: "Opportunity Lost",
-        value: "3"
+        value: "3",
+        color: "#ff5b5b"
     },
     {
         label: "Pipeline",
-        value: "11"
+        value: "11",
+        color: "#71b6f9"
     },
     {
         label: "Sale Conversion Ratio",
-        value: "44.00%"
+        value: "44.00%",
+        color: "#ff8acc"
     },
     {
         label: "Average Sale Value",
-        value: "6,272.73"
+        value: "6,272.73",
+        color: "#323a46"
+    },
+    {
+        label: "Revenue",
+        value: "109,500.00",
+        color: "#10c469",
+        revenue: true
     },
 ]
 
-const PropertyRow = ({ label, value }) => {
+const PropertyRow = ({ label, value, revenue, color }) => {
     return (
-        <View style={styles.contentViewStyle}>
-            <Text style={styles.contentLabelStyle}>{label}</Text>
-            <Text style={styles.contentValueStyle}>{value}</Text>
-        </View>
+        <>
+            <View style={[styles.contentViewStyle,revenue&&{top:5}]}>
+                {revenue ?
+                    <>
+                        <Text style={[styles.contentRevenueLabelStyle, { color: color }]}>{label}</Text>
+                        <Text style={[styles.contentRevenueValueStyle, { color: color }]}>{value}</Text>
+                    </>
+                    :
+                    <>
+                        <Text style={[styles.contentLabelStyle, { color: color }]}>{label}</Text>
+                        <Text style={[styles.contentValueStyle, { color: color }]}>{value}</Text>
+                    </>
+                }
+            </View>
+            {!revenue && <Divider />}
+        </>
     )
 }
 
 const Title = ({ title, marginTop }) => {
     return (
-        <View style={{ marginTop: marginTop, flexDirection: 'row' }}>
+        <View style={{ marginTop: marginTop, flexDirection: 'row', backgroundColor: "#fff", margin: 10, padding: 10, borderRadius: 5, marginBottom: -8 }}>
             <Text style={styles.headerFontStyle}>{title}</Text>
 
             <Icon name="filter" size={22} color="#ffa069" style={{ flex: 0, right: 15 }}
@@ -156,7 +216,7 @@ const Performance = () => {
                         >
                             {data1.map((item, index) => {
                                 return (
-                                    <PropertyRow label={item.label} value={item.value} />
+                                    <PropertyRow label={item.label} value={item.value} revenue={item.revenue} color={item.color} />
                                 )
                             })}
                         </LinearGradient>
@@ -168,9 +228,7 @@ const Performance = () => {
                     </TouchableOpacity>
                 }
             />
-            <View style={{ padding: 10 }}>
-                <Divider />
-            </View>
+
             <Title title="Industry" />
             <FlipComponent
                 isFlipped={isFlipped2}
@@ -184,7 +242,7 @@ const Performance = () => {
                         >
                             {data2.map((item, index) => {
                                 return (
-                                    <PropertyRow label={item.label} value={item.value} />
+                                    <PropertyRow label={item.label} value={item.value} revenue={item.revenue} color={item.color} />
                                 )
                             })}
                         </LinearGradient>
@@ -196,9 +254,7 @@ const Performance = () => {
                     </TouchableOpacity>
                 }
             />
-            <View style={{ padding: 10 }}>
-                <Divider />
-            </View>
+
             <Title title="Source" />
             <FlipComponent
                 isFlipped={isFlipped3}
@@ -212,7 +268,7 @@ const Performance = () => {
                         >
                             {data3.map((item, index) => {
                                 return (
-                                    <PropertyRow label={item.label} value={item.value} />
+                                    <PropertyRow label={item.label} value={item.value} revenue={item.revenue} color={item.color} />
                                 )
                             })}
                         </LinearGradient>
@@ -224,9 +280,7 @@ const Performance = () => {
                     </TouchableOpacity>
                 }
             />
-            <View style={{ padding: 10 }}>
-                <Divider />
-            </View>
+
             <Title title="Emirate" />
             <FlipComponent
                 isFlipped={isFlipped4}
@@ -240,7 +294,7 @@ const Performance = () => {
                         >
                             {data3.map((item, index) => {
                                 return (
-                                    <PropertyRow label={item.label} value={item.value} />
+                                    <PropertyRow label={item.label} value={item.value} revenue={item.revenue} color={item.color} />
                                 )
                             })}
                         </LinearGradient>
@@ -252,23 +306,12 @@ const Performance = () => {
                     </TouchableOpacity>
                 }
             />
-            <View style={{ padding: 10 }}>
-                <Divider />
-            </View>
-            {/* <View style={styles.contentContainerStyle}>
-                {data2.map((item, index) => {
-                    return (
-                        <PropertyRow label={item.label} value={item.value} />
-                    )
-                })}
-            </View> */}
         </ScrollView>
     );
 }
 const styles = StyleSheet.create({
     containerStyle: {
         flex: 1,
-        // backgroundColor: "#fff"
     },
     contentContainerStyle: {
         backgroundColor: "#f0f0f0",
@@ -281,16 +324,28 @@ const styles = StyleSheet.create({
     },
     contentLabelStyle: {
         flex: 1,
-        // backgroundColor:"#bababa"
-        color: "black",
-        opacity: 0.7,
         padding: 5
+    },
+    contentRevenueLabelStyle: {
+        flex: 1,
+        opacity: 0.7,
+        padding: 5,
+        fontWeight: 'bold',
+        fontSize: 20,
+
+    },
+    contentRevenueValueStyle: {
+        flex: 0,
+        fontWeight: 'bold',
+        opacity: 0.7,
+        fontSize: 20,
+        marginTop: 5
     },
     contentValueStyle: {
         flex: 0,
         fontWeight: 'bold',
         opacity: 0.7,
-        color: "black"
+        marginTop: 5
     },
     headerFontStyle: {
         fontSize: 15,
